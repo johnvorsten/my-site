@@ -1,0 +1,74 @@
+{% extends 'projects/app_layout.html' %}
+{% load static %}
+
+{% block title-name %} <title>{{ entry.entry_title }}</title> {% endblock title-name %}
+
+{% block app-css %}
+<link rel="stylesheet" type="text/css" href="{% static 'projects/entry_detail_style.css' %}">
+{% endblock app-css %}
+
+{% block content %}
+
+  <!-- Page Content -->
+  <div class="container">
+
+    <div class="row">
+
+      <!-- Post Content Column -->
+      <div class="col-md-10">
+
+        <!-- Title -->
+        <h1 class="mt-4">{{ entry.entry_title }}</h1>
+
+        {% comment %} <!-- Author -->
+        <!-- No author is being inserted here, because it is not a blog. Every entry is a description of my own
+        projets.. I want to distinguish this from the blog title page-->
+        <p class="lead">
+          by
+          {% for author in entry.entry_authors.all %}
+            {% if not forloop.last %}
+              <a href="#">{{ author }}, </a>
+            {% else %}
+              <a href="#">{{ author }}</a>
+            {% endif %}
+
+            {% empty %}
+            <a href="#">Anonymous Author</a>
+          {% endfor %}
+        </p> {% endcomment %}
+
+        <!-- Project duration -->
+        {% comment %} This is not a blog, and it does not matter when it was posted. 
+        Instead, show the approximate date of when I was working on this project{% endcomment %}
+        
+        
+        <div class="abstract my-4">
+          {% comment %} <p class="abstract-title"> & Mission<p> {% endcomment %}
+          <p class="project-abstract"> <bdi class="abstract-title">Abstract.</bdi>
+          {{entry.entry_abstract}} </p>
+        </div>
+
+        <div class="abstract" id="end-abstract">
+          {% comment %} <p class="abstract-title"> & Mission<p> {% endcomment %}
+          <p class="project-abstract"> <bdi class="abstract-title">Keywords:</bdi>
+          {% for keyword in entry.keywords_set.all %} {{keyword}} {% endfor %}</p>
+        </div>
+
+        <p>I was working on this project in {{ entry.entry_date|date:"F" }} of {{ entry.entry_date|date:"Y" }}</p>
+
+        <!-- Preview Image -->
+        <div class="embed-responsive embed-responsive-21by9">
+        <img class="img-fluid rounded embed-responsive-item" src="{{ entry.entry_thumbnail.url }}" alt="{{ entry.entry_title }}">
+        </div>
+
+        <hr>
+
+        <!-- Post Content --> 
+        <div class="HTMLFileInsert">
+            {% autoescape off %}
+            {{ entry.html_content_reader }}
+            {% endautoescape %}
+        </div>
+
+{% endblock content%}
+

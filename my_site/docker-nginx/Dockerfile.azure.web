@@ -1,0 +1,15 @@
+FROM nginx
+
+# Remove default nginx configuration
+RUN rm /etc/nginx/conf.d/default.conf
+
+# Helper tool
+RUN apt update && apt-get install -y vim
+
+# Static content to serve
+COPY ./static-serve /home/app/web/static-serve
+
+# NGINX Configuration file
+COPY ./nginx-dock/nginx.azure.web.template /etc/nginx/conf.d
+
+CMD ["/bin/bash", "-c", "envsubst '${WEBAPP_HOSTNAME_AZURE},${WEBAPP_INTERNAL_PORT}' < /etc/nginx/conf.d/nginx.azure.template > /etc/nginx/conf.d/nginx.conf && exec nginx -g 'daemon off;'"]

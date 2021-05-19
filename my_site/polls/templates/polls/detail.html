@@ -1,0 +1,30 @@
+{% extends 'polls/app_layout.html' %}
+
+{% block content %}
+
+    <div class="question_picture">
+        <img src="{{ question.thumbnail.url }}">
+    </div>
+
+    <h1> {{ question.question_text }}</h1>
+    {% if error_message %}
+        <p><strong>{{ error_message }}</strong></p>
+        <input type="submit" value="Back to questions" 
+        onclick="window.location='{% url 'polls:index' %}'">
+        {% comment %} <input type="submit" value="Back to questions" href="{% url 'polls:index' %}"> {% endcomment %}
+    {% endif %}
+
+    {% comment %} The form HTML tag takes an 'action' value. The action value
+    returns a new web page to render (in this case...) {% endcomment %}
+    <form action="{% url 'polls:vote' question.id %}" method="post">
+        {% csrf_token %}
+            <!-- question is context_object_name in DetailView.. see default names for models -->
+            {% for choice in question.choice_set.all %}
+                <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
+                <label for="choice{{ forloop.counter  }}"> {{ choice.choice_text }}</label><br>
+            {% endfor %}
+
+        <input type="submit" value="Vote">
+    </form>
+
+{% endblock %}

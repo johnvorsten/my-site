@@ -1,0 +1,60 @@
+{% extends 'jv_blog/app_layout.html' %}
+{% load static %}
+
+{% block title-name %} <title>{{ entry.entry_title }}</title> {% endblock title-name %}
+
+{% block app-css %}
+<link rel="stylesheet" type="text/css" href="{% static 'jv_blog/entry_detail_style.css' %}">
+{% endblock app-css %}
+
+{% block content %}
+
+  <!-- Page Content -->
+  <div class="container">
+
+    <div class="row">
+
+      <!-- Post Content Column -->
+      <div class="col-lg-8">
+
+        <!-- Title -->
+        <h1 class="mt-4">{{ entry.entry_title }}</h1>
+
+        <!-- Author -->
+        <p class="lead">
+          by
+          {% for author in entry.entry_authors.all %}
+            {% if not forloop.last %}
+              <a href="#" style="text-decoration:none; color:inherit;">{{ author }}, </a>
+            {% else %}
+              <a href="#" style="text-decoration:none; color:inherit;">{{ author }}</a>
+            {% endif %}
+
+            {% empty %}
+            <a href="#" style="text-decoration:none; color:inherit;">Anonymous Author</a>
+          {% endfor %}
+        </p>
+
+        <hr>
+
+        <!-- Date/Time -->
+        <p>{{ entry.entry_date }}</p>
+
+        <hr>
+
+        <!-- Preview Image -->
+        <div class="embed-responsive embed-responsive-21by9">
+        <img class="img-fluid rounded embed-responsive-item" src="{{ entry.entry_thumbnail.url }}" alt="{{ entry.entry_title }}">
+        </div>
+
+        <hr>
+
+        <!-- Post Content --> 
+        <div class="HTMLFileInsert">
+            {% autoescape off %}
+            {{ entry.html_content_reader }}
+            {% endautoescape %}
+        </div>
+
+{% endblock content%}
+

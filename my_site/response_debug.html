@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+
+<html lang="en-us" >
+<head>
+<title>Add entry | Django site admin</title>
+<link rel="stylesheet" type="text/css" href="/static-serve/admin/css/base.css">
+<link rel="stylesheet" type="text/css" href="/static-serve/admin/css/forms.css">
+
+
+<script type="text/javascript" src="/admin/jsi18n/"></script>
+<script type="text/javascript" src="/static-serve/admin/js/vendor/jquery/jquery.js"></script>
+<script type="text/javascript" src="/static-serve/admin/js/jquery.init.js"></script>
+<script type="text/javascript" src="/static-serve/admin/js/core.js"></script>
+<script type="text/javascript" src="/static-serve/admin/js/admin/RelatedObjectLookups.js"></script>
+<script type="text/javascript" src="/static-serve/admin/js/actions.js"></script>
+<script type="text/javascript" src="/static-serve/admin/js/urlify.js"></script>
+<script type="text/javascript" src="/static-serve/admin/js/prepopulate.js"></script>
+<script type="text/javascript" src="/static-serve/admin/js/vendor/xregexp/xregexp.js"></script>
+<script type="text/javascript" src="/static-serve/admin/js/calendar.js"></script>
+<script type="text/javascript" src="/static-serve/admin/js/admin/DateTimeShortcuts.js"></script>
+
+
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/static-serve/admin/css/responsive.css">
+    
+
+<meta name="robots" content="NONE,NOARCHIVE">
+</head>
+
+
+<body class=" app-jv_blog model-entry change-form"
+  data-admin-utc-offset="-18000">
+
+<!-- Container -->
+<div id="container">
+
+    
+    <!-- Header -->
+    <div id="header">
+        <div id="branding">
+        
+<h1 id="site-name"><a href="/admin/">Django administration</a></h1>
+
+        </div>
+        
+        
+        <div id="user-tools">
+            
+                Welcome,
+                <strong>content_tester</strong>.
+            
+            
+                
+                    <a href="/">View site</a> /
+                
+                
+                    
+                    
+                
+                
+                <a href="/admin/password_change/">Change password</a> /
+                
+                <a href="/admin/logout/">Log out</a>
+            
+        </div>
+        
+        
+        
+    </div>
+    <!-- END Header -->
+    
+<div class="breadcrumbs">
+<a href="/admin/">Home</a>
+&rsaquo; <a href="/admin/jv_blog/">Jv_Blog</a>
+&rsaquo; <a href="/admin/jv_blog/entry/">Entrys</a>
+&rsaquo; Add entry
+</div>
+
+    
+
+    
+        
+    
+
+    <!-- Content -->
+    <div id="content" class="colM">
+        
+        <h1>Add entry</h1>
+        <div id="content-main">
+
+
+
+<form enctype="multipart/form-data" action="" method="post" id="entry_form" novalidate><input type="hidden" name="csrfmiddlewaretoken" value="M7EsMPzCNovn1O1UUDVJzgpuOqoOhxNSdapjiKn4y8p3L8wHxOjfWgQiZKIorqhb">
+<div>
+
+
+
+
+    <p class="errornote">
+    Please correct the errors below.
+    </p>
+    
+
+
+
+
+  <fieldset class="module aligned ">
+    
+    
+    
+        <div class="form-row field-entry_title">
+            
+            
+                <div>
+                    
+                    
+                        <label class="required" for="id_entry_title">Entry title:</label>
+                        
+                            <input type="text" name="entry_title" value="test_title" class="vTextField" maxlength="100" required id="id_entry_title">
+                        
+                    
+                    
+                </div>
+            
+        </div>
+    
+        <div class="form-row field-entry_abstract">
+            
+            
+                <div>
+                    
+                    
+                        <label class="required" for="id_entry_abstract">Entry abstract:</label>
+                        
+                            <textarea name="entry_abstract" cols="40" rows="10" class="vLargeTextField" maxlength="500" required id="id_entry_abstract">
+Abstract Test</textarea>
+                        
+                    
+                    
+                </div>
+            
+        </div>
+    
+        <div class="form-row errors field-entry_slug">
+            <ul class="errorlist"><li>This field is required.</li></ul>
+            
+                <div>
+                    
+                    
+                        <label class="required" for="id_entry_slug">Entry slug:</label>
+                        
+                            <input type="text" name="entry_slug" class="vTextField" maxlength="50" required id="id_entry_slug">
+                        
+                    
+                    
+                </div>
+            
+        </div>
+    
+        <div class="form-row errors field-entry_authors">
+            <ul class="errorlist"><li>This field is required.</li></ul>
+            
+                <div>
+                    
+                    
+                        <label class="required" for="id_entry_authors">Entry authors:</label>
+                        
+                            <div class="related-widget-wrapper">
+    <select name="entry_authors" required id="id_entry_authors" multiple>
+  <option value="2">Old Greg</option>
+
+  <option value="3">John Vorsten</option>
+
+  <option value="4">Anonymous Author</option>
+
+</select>
+    
+        <a class="related-widget-wrapper-link add-related" id="add_id_entry_authors"
+            href="/admin/jv_blog/author/add/?_to_field=id&amp;_popup=1"
+            title="Add another author"><img src="/static-serve/admin/img/icon-addlink.svg" alt="Add"></a>
+    
+</div>
+                        
+                    
+                    
+                        <div class="help">Hold down "Control", or "Command" on a Mac, to select more than one.</div>
+                    
+                </div>
+            
+        </div>
+    
+        <div class="form-row field-entry_show">
+            
+            
+                <div class="checkbox-row">
+                    
+                    
+                        <input type="checkbox" name="entry_show" id="id_entry_show"><label class="vCheckboxLabel" for="id_entry_show">Entry show</label>
+                    
+                    
+                </div>
+            
+        </div>
+    
+</fieldset>
+
+
+  <fieldset class="module aligned ">
+    <h2>Date Information</h2>
+    
+    
+        <div class="form-row errors field-entry_date">
+            <ul class="errorlist"><li>This field is required.</li></ul>
+            
+                <div>
+                    
+                    
+                        <label class="required" for="id_entry_date_0">Date published:</label>
+                        
+                            <p class="datetime">
+  Date: <input type="text" name="entry_date_0" class="vDateField" size="10" required id="id_entry_date_0">
+
+<br>
+  Time: <input type="text" name="entry_date_1" class="vTimeField" size="8" required id="id_entry_date_1">
+
+
+</p>
+                        
+                    
+                    
+                </div>
+            
+        </div>
+    
+</fieldset>
+
+
+  <fieldset class="module aligned ">
+    <h2>Associated Files</h2>
+    
+    
+        <div class="form-row field-entry_thumbnail">
+            
+            
+                <div>
+                    
+                    
+                        <label for="id_entry_thumbnail">Entry thumbnail:</label>
+                        
+                            <input type="file" name="entry_thumbnail" accept="image/*" id="id_entry_thumbnail">
+                        
+                    
+                    
+                </div>
+            
+        </div>
+    
+        <div class="form-row errors field-uploaded_raw_entry">
+            <ul class="errorlist"><li>This field is required.</li></ul>
+            
+                <div>
+                    
+                    
+                        <label class="required" for="id_uploaded_raw_entry">Upload raw content:</label>
+                        
+                            <input type="file" name="uploaded_raw_entry" required id="id_uploaded_raw_entry">
+                        
+                    
+                    
+                        <div class="help">Select a file to upload as your blog content</div>
+                    
+                </div>
+            
+        </div>
+    
+        <div class="form-row field-html_content">
+            
+            
+                <div>
+                    
+                    
+                        <label>Html content:</label>
+                        
+                            <div class="readonly"></div>
+                        
+                    
+                    
+                </div>
+            
+        </div>
+    
+</fieldset>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="submit-row">
+
+<input type="submit" value="Save" class="default" name="_save">
+
+
+<input type="submit" value="Save and add another" name="_addanother">
+<input type="submit" value="Save and continue editing" name="_continue">
+
+
+</div>
+
+
+
+    <script type="text/javascript"
+            id="django-admin-form-add-constants"
+            src="/static-serve/admin/js/change_form.js"
+            
+                data-model-name="entry"
+            >
+    </script>
+
+
+
+
+<script type="text/javascript"
+        id="django-admin-prepopulated-fields-constants"
+        src="/static-serve/admin/js/prepopulate_init.js"
+        data-prepopulated-fields="[]">
+</script>
+
+
+</div>
+</form></div>
+
+        
+        <br class="clear">
+    </div>
+    <!-- END Content -->
+
+    <div id="footer"></div>
+</div>
+<!-- END Container -->
+
+</body>
+</html>

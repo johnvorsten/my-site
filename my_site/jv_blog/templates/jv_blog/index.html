@@ -1,0 +1,102 @@
+{% extends 'jv_blog/app_layout.html' %}
+{% load static %}
+
+{% block title-name %} <title>John Vorsten Blogs</title> {% endblock title-name %}
+
+
+{% block content %}
+<div class="row">
+
+    <!-- Blog Entries Column -->
+    <div class="col-md-9">
+
+    <h1 class="pb-2">Blog
+        <small>All Entries</small>
+    </h1>
+
+    <!-- Fill in blog entries -->
+    {% for entry, author in object_list %}
+    <!-- Blog Post -->
+    <div class="card mb-4">
+            <img class="card-img-top" src="{{ entry.entry_thumbnail.url }}" alt="{{ entry.entry_title }}">
+        <div class="card-body">
+        <h2 class="card-title">{{ entry.entry_title }}</h2>
+        <p class="card-text">{{ entry.entry_abstract }}</p>
+        <a href="{{ entry.entry_slug }}" class="btn btn-primary">Read &rarr;</a>
+        </div>
+        <div class="card-footer text-muted">
+        Posted on {{ entry.entry_date }} by {{ author }}
+        {% comment %} <a href="#">Start Bootstrap</a> Maybe add link to person later?? {% endcomment %} 
+        </div>
+    </div>
+    {% endfor %}
+
+    <!-- Pagination -->
+    <ul class="pagination justify-content-center mb-4">
+        <li class="page-item">
+        <a class="page-link" href="#">&larr; Older</a>
+        </li>
+        <li class="page-item disabled">
+        <a class="page-link" href="#">Newer &rarr;</a>
+        </li>
+    </ul>
+
+    </div>
+
+    <!-- Sidebar Widgets Column -->
+    <div class="col-md-3">
+
+    {% comment %} <!-- Search Widget -->
+    <div class="card my-4">
+        <h5 class="card-header">Search</h5>
+        <div class="card-body">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search for...">
+            <span class="input-group-btn">
+            <button class="btn btn-secondary" type="button">Go!</button>
+            </span>
+        </div>
+        </div>
+    </div> {% endcomment %}
+
+    <!-- Categories Widget -->
+    <div class="card my-2">
+        <h5 class="card-header">Categories</h5>
+        <div class="card-body">
+        <div class="row">
+            <div class="col-lg-6">
+            <ul class="list-unstyled mb-0">
+                <li>
+                <a href="#">Python</a>
+                </li>
+                <li>
+                <a href="#">Data Analytics</a>
+                </li>
+            </ul>
+            </div>
+            <div class="col-lg-6">
+            <ul class="list-unstyled mb-0">
+                <li>
+                <a href="#">Clustering</a>
+                </li>
+            </ul>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <!-- Side Widget -->
+    <div class="card my-2">
+        <h5 class="card-header">My Goal</h5>
+        <div class="card-body">
+        Welcome to my blog! 
+        This serves as documentation (for myself and others) about all the projects I work on. Click around to see what I like to do
+        </div>
+    </div>
+
+    </div>
+
+</div>
+<!-- /.row -->
+
+{% endblock content %}

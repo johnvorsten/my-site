@@ -1,0 +1,117 @@
+{% extends 'about/app_layout.html' %}
+{% load static %}
+
+{% block app-css %}
+<link rel="stylesheet" type="text/css" href="{% static 'about/style.css' %}">
+<style>
+.row-block {
+    background-image:url("{{MEDIA_URL}}about/images/marco-mtn2-unsplash.jpg");
+    background-size:cover;
+    position:relative;
+}
+</style>
+{% endblock app-css %}
+
+{% block title-name %} <title>About Me</title> {% endblock title-name %}
+
+{% block content %}
+<div class="row row-block">
+
+<div class="col-3">
+
+        <div class="row d-none d-sm-none d-md-block">
+            <a href="{% url 'jv_blog:index' %}" style="text-decoration:none; color:inherit;">
+            <div class="card linkbox ml-auto">
+                <img class="card-img-top" src="{{MEDIA_URL}}about/images/chat_bubble_outline-24px.svg" alt="Blog">
+                <div class="card-body">
+                    <h5 class="card-title">Blog</h5>
+                </div>
+            </div>
+            </a>
+        </div>
+
+        <div class="row d-none d-sm-none d-md-block">
+            <a href="{% url 'jv_github:index' %}" style="text-decoration:none; color:inherit;">
+            <div class="card linkbox ml-auto">
+                <img class="card-img-top" src="{{MEDIA_URL}}about/images/GitHub-Mark-64px.png" alt="100%x180">
+                <div class="card-body">
+                    <h5 class="card-title">Github</h5>
+                </div>
+            </div>
+            </a>
+        </div>
+
+</div>
+
+<div class="col-6 text text-center pt-3 profile">
+    <div class="profile-picture">
+        <img class="img-fluid" src="{{profile.profile_picture}}" alt="">
+    </div>
+
+    <div class="description p-4">
+        <h2 class="greeting">Hello I'm</h2>
+        <h1 class="mb-4">{{profile.first_name}} {{profile.last_name}}</h1>
+        <ul>
+            <li><span class="field-id">Email :</span> {{profile.email}}</li>
+            <li><span class="field-id">Phone :</span> {{profile.format_phone}}</li>
+        </ul>
+        <p class="mb-1">{{profile.biography}}</p>
+        <p><a href="{% url 'projects:index' %}" style="text-decoration:none; color:inherit;">Read about my projects<img class="" src="{{MEDIA_URL}}about/images/arrow_right_alt-24px.svg"></i></a></p>
+    </div>
+</div>
+
+<div class="col-3">
+
+        <div class="row d-none d-sm-none d-md-block">
+            <a href="{% url 'projects:index' %}" style="text-decoration:none; color:inherit;">
+            <div class="card linkbox mr-auto">
+                <img class="card-img-top" src="{{MEDIA_URL}}about/images/iconmonstr-light-bulb-16.svg" alt="Projects">
+                <div class="card-body">
+                    <h5 class="card-title">Projects</h5>
+                </div>
+            </div>
+            </a>
+        </div>
+
+</div>
+
+</div> <!-- End Row -->
+<div class="container">
+<div class="mb-5 row">
+    <div class="col-md-6">
+        <h3 class="">Downloads</h3>
+        <a class="btn btn-custom" href="{{MEDIA_URL}}about/downloads/John Vorsten - Resume Developer.pdf" download>Download Resume</a>
+    </div>
+</div>
+</div>
+
+<div class="container">
+<div class="row">
+    <div class="mb-5 col-lg-6 col-md-8">
+        <h3>Skills & Technolgoies</h3>
+        <div class="row">
+            {% for skill in skill_set %}
+            <h4 class="col-md-4">{{skill.skill_name}}
+            <p>{{skill.skill_description}}</p></h4>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="mb-5 col-lg-6 col-md-8">
+        <h3>Projects!</h3>
+        <div class="row">
+        {% for project in project_set %}
+            <h4 class="col-md-4">{{project.project_name}}
+            <p>{{project.project_description}}</p></h4>
+        {% endfor %}
+        </div>
+    </div>
+</div>
+</div>
+
+<div class="container">
+<div class="mb-5">
+    <h3>Social Media</h3>
+</div>
+</div>
+
+{% endblock content %}

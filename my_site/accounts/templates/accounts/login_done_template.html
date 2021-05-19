@@ -1,0 +1,14 @@
+{% extends 'my_site/global_layout.html' %}
+{% load static %}
+
+{% block app-css %}
+<link rel="stylesheet" type="text/css" href="{% static 'accounts/style.css' %}">
+{% endblock app-css %}
+
+
+{% block content %}
+<div class="container">
+<h2>Login Successful!</h2>
+<p>Welcome, {{ user }}</p>
+</div>
+{% endblock content %}

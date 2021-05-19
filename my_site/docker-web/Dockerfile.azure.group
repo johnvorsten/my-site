@@ -1,0 +1,99 @@
+# For use on an azure instance group
+# By John Vorsten 3-9-20
+
+###########
+# builder #
+###########
+FROM python:3.7-buster as builder
+
+# Set working directory
+WORKDIR /usr/src/app
+
+# Set environment variables
+# Prevents writing .pyc files
+ENV PYTHONDONTWRITEBYTECODE 1 
+# Dont buffer standard input and output
+ENV PYTONBUFFERED 1
+
+# Install psycopg2 dependencies
+RUN DEBIAN_FRONTEND=noninteractive
+
+# Install dependencies
+COPY . /usr/src/app/
+COPY ./requirements.txt /usr/src/app
+RUN mkdir /usr/src/app/wheels
+RUN pip wheel --no-cache-dir --no-deps --wheel-dir /usr/src/app/wheels -r requirements.txt
+
+#########
+# Final #
+#########
+# Create directory for app user
+# Create a user named app, and add app to the app group
+FROM python:3.7-buster
+RUN mkdir -p /home/app
+RUN addgroup --system app_group && adduser --ingroup app_group app
+
+# Set environment variables for where the application will be running
+ENV HOME=/home/app
+ENV APP_HOME=/home/app/web
+# Make directory so there is not a permission error on collectstatic
+RUN mkdir $APP_HOME && mkdir $APP_HOME/static-serve && mkdir $APP_HOME/media
+WORKDIR $APP_HOME
+
+# Update & Install deps
+RUN apt update
+# ODBC Header files
+RUN apt install -y unixodbc-dev gcc g++ && pip install pyodbc
+COPY --from=builder /usr/src/app/wheels /wheels
+COPY --from=builder /usr/src/app/requirements.txt .
+RUN pip install --upgrade pip
+RUN pip install --no-cache /wheels/*
+
+# Adding custom MS repository
+RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
+RUN curl https://packages.microsoft.com/config/debian/10/prod.list > /etc/apt/sources.list.d/mssql-release.list
+
+# install SQL Server drivers and tools
+RUN apt-get update && ACCEPT_EULA=Y apt-get install -y msodbcsql17 mssql-tools
+RUN echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bashrc
+RUN /bin/bash -c "source ~/.bashrc"
+
+# Copy entrypoint from local drive to the home working directory (depreciated)
+# COPY ./docker-web/entrypoint.azure.prod.sh $APP_HOME
+
+# Copy the project from local drive to the home working directory
+COPY . $APP_HOME
+RUN rm -r $APP_HOME/docker-nginx \
+  && rm -r $APP_HOME/docker-web
+
+# Change ownership of app files in home directory to app user
+RUN chown -R app:app_group $APP_HOME
+
+# Make ssh available from azure
+ENV SSH_PASSWD "root:Docker!"
+RUN apt-get update \
+        && apt-get install -y --no-install-recommends dialog \
+        && apt-get update \
+        && apt-get install -y --no-install-recommends openssh-server \
+        && echo "$SSH_PASSWD" | chpasswd \
+        && mkdir /run/sshd/
+COPY ./docker-web/sshd_config /etc/ssh/
+EXPOSE 2222
+
+# Helper applications (vim)
+RUN apt install -y vim
+
+# Supervisor installation and create directory for child images
+# To store configuration in
+RUN apt-get -y install supervisor \
+  && mkdir -p /var/log/supervisor \
+  && mkdir -p /etc/supervisor/conf.d \
+  && chown -R app:app_group /var/log/supervisor
+ADD ./docker-web/supervisor.azure.group.conf /etc/supervisor.conf
+
+# Change the user
+USER app
+
+# Setup an entrypoint
+# ENTRYPOINT ["/home/app/web/entrypoint.azure.prod.sh"]
+CMD ["supervisord","-c","/etc/supervisor.conf"]

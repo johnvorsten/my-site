@@ -1,0 +1,29 @@
+# Ignore files
+
+# Key files ssl
+*.key
+*.csr
+*.crt
+*.pem
+
+# TLS
+*/letsencrypt/
+*jv-proxy
+
+# Environment variables
+.env
+*.env
+
+# Other files
+**/.vscode
+**/__pycache__/**
+*.sqlite3
+openssl.cfg
+deploy-aci.yml
+*.drawio
+my_site.log
+
+
+# Other directories
+/try1
+/backup/

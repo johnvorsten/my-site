@@ -1,0 +1,15 @@
+body {
+    padding-top: 65px;
+}
+
+li a.nav-link {
+    font-size:18px;
+    color: rgb(255, 255, 255)!important;
+    cursor: pointer!important;
+  }
+
+a.nav-link:hover {
+    border: 1px solid!important;
+    border-color: rgb(255, 255, 255)!important;
+    color: rgb(255, 255, 255)!important;
+}

@@ -1,0 +1,64 @@
+<h1>
+ plastex
+</h1>
+<p>
+ Read more at the github page for the plasTeX project:
+ <a href="http://plastex.github.io/plastex/">
+  http://plastex.github.io/plastex/
+ </a>
+</p>
+<p>
+ Installation of this package is done just like any other Python package.
+See the INSTALL file for details.
+</p>
+<p>
+ Once you have plasTeX installed, you can use the command-line utility,
+called "plastex" just like latex or pdflatex.  For example, if you
+have a LaTeX file called mybook.tex, simple run:
+</p>
+<pre><code>plastex mybook.tex
+</code></pre>
+<p>
+ This will convert mybook.tex into XHTML (the default renderer).  Of course,
+there are many options to control the execution of plastex.  Simply type
+"plastex" on the command line without options or arguments to see the
+full list of command-line options.
+</p>
+<p>
+ It is also possible to write your own command-line utilities that leverage
+the power of the plasTeX framework.  In fact, the essence of the "plastex"
+command can be written in just one line of code (not including the Python
+import commands):
+</p>
+<pre><code>import sys
+from plasTeX.TeX import TeX
+from plasTeX.Renderers.XHTML import Renderer
+Renderer().render(TeX(file=sys.argv[1]).parse())
+</code></pre>
+<p>
+ plasTeX is really much more than just a LaTeX-to-other-format converter 
+though.  See the documentation at
+ <a href="http://plastex.github.io/plastex/">
+  http://plastex.github.io/plastex/
+ </a>
+ for a complete
+view of what it is capable of.
+</p>
+<h2>
+ Testing
+</h2>
+<p>
+ To run the tests locally, run tox.
+This will run tests locally using python 3.5 to 3.7.
+</p>
+<h2>
+ Status
+</h2>
+<p>
+ <a href="https://travis-ci.org/plastex/plastex">
+  <img alt="Build Status" src="https://travis-ci.org/plastex/plastex.svg?branch=master"/>
+ </a>
+ <a href="https://coveralls.io/github/plastex/plastex?branch=master">
+  <img alt="Coverage Status" src="https://coveralls.io/repos/github/plastex/plastex/badge.svg?branch=master"/>
+ </a>
+</p>
