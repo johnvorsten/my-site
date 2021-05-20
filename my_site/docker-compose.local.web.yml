@@ -27,8 +27,8 @@ services:
         env_file:
             - ./docker-nginx/nginx.env
         volumes:
-            - C:\Users\z003vrzk\VSCodeProjects\webapp\my_site\ssl.key:/etc/nginx/ssl.key
-            - C:\Users\z003vrzk\VSCodeProjects\webapp\my_site\ssl.crt:/etc/nginx/ssl.crt
+            # - C:\Users\z003vrzk\VSCodeProjects\webapp\my_site\ssl.key:/etc/nginx/ssl.key
+            # - C:\Users\z003vrzk\VSCodeProjects\webapp\my_site\ssl.crt:/etc/nginx/ssl.crt
 
 volumes:
     static_volume:
