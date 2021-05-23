@@ -58,8 +58,8 @@ class Keywords(models.Model):
 
 class Blog(models.Model):
     """There can be multiple blogs, and each Entry is associated with a 
-    Blog. The Blog model is used to render different tempaltes or layouts
-    for Entrys that belong to a Blog"""
+    Blog. The Blog model is used to render different templates or layouts
+    for Entries that belong to a Blog"""
     description = models.CharField(max_length=50)
 
     def __str__(self):
@@ -127,11 +127,7 @@ class Entry(models.Model):
         try:
             # Delete the existing raw entry file
             existing = Entry.objects.get(id=self.id)
-            print('Entry ', existing.raw_entry == self.raw_entry)
-            print('Entry Existing ', existing.raw_entry)
-            print('Entry instance ', self.raw_entry)
             if not existing.raw_entry == self.raw_entry:
-                print('Existing raw entry : ', existing.raw_entry)
                 existing.raw_entry.delete(False)
         except ObjectDoesNotExist as e:
             # This is the first time the entry object is created
@@ -152,14 +148,9 @@ class Entry(models.Model):
         # Delete the old file if applicable
         try:
             existing = Entry.objects.get(id=self.id)
-            print('HTML ', existing.html_content == self.html_content)
-            print('HTML Existing ', existing.html_content)
-            print('HTML instance ', self.html_content)
             if not existing.html_content == self.html_content:
-                print('# Existing html : ', existing.html_content)
                 existing.html_content.delete(False)
         except ObjectDoesNotExist as e:
-            print('HTML content exception ', e)
             pass
 
         # Create a slug if none exists
@@ -182,37 +173,3 @@ class Entry(models.Model):
         
         return html_content_text
 
-
-# @receiver(models.signals.pre_save, sender=Entry)
-# def auto_delete_file_on_change(sender, instance, update_fields, **kwargs):
-#     """
-#     Deletes old file from filesystem
-#     when corresponding `Entry` object is updated
-#     with new file.
-#     """
-#     if not instance.pk: # A new record was created - dont delete anything
-#         return False
-
-#     try:
-#         old_raw_entry_file = Entry.objects.get(pk=instance.pk).raw_entry
-#         old_html_content_file = Entry.objects.get(pk=instance.pk).html_content
-#     except Entry.DoesNotExist:
-#         return False
-
-#     new_raw_entry = instance.raw_entry
-#     new_html_content = instance.html_content
-
-#     # if 'raw_entry' in update_fields:
-#     if not old_raw_entry_file == new_raw_entry:
-#         if os.path.isfile(old_raw_entry_file.path):
-#             old_raw_entry_file.close()
-#             print('Old file path : ',old_raw_entry_file.path)
-#             print('File closed? : ', old_raw_entry_file.closed)
-#             os.remove(old_raw_entry_file.path)
-
-#     # if 'html_content' in update_fields:
-#     if not old_html_content_file == new_html_content:
-#         if os.path.isfile(old_html_content_file.path):
-#             old_html_content_file.close()
-#             print('File is closed? : ',old_html_content_file.path)
-#             os.remove(old_html_content_file.path)

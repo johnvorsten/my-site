@@ -22,7 +22,7 @@ openssl.cfg
 deploy-aci.yml
 *.drawio
 my_site.log
-
+temp_migration.sql
 
 # Other directories
 /try1
