@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     # 'accounts.apps.AccountsConfig', # Not ready yet
     'jv_blog.apps.JvBlogConfig',
     'jv_github.apps.JvGithubConfig',
+    'projects.apps.ProjectsConfig',
     'about.apps.AboutConfig',
 ]
 
