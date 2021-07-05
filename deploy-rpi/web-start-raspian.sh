@@ -6,6 +6,16 @@
 # 2. Create your database for serving if not already installed
 # 3. Create all necessary environment variables (In .bash_profile or .profile)
 
+### Create a CRON job if it doesn't already exist ###
+croncmd="$HOME/web/temp/deploy-rpi/web-restart-raspian.sh"
+# Run script every hour
+cronjob="0 * * * * $croncmd"
+if crontab -l | grep -F "$croncmd"; then
+	echo "Cron job already exists"
+else
+	# Create a job if it does not exist
+	( crontab -l | grep -v -F "$croncmd" ; echo "$cronjob" ) | crontab -
+fi
 
 ### Stop supervisord child processes with supervisorctl ###
 if supervisorctl status all; then
