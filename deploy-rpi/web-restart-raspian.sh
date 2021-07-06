@@ -4,7 +4,6 @@
 
 # Load environment variables
 source $HOME/.profile
-env
 
 ### Check if supervisord is installed and running ###
 supervisord_pid=$(pgrep -f "supervisord")
@@ -13,7 +12,7 @@ if [[ supervisord_pid -eq "" ]]; then
     # supervisord -c $HOME/web/temp/deploy-rpi/supervisor.vm.conf
     echo "Supervisord is not running. Attempting to start"
 else
-    echo "Supervisord is running."
+    echo "Supervisord is running on PID $supervisord_pid."
 fi
 
 ### Check if supervisord configuraiton is correct ###
@@ -27,6 +26,7 @@ if ps -ef | grep -G "[/]etc/supervisord.conf"; then
     echo ps -ef | grep "[/]etc/supervisord.conf"
 else
     echo "Supervisord has the correct configuration"
+    echo ps-ef | grep -G "[s]upervisord"
 fi
 
 
