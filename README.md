@@ -1,5 +1,4 @@
-# Readme File
-
+## Managing packages and planning for deployment
 ## Using conda for development, and virtualenv, pipenv, or Docker for production
 See [this article](https://jakevdp.github.io/blog/2016/08/25/conda-myths-and-misconceptions/) and [a blog from anaconda](https://www.anaconda.com/blog/using-pip-in-a-conda-environment) for a good discussion on common mistakes and misconceptions on using conda with pip.  The advice from this article form the instructions below:
 1. Use pip ONLY after all 'other' requirements have been installed with conda
