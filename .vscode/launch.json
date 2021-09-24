@@ -1,0 +1,35 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        
+        {
+            "name": "Python: Django runserver",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}\\my_site\\manage.py",
+            "args": [
+                "runserver",
+                "--noreload"
+            ],
+            "django": true,
+            "envFile": "${workspaceFolder}\\.vscode\\debug.env",
+            "cwd": "${workspaceFolder}\\my_site",
+        },
+
+        {
+            "name": "Python: Django test",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}\\my_site\\manage.py",
+            "args": [
+                "test",
+            ],
+            "django": true,
+            "envFile": "${workspaceFolder}\\.vscode\\debug.env",
+            "cwd": "${workspaceFolder}\\my_site",
+        }
+    ]
+}

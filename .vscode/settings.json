@@ -1,0 +1,7 @@
+{
+    "python.defaultInterpreterPath": "C:\\ProgramData\\Miniconda3\\python.exe",
+    "python.linting.pylintEnabled": true,
+    "python.linting.enabled": true,
+    // "terminal.integrated.shellArgs.windows": ["/K", "activate django"],
+
+}
