@@ -1,3 +1,8 @@
+# For use on local (development) machine
+# Start a container which runs a gunicorn WSGI on an internal port
+# This container runs a SSH server for remote connection (file .local. does not run an SSH server)
+# By John Vorsten 2020-03-09
+
 ###########
 # builder #
 ###########
@@ -87,5 +92,4 @@ RUN chown -R app:app_group $APP_HOME
 USER app
 
 # Setup an entrypoint
-# ENTRYPOINT ["/home/app/web/entrypoint.azure.prod.sh"]
 CMD ["supervisord","-c","/etc/supervisor.conf"]

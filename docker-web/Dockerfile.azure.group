@@ -1,5 +1,7 @@
 # For use on an azure instance group
-# By John Vorsten 3-9-20
+# Start a container which runs a gunicorn WSGI on an internal port
+# This container runs a SSH server for remote connection (file .local. does not run an SSH server)
+# By John Vorsten 2020-03-09
 
 ###########
 # builder #

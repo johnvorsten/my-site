@@ -1,4 +1,5 @@
-# For use on azure container groups
+# For use on local (development) machine
+# Run a single Nginx proxy server with certain ports exposed for development
 # By john vorsten 3-9-20
 
 FROM nginx

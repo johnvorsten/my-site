@@ -1,3 +1,8 @@
+# For use on local (development) machine
+# Start a container which runs a gunicorn WSGI on an internal port
+# Does not run an SSH server
+# By John Vorsten 2020-03-09
+
 ###########
 # builder #
 ###########
