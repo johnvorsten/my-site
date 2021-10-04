@@ -7,7 +7,6 @@ envsubst '${WEBAPP_HOSTNAME},${WEBAPP_INTERNAL_PORT},${REVERSE_PROXY_HOSTNAME},$
 # Debugging
 if $DEBUG; then
     cat /etc/nginx/conf.d/localhost.conf
-    env
 fi
 
 # Start nginx

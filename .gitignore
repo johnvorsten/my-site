@@ -10,9 +10,10 @@
 */letsencrypt/
 *jv-proxy
 
-# Environment variables
+# Environment variables and secrets
 .env
 *.env
+*.secret
 
 # Other files
 **/__pycache__/**
