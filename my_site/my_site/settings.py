@@ -32,6 +32,7 @@ else:
     for host in os.environ.get('ALLOWED_HOSTS', '').split(','):
         ALLOWED_HOSTS.append(host)
 
+
 # Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -42,10 +43,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # Locally defined apps
-    # 'polls.apps.PollsConfig', # Remove after tutorial
-    # 'accounts.apps.AccountsConfig', # Not ready yet
+    # 'accounts.apps.AccountsConfig', # Not used
+    # 'jv_github.apps.JvGithubConfig', # Not used
     'jv_blog.apps.JvBlogConfig',
-    'jv_github.apps.JvGithubConfig',
     'projects.apps.ProjectsConfig',
     'about.apps.AboutConfig',
 ]
@@ -82,11 +82,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'my_site.wsgi.application'
 
-# Database
-# https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-
 
 # Load database variables from environment
+# https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 DATABASES = {
     'default': {
         'ENGINE': os.environ.get('SQL_ENGINE','django.db.backends.sqlite3'),
@@ -104,7 +102,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -123,33 +120,28 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'America/Chicago'
-
 USE_I18N = True
-
 USE_L10N = True
-
 USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
-
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static-global"),
 ]
-
 # Static files are served from here
 STATIC_URL = '/static-serve/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static-serve')
+
 
 # Alternate file storage system
 DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
 DROPBOX_OAUTH2_TOKEN = os.environ.get('DROPBOX_OAUTH2_TOKEN', 'token-null')
 DROPBOX_TIMEOUT = 100 # seconds wait time to dropbox API
+
 
 # Media files
 MEDIA_URL = '/media/' # For serving in development
