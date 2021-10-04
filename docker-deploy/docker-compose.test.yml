@@ -1,0 +1,35 @@
+# For use on a local (development) testing machine
+# By John Vorsten 2020-03-15
+
+version: '3.7'
+
+services:
+    web:
+        build: 
+            context: ../
+            dockerfile: ./docker-deploy/Dockerfile.test.web
+        volumes:
+            # Static files served here during development
+            - ../my_site/static-serve/:/home/app/web/static-serve
+        ports:
+            - "8000:8000" # Host:Container
+        env_file:
+            - ./docker-compose.test.env
+
+    nginx:
+        restart: always
+        depends_on:
+            - web
+        build: 
+            context: ../
+            dockerfile: ./docker-deploy/Dockerfile.test.nginx
+        ports:
+            # Requests for HTML content through application server port defined in .env
+            # Proxy pass from external 
+            - "8001:80" # Host:container, for HTTP
+            - "8002:443" # Host:container, for HTTPS
+        env_file:
+            - ./docker-compose.test.env
+        # volumes:
+            # - ./docker-deploy/ssl.key:/etc/nginx/ssl.key
+            # - ./docker-deploy/ssl.crt:/etc/nginx/ssl.crt

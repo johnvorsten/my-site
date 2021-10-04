@@ -1,0 +1,43 @@
+# For use on development machine
+# https://hub.docker.com/_/nginx/
+# Start a container which runs an Nginx reverse proxy listening on ports 80 and 433
+# Proxy pass to port 8000 on the web docker container
+
+FROM nginx
+
+# Helper tool
+RUN apt update && apt-get install -y vim
+
+# SSL Certificates
+RUN mkdir -p /etc/letsencrypt/test/localhost
+RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 -subj "/C=US/ST=TX/L=Local/O=Dev/CN=web" -keyout /etc/letsencrypt/test/localhost/selfsigned.key -out /etc/letsencrypt/test/localhost/selfsigned.crt
+
+# (not used) Change user; 
+# (not used) add permissions for cache, configuration directory, logging to nginx user
+ENV HOME=/home/nginx
+ENV NGINX_HOME=/home/nginx/web
+# RUN chown -R nginx:nginx $HOME && chmod -R 755 $HOME && \
+#     chown -R nginx:nginx /var/cache/nginx && \
+#     chown -R nginx:nginx /var/log/nginx && \
+#     chown -R nginx:nginx /etc/nginx/conf.d
+# RUN touch /var/run/nginx.pid && \
+#     chown -R nginx:nginx /var/run/nginx.pid
+# USER nginx
+
+# Remove default nginx configuration (Not the main configuration file)
+RUN rm /etc/nginx/conf.d/default.conf
+
+# Static content to serve
+COPY ./my_site/static-serve $HOME/web/my-site/my_site/static-serve/
+
+# Media content to serve
+COPY ./my_site/media $HOME/web/my-site/my_site/media/
+
+# NGINX Configuration file
+COPY ./docker-deploy/nginx.test.template /etc/nginx/conf.d
+
+# Start container, consider using -c configuration file switch
+# If I add /etc/nginx/nginx.conf to my configuration
+# ENTRYPOINT /bin/bash -c envsubst '${WEBAPP_HOSTNAME},${WEBAPP_INTERNAL_PORT},${REVERSE_PROXY_HOSTNAME},${HOME}' < /etc/nginx/conf.d/nginx.test.template > /etc/nginx/conf.d/localhost.conf && nginx -g 'daemon off;'
+COPY ./docker-deploy/nginx.test.entrypoint.sh $HOME/web/my-site/my_site/
+ENTRYPOINT ["/bin/bash", "/home/nginx/web/my-site/my_site/nginx.test.entrypoint.sh"]
