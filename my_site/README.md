@@ -10,6 +10,16 @@ python manage.py shell
 #### Creating a user or superuser
 python manage.py createsuperuser
 
+## Unit Testing
+use --settings=my_site.settings_test for local testing. This module uses sqlite3 and local file storage
+#### Run all the tests in the <app_name>.tests module
+`python manage.py test <app_name>.tests --settings=my_site.settings_test`
+#### Run all the tests found within the <app_name> package
+`manage.py test <app_name>`
+#### Run just one test case
+`python manage.py test <app_name>.tests.<test_case_class>`
+#### Run just one test method
+`python manage.py test <app_name>.tests.<test_case_class>.<test_method>`
 
 ## Adding an 'app' in django
 Add to the list of INSTALLED_APPS in settings.py
@@ -89,13 +99,5 @@ response.content # HTML content
 response.context # Dictionary, items passed to template
 
 
-## Unit Testing
-#### Run all the tests in the <app_name>.tests module
-`python manage.py test <app_name>.tests`
-#### Run all the tests found within the <app_name> package
-`manage.py test <app_name>`
-#### Run just one test case
-`python manage.py test <app_name>.tests.<test_case_class>`
-#### Run just one test method
-`python manage.py test <app_name>.tests.<test_case_class>.<test_method>`
+
 
