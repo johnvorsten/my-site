@@ -11,6 +11,7 @@ MarkupSafe==2.0.1
 mistune==0.8.4
 mysqlclient==1.4.6
 nest-asyncio==1.5.1
+Pillow==8.3.2
 pkginfo>=1.4.2
 plasTeX==2.1
 pyodbc==4.0.30

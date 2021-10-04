@@ -30,14 +30,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('blog/', include('jv_blog.urls_blog', namespace='jv_blog')),
     path('projects/', include('jv_blog.urls_project', namespace='projects')),
-    path('github/', include('jv_github.urls')),
     path('about/', include('about.urls')),
-
-    # Not ready yet
-    # path('accounts/', include('accounts.urls')),
-
-    # Removed after tutorial
-    # path('polls/', include('polls.urls')),
 ]
 
 # Files for serving static files

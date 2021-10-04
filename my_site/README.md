@@ -98,6 +98,11 @@ response.status_code # Check the status code of a response
 response.content # HTML content
 response.context # Dictionary, items passed to template
 
-
+## Uninstalling an app
+1. Remove imports and usage of app in the project
+    1. Including urls.py, and others???
+2. Remove the model data definition in models.py inside the app folder. Make migrations directions using `python manage.py makemigrations <app_name>`. Then, apply migrations using `python manage.py migrate <app_name>`
+2. Remove the reference in settings.py INSTALLED_APPS
+2. Delete the application folder directory
 
 
