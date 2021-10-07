@@ -20,6 +20,9 @@ use --settings=my_site.settings_test for local testing. This module uses sqlite3
 `python manage.py test <app_name>.tests.<test_case_class>`
 #### Run just one test method
 `python manage.py test <app_name>.tests.<test_case_class>.<test_method>`
+#### Currnet commands
+`python manage.py test about.tests jv_blog.tests projects.tests --settings=my_site.settings_test`
+
 
 ## Adding an 'app' in django
 Add to the list of INSTALLED_APPS in settings.py

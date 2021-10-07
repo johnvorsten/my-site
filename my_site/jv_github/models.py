@@ -17,11 +17,9 @@ import requests
 from . import models_helper
 GITHUB_ACCESS_TOKEN = settings.GITHUB_ACCESS_TOKEN
 
-# Custom exception
+# Custom exception when a repository has not changed
 class RepositoriesNotChanged(Exception):
     pass
-
-# Create your models here.
 
 class User(models.Model):
     id = models.IntegerField(primary_key=True)
