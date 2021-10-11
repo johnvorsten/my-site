@@ -1,0 +1,60 @@
+# For use on development machine
+# Start a container which runs a gunicorn WSGI on an internal port
+
+###########
+# builder #
+###########
+FROM python:3.7-buster as builder
+
+# Set working directory
+WORKDIR /usr/src/app
+
+# Set environment variables
+# Prevents writing .pyc files
+ENV PYTHONDONTWRITEBYTECODE 1 
+# Dont buffer standard input and output
+ENV PYTONBUFFERED 1
+
+# Install dependencies
+COPY ./docker-deploy/requirements.txt /usr/src/app
+RUN apt-get update && mkdir /usr/src/app/wheels
+RUN apt install -y unixodbc-dev gcc g++ 
+RUN pip wheel --no-cache-dir --no-deps --wheel-dir /usr/src/app/wheels -r requirements.txt
+
+#########
+# Final #
+#########
+# Create directory for app user
+# Create a user named app, and add app to the app group
+FROM python:3.7-buster
+RUN mkdir -p /home/app
+RUN addgroup --system app_group && adduser --ingroup app_group app
+
+# Set environment variables for where the application will be running
+ENV HOME=/home/app
+ENV WEB_HOME=/home/app/web
+RUN mkdir $WEB_HOME
+RUN mkdir $WEB_HOME/my-site
+WORKDIR $WEB_HOME
+
+# Update & Install deps
+RUN apt update
+# Pyodbc dependencies
+# RUN apt install -y unixodbc-dev gcc g++
+# RUN pip install pyodbc
+COPY --from=builder /usr/src/app/wheels /wheels
+COPY --from=builder /usr/src/app/requirements.txt .
+RUN pip install --upgrade pip
+RUN pip install --no-cache /wheels/*
+
+# Copy the project from local drive to the home working directory
+COPY --chown=app ./my_site $WEB_HOME/my-site/my_site
+
+# Change ownership of app files in home directory to app user
+RUN chown -R app:app_group $WEB_HOME
+
+# Change the user
+USER app
+
+# Setup an entrypoint
+ENTRYPOINT gunicorn --bind 0.0.0.0:${WEBAPP_INTERNAL_PORT} --timeout 600 --chdir /home/app/web/my-site/my_site my_site.wsgi:application

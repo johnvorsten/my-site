@@ -5,9 +5,10 @@
 *.csr
 *.crt
 *.pem
+*letsencrypt_archive.tar.gz
 
 # TLS
-*/letsencrypt/
+*/letsencrypt/**
 *jv-proxy
 
 # Environment variables and secrets

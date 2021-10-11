@@ -1,0 +1,30 @@
+# For use on a local (development) testing machine
+# By John Vorsten 2020-03-15
+
+version: '3.7'
+
+services:
+    web:
+        restart: always
+        build: 
+            context: ../
+            dockerfile: ./docker-deploy/Dockerfile.prod.web
+        expose:
+            # Ports will NOT be published to host machine. Only available to compose services
+            - "8000" # Container
+        env_file:
+            - ../my_site/production.secret
+
+    nginx:
+        restart: always
+        depends_on:
+            - web
+        build: 
+            context: ../
+            dockerfile: ./docker-deploy/Dockerfile.prod.nginx
+        ports:
+            # Route requests on ports 80 and 443 from my network router to this host machine
+            - "80:80" # Host:container, for HTTP
+            - "443:443" # Host:container, for HTTPS
+        env_file:
+            - ../my_site/production.secret

@@ -17,12 +17,12 @@ else
 	( crontab -l | grep -v -F "$croncmd" ; echo "$cronjob" ) | crontab -
 fi
 
-### Stop supervisord child processes with supervisorctl ###
+### Stop supervisord child processes with supervisorctl
 if supervisorctl status all; then
 	supervisorctl stop all
 fi
 
-### Create necessary directories ##
+### Create necessary directories
 if [[ ! -e $HOME/web ]]; then
 	mkdir $HOME/web
 else
@@ -39,7 +39,7 @@ else
 	echo "Directory $HOME/web/temp already exists"
 fi
 
-### Nginx configuration ###
+### Nginx configuration
 if dpkg -s nginx; then
 	echo "Nginx is already installed"
 else
@@ -81,7 +81,7 @@ else
 	certbot renew --dry-run
 fi
 
-### Supervisor ###
+### Supervisor
 # Dont copy configuration file - just run it from its directory
 # in "$HOME/web/my_site/virtual-machine/my-site/deploy-rpi/supervisor.vm.conf"
 if dpkg -s supervisor; then
@@ -110,19 +110,20 @@ else
 fi
 source "$HOME/django/bin/activate"
 
-### Install python packages ###
+### Install python packages
 pip install -r "$HOME/web/temp/deploy-rpi/requirements.txt"
 
 ### Delete files of old setup and replace ###
 rm -r $HOME/web/my-site/my_site
 cp -r $HOME/web/temp/my_site $HOME/web/my-site
+cp $HOME/web/temp/deploy-rpi/supervisor /etc/init.d/
 
-### Make migrations to SQL database ###
+### Make migrations to SQL database
 export DEBUG=FALSE
 python $HOME/web/my-site/my_site/manage.py makemigrations --settings=my_site.settings
 python $HOME/web/my-site/my_site/manage.py migrate
 
-### Start supervisor (nginx and gunicorn start) ###
+### Start supervisor (nginx and gunicorn start)
 # With environment HOME=$HOME WEBAPP_INTERNAL_PORT=$WEBAPP_INTERNAL_PORT 
 # sudo -E 'supervisord -c /etc/supervisor.conf'
 if ps -ef | grep supervsiord; then

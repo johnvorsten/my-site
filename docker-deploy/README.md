@@ -1,10 +1,10 @@
 ## Docker-compose for production
 https://docs.docker.com/compose/production/
-Remove volumes before production
-Bind to the correct ports on the host
-Set environment variables correct for the environment (database, secret keys, authentication tokens)
-restart:always
-Add a log aggregator for the service
+* Remove volumes before production
+* Bind to the correct ports on the host
+* Set environment variables correct for the environment (database, secret keys, authentication tokens)
+* restart:always
+* Add a log aggregator for the service
 
 When I made changes to code, remember to rebuild the image and recreate containers...
 To rebuild: docker compose build web

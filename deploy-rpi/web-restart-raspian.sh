@@ -15,15 +15,14 @@ else
     echo "Supervisord is running on PID $supervisord_pid."
 fi
 
-### Check if supervisord configuraiton is correct ###
+### Check if supervisord configuraiton is correct
 # "(?:(?!grep).)*(supervisord).*$" # Why doesn't this work?
 if ps -ef | grep -G "[/]etc/supervisord.conf"; then
     # Change configuration file from default
-    # supervisorctl -c $HOME/web/temp/deploy-rpi/supervisor.vm.conf
-    # supervisorctl reread
-    # supervisorctl update all
     echo "ERROR! supervisord has an incorrect configuration"
     echo ps -ef | grep "[/]etc/supervisord.conf"
+    kill -SIGTERM $supervisord_pid
+    supervisord -c $HOME/web/temp/deploy-rpi/supervisor.vm.conf
 else
     echo "Supervisord has the correct configuration"
     echo ps-ef | grep -G "[s]upervisord"
