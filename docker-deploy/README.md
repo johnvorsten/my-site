@@ -7,8 +7,11 @@ https://docs.docker.com/compose/production/
 * Add a log aggregator for the service
 
 When I made changes to code, remember to rebuild the image and recreate containers...
-To rebuild: docker compose build web
+To rebuild: 
+```bash
+docker compose build web
 docker compose up --no-deps -d web
+```
 
 ## Common command line instructions:
 #### Build docker files from compose for local test containers
