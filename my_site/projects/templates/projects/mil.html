@@ -1,0 +1,126 @@
+{% extends 'projects/app_layout.html' %}
+{% load static %}
+
+{% block title-name %} <title> MIL </title> {% endblock title-name %}
+
+{% block app-css %}
+<!-- TODO update -->
+<link rel="stylesheet" type="text/css" href="{% static 'projects/index_style.css' %}">
+{% endblock app-css %}
+
+{% block content %}
+
+<!-- Description of page -->
+<div class="">
+    <p>
+        Multiple instance learning
+    </p>
+    <p>
+        Multiple instance learning - [...] give a short introduction on what MIL is. Talk about the project, and what each instance represents.
+    </p>
+    
+</div>
+
+<!-- Data input fields for instance entry -->
+<div class="">
+
+    <!-- Instance entry -->
+    <div class="col-md-9">
+        <table class="table">
+            <thead>
+                <tr>
+                    <!-- String features -->
+                    <th scope="col">NAME</th>
+                    <th scope="col">DESCRIPTOR</th>
+                    <th scope="col">TYPE</th>
+                    <th scope="col">DEVUNITS</th>
+                    <th scope="col">FUNCTION</th>
+                    <th scope="col">CS</th>
+                    <th scope="col">SENSORTYPE</th>
+                    <th scope="col">ALARMTYPE</th>
+                    <th scope="col">NETDEVID</th>
+                    <th scope="col">SYSTEM</th>
+                    <!-- Numeric features (float) -->
+                    <th scope="col">DEVICEHI</th>
+                    <th scope="col">DEVICELO</th>
+                    <th scope="col">SIGNALHI</th>
+                    <th scope="col">SIGNALLO</th>
+                    <th scope="col">SLOPE</th>
+                    <th scope="col">INTERCEPT</th>
+                    <!-- Boolean -->
+                    <th scope="col">VIRTUAL</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">Point.Equipment.Name</th>
+                    <th scope="row">Point Description</th>
+                    <th scope="row">LAI</th>
+                    <th scope="row">DEG F</th>
+                    <th scope="row">Value</th>
+                    <th scope="row">TTE</th>
+                    <th scope="row">THERMISTOR</th>
+                    <th scope="row">Standard</th>
+                    <th scope="row">Building.Equipment.Controller</th>
+                    <th scope="row">AHU</th>
+                    <th scope="row">0</th>
+                    <th scope="row">10</th>
+                    <th scope="row">1</th>
+                    <th scope="row">0</th>
+                    <th scope="row">0.01234</th>
+                    <th scope="row">0</th>
+                    <th scope="row">False</th>
+                </tr>
+                <tr>
+                    <th scope="row">BBU.RTU.MAT</th>
+                    <th scope="row">Temperature</th>
+                    <th scope="row">LAI</th>
+                    <th scope="row">DEG F</th>
+                    <th scope="row">Value</th>
+                    <th scope="row">TTE</th>
+                    <th scope="row">THERMISTOR</th>
+                    <th scope="row">Standard</th>
+                    <th scope="row">Building.Equipment.controller</th>
+                    <th scope="row">AHU</th>
+                    <th scope="row">10</th>
+                    <th scope="row">0</th>
+                    <th scope="row">1</th>
+                    <th scope="row">0</th>
+                    <th scope="row">0.0954</th>
+                    <th scope="row">0.002</th>
+                    <th scope="row">False</th>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+<div>
+    <h3>Descirption of input types, lengths, and validation requirements</h3>
+    <!-- String features -->
+    <p>NAME: (string) No input requirements, but usually dot delimeted like 'Building.Equipment.Extension'; maximum of ~30 characters</p>
+    <p>DESCRIPTOR: (string) Maximum of 30 characters</p>
+    <p>TYPE: (string) One of [LAO,LAI,LDI,LDO,L2SL,LFSSL,LPACI,LENUM]</p>
+    <p>DEVUNITS: (string) One of [A,BTU,BTUh,count,DEG F,ft/min,ft2,ft3/m,gpm,Hz,in H2O,kWh,mA,ohm,PCT,ppm,rh,secs,ton/h,V,VA,]</p>
+    <p>FUNCTION: (string) One of [Counter, Slow, Status, Enum, Value, Proof, On/Off, Fast] or Null</p>
+    <p>CS: (string) No enumeration requirements, maximum 4 characters</p>
+    <p>SENSORTYPE: (string) One of [L-TYPE,VOLTAGE,PNEUMATIC,RTDNICKEL,CURRENT,?,NULL,RTD385,THERMISTOR,VIRTUAL,RTD 1K NICKEL DIN,RTD,RTD 1K NICKEL JCI,THERMISTOR 10K TYPE 3,SERIES1000]</p>
+    <p>ALARMTYPE: (string) One of [None,Enhanced,Standard]</p>
+    <p>NETDEVID: (string) No input requirements, but usually delimeted name like Building.Equipment.Controller</p>
+    <p>SYSTEM: (string, optional) No input requirements, but usually a common equipment abbreviation like AHU/LEF/MAU/RTU</p>
+    <!-- Numeric features (float) -->
+    <p>DEVICEHI: (float)</p>
+    <p>DEVICELO: (float)</p>
+    <p>SIGNALHI: (float) No requirement, but usually one of [0,5,10,20,100]</p>
+    <p>SIGNALLO: (float)  No requirement, but usually one of [0,5,10,20,100]</p>
+    <p>SLOPE: (float) No requirement, but usually between -1&lt;x&gt;1 </p>
+    <p>INTERCEPT: (float) No requirement. Typical -1000 to 1000</p>
+    <!-- Boolean -->
+    <p>VIRTUAL: (boolean) Recommended False</p>
+</div>
+    
+
+</div>
+<!-- /.row -->
+
+{% endblock content %}
