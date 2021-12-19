@@ -133,6 +133,7 @@ STATICFILES_DIRS = [
 # Static files are served from here
 STATIC_URL = '/static-serve/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static-serve')
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 
 # Alternate file storage system
 DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
