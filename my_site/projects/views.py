@@ -2,12 +2,16 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, Http404
 from django.views.generic import TemplateView, DetailView, ListView
+from django.views.decorators.http import require_GET
 from django.utils import timezone
 
 # Local imports
 from .models import Entry
 
-# Create your views here.
+# Declarations
+
+#%%
+# class based views
 class IndexView(ListView):
     model = Entry
     template_name = 'projects/index.html' # Explicit template

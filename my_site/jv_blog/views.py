@@ -2,12 +2,21 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, Http404
 from django.views.generic import TemplateView, DetailView, ListView
+from django.views.decorators.http import require_GET
 from django.utils import timezone
 
 # Local imports
 from .models import Entry
 
-# Create your views here.
+# Declarations
+
+#%%
+# Function based views
+@require_GET
+def mil(request):
+    return render(request, 'projects/mil.html')
+
+# Class based views
 class BlogIndexView(ListView):
     model = Entry
     template_name = 'jv_blog/index.html' # Explicit template
@@ -76,7 +85,7 @@ class BlogDetail(DetailView):
         entry = get_object_or_404(Entry, entry_slug__exact=self.kwargs['slug'], blog__description='blog')
         return entry
 
-# Create your views here.
+# Class based views for projects (similar to blogs, but fits in this module)
 class ProjectIndexView(ListView):
     model = Entry
     template_name = 'projects/index.html' # Explicit template
