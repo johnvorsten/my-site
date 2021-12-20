@@ -3,6 +3,8 @@
 
 {% block title-name %} <title> MIL </title> {% endblock title-name %}
 
+<script src="mil.js" defer></script>
+
 {% block app-css %}
 <!-- TODO update -->
 <link rel="stylesheet" type="text/css" href="{% static 'projects/mil_style.css' %}">
@@ -32,6 +34,8 @@
             <thead>
                 <tr>
                     <!-- String features -->
+                    <th scope="col" id="add_remove"><img class="add_instance" src="{{MEDIA_URL}}projects/images/add-instance.svg" title="add instance" alt="add instance">
+                    </th>
                     <th scope="col" id="NAME">NAME</th>
                     <th scope="col">DESCRIPTOR</th>
                     <th scope="col">TYPE</th>
@@ -55,6 +59,7 @@
             </thead>
             <tbody>
                 <tr>
+                    <td><img class="remove_instance" src="{{MEDIA_URL}}projects/images/remove-instance.svg" alt="remove instance" title="remove instance"></td>
                     <td>
                         <input class="form-control form-control-sm" type="text" placeholder="Point.Equipment.Name" aria-label="NAME">
                     </td>
@@ -168,8 +173,8 @@
                           </div>
                     </td>
                 </tr>
-
                 <tr>
+                    <td><img class="remove_instance" src="{{MEDIA_URL}}projects/images/remove-instance.svg" alt="remove instance" title="remove instance"></td>
                     <td>
                         <input class="form-control form-control-sm" type="text" placeholder="Point.Equipment.Name" aria-label="NAME">
                     </td>
@@ -283,7 +288,6 @@
                         </div>
                     </td>
                 </tr>
-
             </tbody>
         </table>
 

@@ -43,3 +43,13 @@ body {
     margin-bottom:0.3rem;
     position:relative;
 }
+
+.remove_instance {
+    height:15;
+    width: 15;
+}
+
+.add_instance {
+    height:20;
+    width:20;
+}
