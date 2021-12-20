@@ -1,0 +1,45 @@
+body {
+    padding-top: 60px;
+    padding-left: 15px;
+    padding-right: 10px;
+}
+
+#page_description {
+    margin-bottom:1rem;
+}
+
+#instance_input {
+    margin-bottom:2rem;
+}
+
+#instance_table {
+    margin-bottom:2rem;
+}
+
+#predict {
+    margin-bottom:2rem;
+}
+
+#prediction_result {
+    border:2px solid #dee2e6;
+    padding: 0;
+    user-select: none;
+    border-radius: .25rem;
+    max-width:200px;
+    min-width:100px;
+    display:inline-block;
+}
+
+#NAME {
+    min-width:100px;
+}
+
+#CS {
+    min-width:40px;
+}
+
+.form-check-input {
+    margin-left:0;
+    margin-bottom:0.3rem;
+    position:relative;
+}

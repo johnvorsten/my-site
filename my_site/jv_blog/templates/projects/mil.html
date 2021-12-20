@@ -5,14 +5,15 @@
 
 {% block app-css %}
 <!-- TODO update -->
-<link rel="stylesheet" type="text/css" href="{% static 'projects/style.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'projects/mil_style.css' %}">
 {% endblock app-css %}
 
 {% block content %}
 
 <!-- Description of page -->
-<div class="row">
+<div class="row" id="page_description">
     <div class="col-md">
+    <h3>Building automation objects bag prediction</h3>
     <p>
         Multiple instance learning
     </p>
@@ -23,7 +24,7 @@
 </div>
 
 <!-- Data input fields for instance entry -->
-<div class="row">
+<div class="row" id="instance_table">
 
     <!-- Instance entry -->
     <div class="col-xl">
@@ -31,13 +32,13 @@
             <thead>
                 <tr>
                     <!-- String features -->
-                    <th scope="col">NAME</th>
+                    <th scope="col" id="NAME">NAME</th>
                     <th scope="col">DESCRIPTOR</th>
                     <th scope="col">TYPE</th>
                     <th scope="col">DEVUNITS</th>
                     <th scope="col">FUNCTION</th>
-                    <th scope="col">CS</th>
-                    <th scope="col">SENSORTYPE</th>
+                    <th scope="col" id="CS">CS</th>
+                    <th  scope="col" id="SENSORTYPE">SENSORTYPE</th>
                     <th scope="col">ALARMTYPE</th>
                     <th scope="col">NETDEVID</th>
                     <th scope="col">SYSTEM</th>
@@ -47,21 +48,21 @@
                     <th scope="col">SIGNALHI</th>
                     <th scope="col">SIGNALLO</th>
                     <th scope="col">SLOPE</th>
-                    <th scope="col">INTERCEPT</th>
+                    <th scope="col" id="INTERCEPT">INTERCEPT</th>
                     <!-- Boolean -->
                     <th scope="col">VIRTUAL</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <th scope="row">
+                    <td>
                         <input class="form-control form-control-sm" type="text" placeholder="Point.Equipment.Name" aria-label="NAME">
-                    </th>
-                    <th scope="row">
+                    </td>
+                    <td>
                         <input class="form-control form-control-sm" type="text" placeholder="point description" aria-label="DESCRIPTION">
-                    </th>
-                    <th scope="row">
-                        <select name="TYPE" id="TYPE">
+                    </td>
+                    <td>
+                        <select name="TYPE">
                             <option value="LAI">LAI</option>
                             <option value="LAO">LAO</option>
                             <option value="LDI">LDI</option>
@@ -70,9 +71,9 @@
                             <option value="LPACI">LPACI</option>
                             <option value="LENUM">LENUM</option>
                             <option value="LFSSL">LFSSL</option>
-                        </select></th>
-                    <th scope="row">
-                        <select NAME="DEVUNITS" id="DEVUNITS">
+                        </select></td>
+                    <td>
+                        <select NAME="DEVUNITS">
                             <option value="A">A</option>
                             <option value="BTU">BTU</option>
                             <option value="BTUh">BTUh<option value="">count</option>
@@ -94,9 +95,9 @@
                             <option value="V">V</option>
                             <option value="VA">VA</option>
                         </select>
-                    </th>
-                    <th scope="row">
-                        <select name="FUNCTION", id="FUNCTION">
+                    </td>
+                    <td>
+                        <select name="FUNCTION">
                             <option value="Counter">Counter</option>
                             <option value="Slow">Slow</option>
                             <option value="Status">Status</option>
@@ -107,12 +108,12 @@
                             <option value="Fast">Fast</option>
                             <option value="Null">Null</option>
                         </select>
-                    </th>
-                    <th scope="row">
+                    </td>
+                    <td>
                         <input class="form-control form-control-sm" type="text" placeholder="TTE" aria-label="CS">
-                    </th>
-                    <th scope="row">
-                        <select NAME="SENSORTYPE" id="SENSORTYPE">
+                    </td>
+                    <td  >
+                        <select NAME="SENSORTYPE" >
                             <option value="L-TYPE">L-TYPE</option>
                             <option value="VOLTAGE">VOLTAGE</option>
                             <option value="PNEUMATIC">PNEUMATIC</option>
@@ -129,54 +130,54 @@
                             <option value="THERMISTOR 10K TPYE 3">THERMISTOR 10K TYPE 3 </option>
                             <option value="SERIES1000">SERIES1000</option>
                         </select>
-                    </th>
-                    <th scope="row">
-                        <select NAME="ALARMTYPE" id="ALARMTYPE">
+                    </td>
+                    <td>
+                        <select NAME="ALARMTYPE">
                             <option value="Enhanced">Enhanced</option>
                             <option value="Standard">Standard</option>
                             <option value="None">None</option>
                         </select>
-                    </th>
-                    <th scope="row">
+                    </td>
+                    <td>
                         <input class="form-control form-control-sm" type="text" placeholder="Building.Equipment.Controller" aria-label="NETDEVID">
-                    </th>
-                    <th scope="row">
+                    </td>
+                    <td>
                         <input class="form-control form-control-sm" type="text" placeholder="AHU" aria-label="SYSTEM">
-                    </th>
-                    <th scope="row">
+                    </td>
+                    <td>
                         <input class="form-control form-control-sm" type="numeric" placeholder=0 aria-label="DEVICEHI">
-                    </th>
-                    <th scope="row">
+                    </td>
+                    <td>
                         <input class="form-control form-control-sm" type="numeric" placeholder=10 aria-label="DEVICELO">
-                    </th>
-                    <th scope="row">
+                    </td>
+                    <td>
                         <input class="form-control form-control-sm" type="numeric" placeholder=1 aria-label="SIGNALHI">
-                    </th>
-                    <th scope="row">
+                    </td>
+                    <td>
                         <input class="form-control form-control-sm" type="numeric" placeholder=0 aria-label="SIGNALLO">
-                    </th>
-                    <th scope="row">
-                        <input class="form-control form-control-sm" type="numeric" placeholder=0.01234 aria-label="SLOPE">
-                    </th>
-                    <th scope="row">
-                        <input class="form-control form-control-sm" type="numeric" placeholder=0 aria-label="INTERCEPT">
-                    </th>
-                    <th scope="row">
+                    </td>
+                    <td>
+                        <input class="form-control form-control-sm" type="numeric" placeholder=0.012 aria-label="SLOPE">
+                    </td>
+                    <td>
+                        <input class="form-control form-control-sm" type="numeric" placeholder=0.0 aria-label="INTERCEPT">
+                    </td>
+                    <td>
                         <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" id="VIRTUAL">
+                            <input class="form-check-input" type="checkbox">
                           </div>
-                    </th>
+                    </td>
                 </tr>
 
                 <tr>
-                    <th scope="row">
+                    <td>
                         <input class="form-control form-control-sm" type="text" placeholder="Point.Equipment.Name" aria-label="NAME">
-                    </th>
-                    <th scope="row">
+                    </td>
+                    <td>
                         <input class="form-control form-control-sm" type="text" placeholder="point description" aria-label="DESCRIPTION">
-                    </th>
-                    <th scope="row">
-                        <select name="TYPE" id="TYPE">
+                    </td>
+                    <td>
+                        <select name="TYPE">
                             <option value="LAI">LAI</option>
                             <option value="LAO">LAO</option>
                             <option value="LDI">LDI</option>
@@ -185,9 +186,9 @@
                             <option value="LPACI">LPACI</option>
                             <option value="LENUM">LENUM</option>
                             <option value="LFSSL">LFSSL</option>
-                        </select></th>
-                    <th scope="row">
-                        <select NAME="DEVUNITS" id="DEVUNITS">
+                        </select></td>
+                    <td>
+                        <select NAME="DEVUNITS">
                             <option value="A">A</option>
                             <option value="BTU">BTU</option>
                             <option value="BTUh">BTUh<option value="">count</option>
@@ -209,9 +210,9 @@
                             <option value="V">V</option>
                             <option value="VA">VA</option>
                         </select>
-                    </th>
-                    <th scope="row">
-                        <select name="FUNCTION", id="FUNCTION">
+                    </td>
+                    <td>
+                        <select name="FUNCTION">
                             <option value="Counter">Counter</option>
                             <option value="Slow">Slow</option>
                             <option value="Status">Status</option>
@@ -222,12 +223,12 @@
                             <option value="Fast">Fast</option>
                             <option value="Null">Null</option>
                         </select>
-                    </th>
-                    <th scope="row">
+                    </td>
+                    <td>
                         <input class="form-control form-control-sm" type="text" placeholder="TTE" aria-label="CS">
-                    </th>
-                    <th scope="row">
-                        <select NAME="SENSORTYPE" id="SENSORTYPE">
+                    </td>
+                    <td  >
+                        <select NAME="SENSORTYPE" >
                             <option value="L-TYPE">L-TYPE</option>
                             <option value="VOLTAGE">VOLTAGE</option>
                             <option value="PNEUMATIC">PNEUMATIC</option>
@@ -244,43 +245,43 @@
                             <option value="THERMISTOR 10K TPYE 3">THERMISTOR 10K TYPE 3 </option>
                             <option value="SERIES1000">SERIES1000</option>
                         </select>
-                    </th>
-                    <th scope="row">
-                        <select NAME="ALARMTYPE" id="ALARMTYPE">
+                    </td>
+                    <td>
+                        <select NAME="ALARMTYPE">
                             <option value="Enhanced">Enhanced</option>
                             <option value="Standard">Standard</option>
                             <option value="None">None</option>
                         </select>
-                    </th>
-                    <th scope="row">
+                    </td>
+                    <td>
                         <input class="form-control form-control-sm" type="text" placeholder="Building.Equipment.Controller" aria-label="NETDEVID">
-                    </th>
-                    <th scope="row">
+                    </td>
+                    <td>
                         <input class="form-control form-control-sm" type="text" placeholder="AHU" aria-label="SYSTEM">
-                    </th>
-                    <th scope="row">
+                    </td>
+                    <td>
                         <input class="form-control form-control-sm" type="numeric" placeholder=0 aria-label="DEVICEHI">
-                    </th>
-                    <th scope="row">
+                    </td>
+                    <td>
                         <input class="form-control form-control-sm" type="numeric" placeholder=10 aria-label="DEVICELO">
-                    </th>
-                    <th scope="row">
+                    </td>
+                    <td>
                         <input class="form-control form-control-sm" type="numeric" placeholder=1 aria-label="SIGNALHI">
-                    </th>
-                    <th scope="row">
+                    </td>
+                    <td>
                         <input class="form-control form-control-sm" type="numeric" placeholder=0 aria-label="SIGNALLO">
-                    </th>
-                    <th scope="row">
-                        <input class="form-control form-control-sm" type="numeric" placeholder=0.01234 aria-label="SLOPE">
-                    </th>
-                    <th scope="row">
-                        <input class="form-control-sm" type="numeric" placeholder=0 aria-label="INTERCEPT">
-                    </th>
-                    <th scope="row">
+                    </td>
+                    <td>
+                        <input class="form-control form-control-sm" type="numeric" placeholder=0.012 aria-label="SLOPE">
+                    </td>
+                    <td>
+                        <input class="form-control-sm" type="numeric" placeholder=0.0 aria-label="INTERCEPT">
+                    </td>
+                    <td>
                         <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" id="VIRTUAL">
-                          </div>
-                    </th>
+                            <input class="form-check-input" type="checkbox">
+                        </div>
+                    </td>
                 </tr>
 
             </tbody>
@@ -288,20 +289,27 @@
 
     </div>
 </div>
-<!-- /.row -->
 
-<div class="row">
+<!-- Run prediction -->
+<div class="row" id="predict">
     <div class="col-sm">
-    <h4>Descirption of input types<option value=""> lengths, and validation requirements</h4>
+        <p>Prediction: <output id="prediction_result">&nbsp</output></p>
+        <button type="button" class="btn btn-primary btn-large">Run prediction</button>
+    </div>
+</div>
+
+<div class="row" id="InputsDescription">
+    <div class="col-sm">
+    <h4>Descirption of input types, lengths, and validation requirements</h4>
     <!-- String features -->
     <p>NAME: (string) No input requirements, but usually dot delimeted like 'Building.Equipment.Extension'; maximum of ~30 characters</p>
     <p>DESCRIPTOR: (string) Maximum of 30 characters</p>
-    <p>TYPE: (string) One of [LAO,LAI,LDI,LDO,L2SL,LFSSL,LPACI,LENUM]</p>
-    <p>DEVUNITS: (string) One of [A,BTU,BTUh,count,DEG F,ft/min,ft2,ft3/m,gpm,Hz,in H2O,kWh,mA,ohm,PCT,ppm,rh,secs,ton/h,V,VA,]</p>
+    <p>TYPE: (string) One of [LAO, LAI, LDI, LDO, L2SL, LFSSL, LPACI, LENUM]</p>
+    <p>DEVUNITS: (string) One of [A, BTU, BTUh, count, DEG F, ft/min, ft2,ft3/m, gpm, Hz, in H2O, kWh, mA, ohm, PCT, ppm, rh, secs, ton/h, V, VA,]</p>
     <p>FUNCTION: (string) One of [Counter, Slow, Status, Enum, Value, Proof, On/Off, Fast] or Null</p>
     <p>CS: (string) No enumeration requirements, maximum 4 characters</p>
-    <p>SENSORTYPE: (string) One of [L-TYPE,VOLTAGE,PNEUMATIC,RTDNICKEL,CURRENT,?,NULL,RTD385,THERMISTOR,VIRTUAL,RTD 1K NICKEL DIN,RTD,RTD 1K NICKEL JCI,THERMISTOR 10K TYPE 3,SERIES1000]</p>
-    <p>ALARMTYPE: (string) One of [None,Enhanced,Standard]</p>
+    <p>SENSORTYPE: (string) One of [L-TYPE, VOLTAGE, PNEUMATIC, RTDNICKEL, CURRENT, ?, NULL, RTD385,THERMISTOR, VIRTUAL, RTD 1K NICKEL DIN, RTD, RTD 1K NICKEL JCI, THERMISTOR 10K TYPE 3, SERIES1000]</p>
+    <p>ALARMTYPE: (string) One of [None, Enhanced, Standard]</p>
     <p>NETDEVID: (string) No input requirements, but usually delimeted name like Building.Equipment.Controller</p>
     <p>SYSTEM: (string, optional) No input requirements, but usually a common equipment abbreviation like AHU/LEF/MAU/RTU</p>
     <!-- Numeric features (float) -->
