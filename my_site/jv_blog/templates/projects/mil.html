@@ -3,15 +3,15 @@
 
 {% block title-name %} <title> MIL </title> {% endblock title-name %}
 
-<script src="mil.js" defer></script>
-
 {% block app-css %}
-<!-- TODO update -->
 <link rel="stylesheet" type="text/css" href="{% static 'projects/mil_style.css' %}">
 {% endblock app-css %}
 
-{% block content %}
+{% block app-js %}
+<script src="{% static 'projects/mil.js' %}" defer></script>
+{% endblock app-js %}
 
+{% block content %}
 <!-- Description of page -->
 <div class="row" id="page_description">
     <div class="col-md">
@@ -327,6 +327,5 @@
     <p>VIRTUAL: (boolean) Recommended False</p>
     </div>
 </div>
-
 
 {% endblock content %}

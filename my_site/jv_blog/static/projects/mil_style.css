@@ -47,9 +47,15 @@ body {
 .remove_instance {
     height:15;
     width: 15;
+    cursor:pointer;
+}
+
+.remove_instance {
+    cursor: pointer;
 }
 
 .add_instance {
     height:20;
     width:20;
+    cursor: pointer;
 }
