@@ -26,11 +26,11 @@
 </div>
 
 <!-- Data input fields for instance entry -->
-<div class="row" id="instance_table">
+<div class="row" id="mil_instances">
 
     <!-- Instance entry -->
     <div class="col-xl">
-        <table class="table-striped table-hover table-bordered table-sm">
+        <table class="table-striped table-hover table-bordered table-sm" id="instance_table">
             <thead>
                 <tr>
                     <!-- String features -->
@@ -57,17 +57,18 @@
                     <th scope="col">VIRTUAL</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
+            <tbody id="instance_table_body">
+                <template id="instance_template">
+                    <tr>
                     <td><img class="remove_instance" src="{{MEDIA_URL}}projects/images/remove-instance.svg" alt="remove instance" title="remove instance"></td>
                     <td>
-                        <input class="form-control form-control-sm" type="text" placeholder="Point.Equipment.Name" aria-label="NAME">
+                        <input class="form-control form-control-sm NAME" type="text" placeholder="Point.Equipment.Name" aria-label="NAME">
                     </td>
                     <td>
-                        <input class="form-control form-control-sm" type="text" placeholder="point description" aria-label="DESCRIPTION">
+                        <input class="form-control form-control-sm DESCRIPTOR" type="text" placeholder="point description" aria-label="DESCRIPTOR">
                     </td>
                     <td>
-                        <select name="TYPE">
+                        <select class="TYPE" name="TYPE">
                             <option value="LAI">LAI</option>
                             <option value="LAO">LAO</option>
                             <option value="LDI">LDI</option>
@@ -78,7 +79,7 @@
                             <option value="LFSSL">LFSSL</option>
                         </select></td>
                     <td>
-                        <select NAME="DEVUNITS">
+                        <select class="DEVUNITS" NAME="DEVUNITS">
                             <option value="A">A</option>
                             <option value="BTU">BTU</option>
                             <option value="BTUh">BTUh<option value="">count</option>
@@ -102,12 +103,12 @@
                         </select>
                     </td>
                     <td>
-                        <select name="FUNCTION">
+                        <select class="FUNCTION" name="FUNCTION">
+                            <option value="Value">Value</option>
                             <option value="Counter">Counter</option>
                             <option value="Slow">Slow</option>
                             <option value="Status">Status</option>
                             <option value="Enum">Enum</option>
-                            <option value="Value">Value</option>
                             <option value="Proof">Proof</option>
                             <option value="On/Off">On/Off</option>
                             <option value="Fast">Fast</option>
@@ -115,12 +116,12 @@
                         </select>
                     </td>
                     <td>
-                        <input class="form-control form-control-sm" type="text" placeholder="TTE" aria-label="CS">
+                        <input class="form-control form-control-sm CS" type="text" placeholder="TTE" aria-label="CS">
                     </td>
                     <td  >
-                        <select NAME="SENSORTYPE" >
-                            <option value="L-TYPE">L-TYPE</option>
+                        <select class="SENSORTYPE" NAME="SENSORTYPE">
                             <option value="VOLTAGE">VOLTAGE</option>
+                            <option value="L-TYPE">L-TYPE</option>
                             <option value="PNEUMATIC">PNEUMATIC</option>
                             <option value="RTDNICKEL">RTDNICKEL</option>
                             <option value="CURRENT">CURRENT</option>
@@ -137,52 +138,168 @@
                         </select>
                     </td>
                     <td>
-                        <select NAME="ALARMTYPE">
-                            <option value="Enhanced">Enhanced</option>
+                        <select class="ALARMTYPE" NAME="ALARMTYPE">
                             <option value="Standard">Standard</option>
+                            <option value="Enhanced">Enhanced</option>
                             <option value="None">None</option>
                         </select>
                     </td>
                     <td>
-                        <input class="form-control form-control-sm" type="text" placeholder="Building.Equipment.Controller" aria-label="NETDEVID">
+                        <input class="form-control form-control-sm NETDEVID" type="text" placeholder="Building.Equipment.Controller" aria-label="NETDEVID">
                     </td>
                     <td>
-                        <input class="form-control form-control-sm" type="text" placeholder="AHU" aria-label="SYSTEM">
+                        <input class="form-control form-control-sm SYSTEM" type="text" placeholder="AHU" aria-label="SYSTEM">
                     </td>
                     <td>
-                        <input class="form-control form-control-sm" type="numeric" placeholder=0 aria-label="DEVICEHI">
+                        <input class="form-control form-control-sm DEVICEHI" type="numeric" placeholder=0 aria-label="DEVICEHI">
                     </td>
                     <td>
-                        <input class="form-control form-control-sm" type="numeric" placeholder=10 aria-label="DEVICELO">
+                        <input class="form-control form-control-sm DEVICELO" type="numeric" placeholder=10 aria-label="DEVICELO">
                     </td>
                     <td>
-                        <input class="form-control form-control-sm" type="numeric" placeholder=1 aria-label="SIGNALHI">
+                        <input class="form-control form-control-sm SIGNALHI" type="numeric" placeholder=1 aria-label="SIGNALHI">
                     </td>
                     <td>
-                        <input class="form-control form-control-sm" type="numeric" placeholder=0 aria-label="SIGNALLO">
+                        <input class="form-control form-control-sm SIGNALLO" type="numeric" placeholder=0 aria-label="SIGNALLO">
                     </td>
                     <td>
-                        <input class="form-control form-control-sm" type="numeric" placeholder=0.012 aria-label="SLOPE">
+                        <input class="form-control form-control-sm SLOPE" type="numeric" placeholder=0.012 aria-label="SLOPE">
                     </td>
                     <td>
-                        <input class="form-control form-control-sm" type="numeric" placeholder=0.0 aria-label="INTERCEPT">
+                        <input class="form-control form-control-sm INTERCEPT" type="numeric" placeholder=0.0 aria-label="INTERCEPT">
                     </td>
                     <td>
                         <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox">
+                            <input class="form-check-input VIRTUAL" type="checkbox">
+                          </div>
+                    </td>
+                    </tr>
+                </template>
+                <!-- <tr>
+                    <td><img class="remove_instance" src="{{MEDIA_URL}}projects/images/remove-instance.svg" alt="remove instance" title="remove instance"></td>
+                    <td>
+                        <input class="form-control form-control-sm NAME" type="text" placeholder="Point.Equipment.Name" aria-label="NAME">
+                    </td>
+                    <td>
+                        <input class="form-control form-control-sm DESCRIPTOR" type="text" placeholder="point description" aria-label="DESCRIPTOR">
+                    </td>
+                    <td>
+                        <select class="TYPE" name="TYPE">
+                            <option value="LAI">LAI</option>
+                            <option value="LAO">LAO</option>
+                            <option value="LDI">LDI</option>
+                            <option value="LDO">LDO</option>
+                            <option value="L2SL">L2SL</option>
+                            <option value="LPACI">LPACI</option>
+                            <option value="LENUM">LENUM</option>
+                            <option value="LFSSL">LFSSL</option>
+                        </select></td>
+                    <td>
+                        <select class="DEVUNITS" NAME="DEVUNITS">
+                            <option value="A">A</option>
+                            <option value="BTU">BTU</option>
+                            <option value="BTUh">BTUh<option value="">count</option>
+                            <option value="DEG F">DEG F</option>
+                            <option value="ft/min">ft/min</option>
+                            <option value="ft2">ft2</option>
+                            <option value="ft3/m">ft3/m</option>
+                            <option value="gpm">gpm</option>
+                            <option value="Hz">Hz</option>
+                            <option value="in H2O">in H2O</option>
+                            <option value="kWh">kWh</option>
+                            <option value="mA">mA</option>
+                            <option value="ohm">ohm</option>
+                            <option value="PCT">PCT</option>
+                            <option value="ppm">ppm</option>
+                            <option value="rh">rh</option>
+                            <option value="secs">secs</option>
+                            <option value="tpn/h">ton/h</option>
+                            <option value="V">V</option>
+                            <option value="VA">VA</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select class="FUNCTION" name="FUNCTION">
+                            <option value="Value">Value</option>
+                            <option value="Counter">Counter</option>
+                            <option value="Slow">Slow</option>
+                            <option value="Status">Status</option>
+                            <option value="Enum">Enum</option>
+                            <option value="Proof">Proof</option>
+                            <option value="On/Off">On/Off</option>
+                            <option value="Fast">Fast</option>
+                            <option value="Null">Null</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input class="form-control form-control-sm CS" type="text" placeholder="TTE" aria-label="CS">
+                    </td>
+                    <td  >
+                        <select class="SENSORTYPE" NAME="SENSORTYPE">
+                            <option value="VOLTAGE">VOLTAGE</option>
+                            <option value="L-TYPE">L-TYPE</option>
+                            <option value="PNEUMATIC">PNEUMATIC</option>
+                            <option value="RTDNICKEL">RTDNICKEL</option>
+                            <option value="CURRENT">CURRENT</option>
+                            <option value="?">?</option>
+                            <option value="NULL">NULL</option>
+                            <option value="RTD385">RTD385 </option>
+                            <option value="THERMISTOR">THERMISTOR</option>
+                            <option value="VIRTUAL">VIRTUAL</option>
+                            <option value="RTD 1K NICKEL DIN">RTD 1K NICKEL DIN</option>
+                            <option value="RTD">RTD</option>
+                            <option value="RTD 1K NICKEL JCI">RTD 1K NICKEL JCI</option>
+                            <option value="THERMISTOR 10K TPYE 3">THERMISTOR 10K TYPE 3 </option>
+                            <option value="SERIES1000">SERIES1000</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select class="ALARMTYPE" NAME="ALARMTYPE">
+                            <option value="Standard">Standard</option>
+                            <option value="Enhanced">Enhanced</option>
+                            <option value="None">None</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input class="form-control form-control-sm NETDEVID" type="text" placeholder="Building.Equipment.Controller" aria-label="NETDEVID">
+                    </td>
+                    <td>
+                        <input class="form-control form-control-sm SYSTEM" type="text" placeholder="AHU" aria-label="SYSTEM">
+                    </td>
+                    <td>
+                        <input class="form-control form-control-sm DEVICEHI" type="numeric" placeholder=0 aria-label="DEVICEHI">
+                    </td>
+                    <td>
+                        <input class="form-control form-control-sm DEVICELO" type="numeric" placeholder=10 aria-label="DEVICELO">
+                    </td>
+                    <td>
+                        <input class="form-control form-control-sm SIGNALHI" type="numeric" placeholder=1 aria-label="SIGNALHI">
+                    </td>
+                    <td>
+                        <input class="form-control form-control-sm SIGNALLO" type="numeric" placeholder=0 aria-label="SIGNALLO">
+                    </td>
+                    <td>
+                        <input class="form-control form-control-sm SLOPE" type="numeric" placeholder=0.012 aria-label="SLOPE">
+                    </td>
+                    <td>
+                        <input class="form-control form-control-sm INTERCEPT" type="numeric" placeholder=0.0 aria-label="INTERCEPT">
+                    </td>
+                    <td>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input VIRTUAL" type="checkbox">
                           </div>
                     </td>
                 </tr>
                 <tr>
                     <td><img class="remove_instance" src="{{MEDIA_URL}}projects/images/remove-instance.svg" alt="remove instance" title="remove instance"></td>
                     <td>
-                        <input class="form-control form-control-sm" type="text" placeholder="Point.Equipment.Name" aria-label="NAME">
+                        <input class="form-control form-control-sm NAME" type="text" placeholder="Point.Equipment.Name" aria-label="NAME">
                     </td>
                     <td>
-                        <input class="form-control form-control-sm" type="text" placeholder="point description" aria-label="DESCRIPTION">
+                        <input class="form-control form-control-sm DESCRIPTOR" type="text" placeholder="point description" aria-label="DESCRIPTOR">
                     </td>
                     <td>
-                        <select name="TYPE">
+                        <select class="TYPE" name="TYPE">
                             <option value="LAI">LAI</option>
                             <option value="LAO">LAO</option>
                             <option value="LDI">LDI</option>
@@ -193,7 +310,7 @@
                             <option value="LFSSL">LFSSL</option>
                         </select></td>
                     <td>
-                        <select NAME="DEVUNITS">
+                        <select class="DEVUNITS" NAME="DEVUNITS">
                             <option value="A">A</option>
                             <option value="BTU">BTU</option>
                             <option value="BTUh">BTUh<option value="">count</option>
@@ -217,12 +334,12 @@
                         </select>
                     </td>
                     <td>
-                        <select name="FUNCTION">
+                        <select class="FUNCTION" name="FUNCTION">
+                            <option value="Value">Value</option>
                             <option value="Counter">Counter</option>
                             <option value="Slow">Slow</option>
                             <option value="Status">Status</option>
                             <option value="Enum">Enum</option>
-                            <option value="Value">Value</option>
                             <option value="Proof">Proof</option>
                             <option value="On/Off">On/Off</option>
                             <option value="Fast">Fast</option>
@@ -230,12 +347,12 @@
                         </select>
                     </td>
                     <td>
-                        <input class="form-control form-control-sm" type="text" placeholder="TTE" aria-label="CS">
+                        <input class="form-control form-control-sm CS" type="text" placeholder="TTE" aria-label="CS">
                     </td>
                     <td  >
-                        <select NAME="SENSORTYPE" >
-                            <option value="L-TYPE">L-TYPE</option>
+                        <select class="SENSORTYPE" NAME="SENSORTYPE">
                             <option value="VOLTAGE">VOLTAGE</option>
+                            <option value="L-TYPE">L-TYPE</option>
                             <option value="PNEUMATIC">PNEUMATIC</option>
                             <option value="RTDNICKEL">RTDNICKEL</option>
                             <option value="CURRENT">CURRENT</option>
@@ -252,42 +369,42 @@
                         </select>
                     </td>
                     <td>
-                        <select NAME="ALARMTYPE">
-                            <option value="Enhanced">Enhanced</option>
+                        <select class="ALARMTYPE" NAME="ALARMTYPE">
                             <option value="Standard">Standard</option>
+                            <option value="Enhanced">Enhanced</option>
                             <option value="None">None</option>
                         </select>
                     </td>
                     <td>
-                        <input class="form-control form-control-sm" type="text" placeholder="Building.Equipment.Controller" aria-label="NETDEVID">
+                        <input class="form-control form-control-sm NETDEVID" type="text" placeholder="Building.Equipment.Controller" aria-label="NETDEVID">
                     </td>
                     <td>
-                        <input class="form-control form-control-sm" type="text" placeholder="AHU" aria-label="SYSTEM">
+                        <input class="form-control form-control-sm SYSTEM" type="text" placeholder="AHU" aria-label="SYSTEM">
                     </td>
                     <td>
-                        <input class="form-control form-control-sm" type="numeric" placeholder=0 aria-label="DEVICEHI">
+                        <input class="form-control form-control-sm DEVICEHI" type="numeric" placeholder=0 aria-label="DEVICEHI">
                     </td>
                     <td>
-                        <input class="form-control form-control-sm" type="numeric" placeholder=10 aria-label="DEVICELO">
+                        <input class="form-control form-control-sm DEVICELO" type="numeric" placeholder=10 aria-label="DEVICELO">
                     </td>
                     <td>
-                        <input class="form-control form-control-sm" type="numeric" placeholder=1 aria-label="SIGNALHI">
+                        <input class="form-control form-control-sm SIGNALHI" type="numeric" placeholder=1 aria-label="SIGNALHI">
                     </td>
                     <td>
-                        <input class="form-control form-control-sm" type="numeric" placeholder=0 aria-label="SIGNALLO">
+                        <input class="form-control form-control-sm SIGNALLO" type="numeric" placeholder=0 aria-label="SIGNALLO">
                     </td>
                     <td>
-                        <input class="form-control form-control-sm" type="numeric" placeholder=0.012 aria-label="SLOPE">
+                        <input class="form-control form-control-sm SLOPE" type="numeric" placeholder=0.012 aria-label="SLOPE">
                     </td>
                     <td>
-                        <input class="form-control-sm" type="numeric" placeholder=0.0 aria-label="INTERCEPT">
+                        <input class="form-control-sm INTERCEPT" type="numeric" placeholder=0.0 aria-label="INTERCEPT">
                     </td>
                     <td>
                         <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox">
+                            <input class="form-check-input VIRTUAL" type="checkbox">
                         </div>
                     </td>
-                </tr>
+                </tr> -->
             </tbody>
         </table>
 
@@ -299,6 +416,14 @@
     <div class="col-sm">
         <p>Prediction: <output id="prediction_result">&nbsp</output></p>
         <button type="button" class="btn btn-primary btn-large" id="run_prediction">Run prediction</button>
+        Predictor type: 
+        <select class="predictor_type">
+            <option value="CompNB">CompNB</option>
+            <option value="MultiNB">MultiNB</option>
+            <option value="SVMCL1SI">SVMCL1SI</option>
+            <option value="SMVCL1MILES">SMVCL1MILES</option>
+            <option value="SVMCRBFMILES">SVMCRBFMILES</option>
+        </select>
     </div>
 </div>
 
