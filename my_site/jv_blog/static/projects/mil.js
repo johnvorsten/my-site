@@ -4,13 +4,14 @@
 const add_instance_elements = document.getElementsByClassName("add_instance");
 let remove_instance_elements = document.getElementsByClassName("remove_instance");
 const run_prediction_element = document.getElementById("run_prediction");
-var url_map = new Map([
-    ['CompNB','http://localhost:8001/CompNBPredictor/'],
-    ['MultiNB','http://localhost:8001/MultiNBPredictor/'],
-    ['SVMCL1SI','http://localhost:8001/SVMCL1SIPredictor/'],
-    ['SVMCRBFSI','http://localhost:8001/SVMCRBFSIPredictor/'],
-    ['SVMCL1MILES','http://localhost:8001/SVMCL1MILESPredictor/'],
-    ['SVMCRBFMILES','http://localhost:8001/SVMCRBFMILESPredictor/'],
+const PREDICTOR_ORIGIN = 'http://localhost:8000/mil-prediction';
+const URL_MAP = new Map([
+    ['CompNB',`${PREDICTOR_ORIGIN}/CompNBPredictor/`],
+    ['MultiNB',`${PREDICTOR_ORIGIN}/MultiNBPredictor/`],
+    ['SVMCL1SI',`${PREDICTOR_ORIGIN}/SVMCL1SIPredictor/`],
+    ['SVMCRBFSI',`${PREDICTOR_ORIGIN}/SVMCRBFSIPredictor/`],
+    ['SVMCL1MILES',`${PREDICTOR_ORIGIN}/SVMCL1MILESPredictor/`],
+    ['SVMCRBFMILES',`${PREDICTOR_ORIGIN}/SVMCRBFMILESPredictor/`],
 ]);
 
 // Events
@@ -42,23 +43,21 @@ function add_instance() {
     // Append cloned row
     table.append(clone)
 }
-
 function remove_instance(event) {
     // Find element ID and remove row
     let row = event.currentTarget.closest("tr");
     // Remove element
     row.remove();
 }
-
 function run_prediction() {
     // Run prediction API call
     // Aggregate instances and format data
-    instances = gather_instances()
-    instances_json = JSON.stringify(instances)
+    instances = gather_instances();
+    instances_json = JSON.stringify(instances);
     
     // Call API
-    var predictor_type = document.querySelector(".predictor_type").value;
-    fetch(url_map.get(predictor_type), {
+    const predictor_type = document.querySelector(".predictor_type").value;
+    fetch(URL_MAP.get(predictor_type), {
         method:'POST', 
         mode: 'cors', 
         cache:'no-cache',
@@ -69,10 +68,10 @@ function run_prediction() {
         redirect: 'follow',
         body: instances_json,
     })
-    .then(result => update_prediction_text(result.prediction), update_prediction_text("Error: " + result.httpStatusCode));
+    .then(response => update_prediction_text(response.prediction))
+    .catch(response => update_prediction_text("Error: " + response.status));
 
 }
-
 function update_prediction_text(prediction) {
     // Change text in prediction_result
     const run_prediction_element = document.getElementById("prediction_result");
@@ -80,7 +79,6 @@ function update_prediction_text(prediction) {
     // TODO remove
     console.log("Updated prediction");
 }
-
 function gather_instances() {
     // aggregate all instances with class 'tr' (table row) into a JSON string for use in API header
     let elements = document.querySelectorAll("tr");
@@ -92,7 +90,6 @@ function gather_instances() {
     }
     return instances;
 }
-
 function parse_instance(element) {
     // Input a single DOM table row, and for each column in the row
     // insert the row feature (column name) into a JSON object

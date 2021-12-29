@@ -16,7 +16,7 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTONBUFFERED 1
 
 # Install dependencies
-COPY ./docker-deploy/requirements.txt /usr/src/app
+COPY ./requirementsdjango3.txt /usr/src/app
 RUN apt-get update && mkdir /usr/src/app/wheels && \
     apt install -y unixodbc-dev gcc g++  && \
     pip wheel --no-cache-dir --no-deps --wheel-dir /usr/src/app/wheels -r requirements.txt
@@ -46,7 +46,7 @@ RUN pip install --upgrade pip && \
     pip install --no-cache /wheels/*
 
 # Copy the project from local drive to the home working directory
-COPY --chown=app ./my_site $WEB_HOME/my-site/my_site
+COPY --chown=app ./my_site $WEB_HOME/my-site/
 
 # Change ownership of app files in home directory to app user
 RUN chown -R app:app_group $WEB_HOME

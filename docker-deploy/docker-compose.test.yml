@@ -12,7 +12,7 @@ services:
             # Static files served here during development
             - ../my_site/static-serve/:/home/app/web/static-serve
         ports:
-            - "8000:8000" # Host:Container
+            - "8002:8000" # Host:Container
         env_file:
             - ./docker-compose.test.env
 
@@ -26,8 +26,8 @@ services:
         ports:
             # Requests for HTML content through application server port defined in .env
             # Proxy pass from external 
-            - "8001:80" # Host:container, for HTTP
-            - "8002:443" # Host:container, for HTTPS
+            - "8000:80" # Host:container, for HTTP
+            - "8001:443" # Host:container, for HTTPS
         env_file:
             - ./docker-compose.test.env
         # volumes:

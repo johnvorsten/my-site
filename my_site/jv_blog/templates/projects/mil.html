@@ -429,27 +429,35 @@
 
 <div class="row" id="InputsDescription">
     <div class="col-sm">
-    <h4>Descirption of input types, lengths, and validation requirements</h4>
-    <!-- String features -->
-    <p>NAME: (string) No input requirements, but usually dot delimeted like 'Building.Equipment.Extension'; maximum of ~30 characters</p>
-    <p>DESCRIPTOR: (string) Maximum of 30 characters</p>
-    <p>TYPE: (string) One of [LAO, LAI, LDI, LDO, L2SL, LFSSL, LPACI, LENUM]</p>
-    <p>DEVUNITS: (string) One of [A, BTU, BTUh, count, DEG F, ft/min, ft2,ft3/m, gpm, Hz, in H2O, kWh, mA, ohm, PCT, ppm, rh, secs, ton/h, V, VA,]</p>
-    <p>FUNCTION: (string) One of [Counter, Slow, Status, Enum, Value, Proof, On/Off, Fast] or Null</p>
-    <p>CS: (string) No enumeration requirements, maximum 4 characters</p>
-    <p>SENSORTYPE: (string) One of [L-TYPE, VOLTAGE, PNEUMATIC, RTDNICKEL, CURRENT, ?, NULL, RTD385,THERMISTOR, VIRTUAL, RTD 1K NICKEL DIN, RTD, RTD 1K NICKEL JCI, THERMISTOR 10K TYPE 3, SERIES1000]</p>
-    <p>ALARMTYPE: (string) One of [None, Enhanced, Standard]</p>
-    <p>NETDEVID: (string) No input requirements, but usually delimeted name like Building.Equipment.Controller</p>
-    <p>SYSTEM: (string, optional) No input requirements, but usually a common equipment abbreviation like AHU/LEF/MAU/RTU</p>
-    <!-- Numeric features (float) -->
-    <p>DEVICEHI: (float)</p>
-    <p>DEVICELO: (float)</p>
-    <p>SIGNALHI: (float) No requirement, but usually one of [0,5,10,20,100]</p>
-    <p>SIGNALLO: (float)  No requirement, but usually one of [0,5,10,20,100]</p>
-    <p>SLOPE: (float) No requirement, but usually between -1&lt;x&gt;1 </p>
-    <p>INTERCEPT: (float) No requirement. Typical -1000 to 1000</p>
-    <!-- Boolean -->
-    <p>VIRTUAL: (boolean) Recommended False</p>
+        <h4>Description of predictor types</h4>
+        <p>CompNB: Complement Naive Bayes classifier; suited for text classification (or categorical data), and designed to perform better than standard Naive Bayes with imbalanced datasets</p>
+        MultiNB: Multinomial Naive Bayes classifier; suited for text classification (or categorical data)
+        SVMCL1SI: Support vector machine classifier; linear kernel; L1 regularization; inference of bag label from single-instance predictions
+        SVMCRBFSI: Support vector machine classifier; RBF kernel; L2 regularization; inference of bag label from single-instance predictions
+        SVMCL1MILES: Support vector machine classifier; linear kernel; l1 regularization; MILES embedding of bag instances
+        SVMCRBFMILES: Support vector machine classifier; RBF kernel; L2 regularization; MILES embedding of bag instances
+        
+        <h4>Descirption of input types, lengths, and validation requirements</h4>
+        <!-- String features -->
+        <p>NAME: (string) No input requirements, but usually dot delimeted like 'Building.Equipment.Extension'; maximum of ~30 characters</p>
+        <p>DESCRIPTOR: (string) Maximum of 30 characters</p>
+        <p>TYPE: (string) One of [LAO, LAI, LDI, LDO, L2SL, LFSSL, LPACI, LENUM]</p>
+        <p>DEVUNITS: (string) One of [A, BTU, BTUh, count, DEG F, ft/min, ft2,ft3/m, gpm, Hz, in H2O, kWh, mA, ohm, PCT, ppm, rh, secs, ton/h, V, VA,]</p>
+        <p>FUNCTION: (string) One of [Counter, Slow, Status, Enum, Value, Proof, On/Off, Fast] or Null</p>
+        <p>CS: (string) No enumeration requirements, maximum 4 characters</p>
+        <p>SENSORTYPE: (string) One of [L-TYPE, VOLTAGE, PNEUMATIC, RTDNICKEL, CURRENT, ?, NULL, RTD385,THERMISTOR, VIRTUAL, RTD 1K NICKEL DIN, RTD, RTD 1K NICKEL JCI, THERMISTOR 10K TYPE 3, SERIES1000]</p>
+        <p>ALARMTYPE: (string) One of [None, Enhanced, Standard]</p>
+        <p>NETDEVID: (string) No input requirements, but usually delimeted name like Building.Equipment.Controller</p>
+        <p>SYSTEM: (string, optional) No input requirements, but usually a common equipment abbreviation like AHU/LEF/MAU/RTU</p>
+        <!-- Numeric features (float) -->
+        <p>DEVICEHI: (float)</p>
+        <p>DEVICELO: (float)</p>
+        <p>SIGNALHI: (float) No requirement, but usually one of [0,5,10,20,100]</p>
+        <p>SIGNALLO: (float)  No requirement, but usually one of [0,5,10,20,100]</p>
+        <p>SLOPE: (float) No requirement, but usually between -1&lt;x&gt;1 </p>
+        <p>INTERCEPT: (float) No requirement. Typical -1000 to 1000</p>
+        <!-- Boolean -->
+        <p>VIRTUAL: (boolean) Recommended False</p>
     </div>
 </div>
 
