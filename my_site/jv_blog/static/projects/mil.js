@@ -13,6 +13,7 @@ const URL_MAP = new Map([
     ['SVMCL1MILES',`${PREDICTOR_ORIGIN}/SVMCL1MILESPredictor/`],
     ['SVMCRBFMILES',`${PREDICTOR_ORIGIN}/SVMCRBFMILESPredictor/`],
 ]);
+const fill_template_instances = document.getElementById("fill_template_instances")
 
 // Events
 for (const ele of add_instance_elements) {
@@ -22,6 +23,7 @@ for (const ele of remove_instance_elements) {
     ele.addEventListener('click', remove_instance);
 }
 run_prediction_element.addEventListener('click', run_prediction);
+fill_template_instances.addEventListener('click', fill_template);
 window.onload = function() {
     // Add two instances from the template
     add_instance();
@@ -133,4 +135,10 @@ function parse_instance(element) {
     template.VIRTUAL = button_map.get(element.querySelector(".VIRTUAL").checked);
 
     return template;
+}
+function fill_template(event) {
+    // Template data to add
+    // Remove all existing rows from table
+    // For each instances in the instances list, create a clone and append it to the table
+    // Possibly modify existing 'add_instance' function
 }

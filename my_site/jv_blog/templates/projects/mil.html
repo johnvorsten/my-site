@@ -62,10 +62,10 @@
                     <tr>
                     <td><img class="remove_instance" src="{{MEDIA_URL}}projects/images/remove-instance.svg" alt="remove instance" title="remove instance"></td>
                     <td>
-                        <input class="form-control form-control-sm NAME" type="text" placeholder="Point.Equipment.Name" aria-label="NAME">
+                        <input class="form-control form-control-sm NAME" type="text" placeholder="Point.Equipment.Name" aria-label="NAME" required minlenght="3" maxlength="30">
                     </td>
                     <td>
-                        <input class="form-control form-control-sm DESCRIPTOR" type="text" placeholder="point description" aria-label="DESCRIPTOR">
+                        <input class="form-control form-control-sm DESCRIPTOR" type="text" placeholder="point description" aria-label="DESCRIPTOR" required minlenght="3" maxlength="30">
                     </td>
                     <td>
                         <select class="TYPE" name="TYPE">
@@ -116,7 +116,7 @@
                         </select>
                     </td>
                     <td>
-                        <input class="form-control form-control-sm CS" type="text" placeholder="TTE" aria-label="CS">
+                        <input class="form-control form-control-sm CS" type="text" placeholder="TTE" aria-label="CS" required minlenght="1" maxlength="4" pattern="[A-Z]*|[a-z]*">
                     </td>
                     <td  >
                         <select class="SENSORTYPE" NAME="SENSORTYPE">
@@ -145,28 +145,28 @@
                         </select>
                     </td>
                     <td>
-                        <input class="form-control form-control-sm NETDEVID" type="text" placeholder="Building.Equipment.Controller" aria-label="NETDEVID">
+                        <input class="form-control form-control-sm NETDEVID" type="text" placeholder="Building.Equipment.Controller" aria-label="NETDEVID" required minlenght="3" maxlength="30">
                     </td>
                     <td>
-                        <input class="form-control form-control-sm SYSTEM" type="text" placeholder="AHU" aria-label="SYSTEM">
+                        <input class="form-control form-control-sm SYSTEM" type="text" placeholder="AHU" aria-label="SYSTEM" required minlenght="3" maxlength="30">
                     </td>
                     <td>
-                        <input class="form-control form-control-sm DEVICEHI" type="numeric" placeholder=0 aria-label="DEVICEHI">
+                        <input class="form-control form-control-sm DEVICEHI" type="number" placeholder=0 aria-label="DEVICEHI" required min="-10000" max="10000">
                     </td>
                     <td>
-                        <input class="form-control form-control-sm DEVICELO" type="numeric" placeholder=10 aria-label="DEVICELO">
+                        <input class="form-control form-control-sm DEVICELO" type="number" placeholder=10 aria-label="DEVICELO" required min="-10000" max="10000">
                     </td>
                     <td>
-                        <input class="form-control form-control-sm SIGNALHI" type="numeric" placeholder=1 aria-label="SIGNALHI">
+                        <input class="form-control form-control-sm SIGNALHI" type="number" placeholder=1 aria-label="SIGNALHI" required min="-10000" max="10000">
                     </td>
                     <td>
-                        <input class="form-control form-control-sm SIGNALLO" type="numeric" placeholder=0 aria-label="SIGNALLO">
+                        <input class="form-control form-control-sm SIGNALLO" type="number" placeholder=0 aria-label="SIGNALLO" required min="-10000" max="10000">
                     </td>
                     <td>
-                        <input class="form-control form-control-sm SLOPE" type="numeric" placeholder=0.012 aria-label="SLOPE">
+                        <input class="form-control form-control-sm SLOPE" type="number" placeholder=0.012 aria-label="SLOPE" required min="-10" max="10">
                     </td>
                     <td>
-                        <input class="form-control form-control-sm INTERCEPT" type="numeric" placeholder=0.0 aria-label="INTERCEPT">
+                        <input class="form-control form-control-sm INTERCEPT" type="number" placeholder=0.0 aria-label="INTERCEPT" required min="-100" max="100">
                     </td>
                     <td>
                         <div class="form-check form-switch">
@@ -407,6 +407,14 @@
                 </tr> -->
             </tbody>
         </table>
+        
+        <div class="row">
+            <div class="col-sm">
+                <button type="button" class="btn btn-secondary" id="fill_template_instances">Example Instances</button>
+                <label for="fill_template_instances">Fill table with example data</label>
+                <p>This is a lot of data to input. If you want to see what typical data looks like, use the 'Example Instances' button to see some templated data</p>
+            </div>
+        </div>
 
     </div>
 </div>
@@ -414,6 +422,7 @@
 <!-- Run prediction -->
 <div class="row" id="predict">
     <div class="col-sm">
+        <h4>Results & configuration</h4>
         <p>Prediction: <output id="prediction_result">&nbsp</output></p>
         <button type="button" class="btn btn-primary btn-large" id="run_prediction">Run prediction</button>
         Predictor type: 
@@ -431,11 +440,11 @@
     <div class="col-sm">
         <h4>Description of predictor types</h4>
         <p>CompNB: Complement Naive Bayes classifier; suited for text classification (or categorical data), and designed to perform better than standard Naive Bayes with imbalanced datasets</p>
-        MultiNB: Multinomial Naive Bayes classifier; suited for text classification (or categorical data)
-        SVMCL1SI: Support vector machine classifier; linear kernel; L1 regularization; inference of bag label from single-instance predictions
-        SVMCRBFSI: Support vector machine classifier; RBF kernel; L2 regularization; inference of bag label from single-instance predictions
-        SVMCL1MILES: Support vector machine classifier; linear kernel; l1 regularization; MILES embedding of bag instances
-        SVMCRBFMILES: Support vector machine classifier; RBF kernel; L2 regularization; MILES embedding of bag instances
+        <p>MultiNB: Multinomial Naive Bayes classifier; suited for text classification (or categorical data)</p>
+        <p>SVMCL1SI: Support vector machine classifier; linear kernel; L1 regularization; inference of bag label from single-instance predictions</p>
+        <p>SVMCRBFSI: Support vector machine classifier; RBF kernel; L2 regularization; inference of bag label from single-instance predictions</p>
+        <p>SVMCL1MILES: Support vector machine classifier; linear kernel; l1 regularization; MILES embedding of bag instances</p>
+        <p>SVMCRBFMILES: Support vector machine classifier; RBF kernel; L2 regularization; MILES embedding of bag instances</p>
         
         <h4>Descirption of input types, lengths, and validation requirements</h4>
         <!-- String features -->
