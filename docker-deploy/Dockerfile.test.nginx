@@ -15,7 +15,6 @@ RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 -subj "/C=US/ST=TX/L=Loc
 # (not used) Change user; 
 # (not used) add permissions for cache, configuration directory, logging to nginx user
 ENV HOME=/home/nginx
-ENV NGINX_HOME=/home/nginx/web
 # RUN chown -R nginx:nginx $HOME && chmod -R 755 $HOME && \
 #     chown -R nginx:nginx /var/cache/nginx && \
 #     chown -R nginx:nginx /var/log/nginx && \

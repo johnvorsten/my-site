@@ -1,7 +1,7 @@
 # nginx Configuration File
 # https://wiki.nginx.org/Configuration
 
-upstream upstream_server {
+upstream web_upstream {
     # Do not include http in hostname. The protocol used to join
     # These servers is specified in proxy_pass directive
     server ${WEBAPP_HOSTNAME}:${WEBAPP_INTERNAL_PORT};
@@ -13,8 +13,11 @@ upstream mil_serving {
 
 server {
     listen 80;
+    listen [::]:80;
     server_name ${REVERSE_PROXY_HOSTNAME} www.${REVERSE_PROXY_HOSTNAME};
-    return 404; 
+
+    access_log /var/log/nginx/http.access.log;
+    error_log /var/log/nginx/http.error.log;
 
     if ($host = www.${REVERSE_PROXY_HOSTNAME}) {
         return 301 https://${REVERSE_PROXY_HOSTNAME}$request_uri;
@@ -68,7 +71,7 @@ server {
     error_log /var/log/nginx/error.log;
 
     location / {
-        proxy_pass http://upstream_server;
+        proxy_pass http://web_upstream;
         proxy_set_header Connection "";
 
         # Detail connection between client and proxy

@@ -19,14 +19,14 @@ ENV PYTONBUFFERED 1
 COPY ./requirementsdjango3.txt /usr/src/app
 RUN apt-get update && mkdir /usr/src/app/wheels
 RUN apt install -y unixodbc-dev gcc g++ 
-RUN pip wheel --no-cache-dir --no-deps --wheel-dir /usr/src/app/wheels -r requirements.txt
+RUN pip wheel --no-cache-dir --no-deps --wheel-dir /usr/src/app/wheels -r requirementsdjango3.txt
 
 #########
 # Final #
 #########
 # Create directory for app user
 # Create a user named app, and add app to the app group
-FROM python:3.8-buster
+FROM python:3.8
 RUN mkdir -p /home/app
 RUN addgroup --system app_group && adduser --ingroup app_group app
 
@@ -41,7 +41,7 @@ WORKDIR $WEB_HOME
 RUN apt update
 # Pyodbc dependencies
 COPY --from=builder /usr/src/app/wheels /wheels
-COPY --from=builder /usr/src/app/requirements.txt .
+COPY --from=builder /usr/src/app/requirementsdjango3.txt .
 RUN pip install --upgrade pip
 RUN pip install --no-cache /wheels/*
 
@@ -55,4 +55,5 @@ RUN chown -R app:app_group $WEB_HOME
 USER app
 
 # Setup an entrypoint
-ENTRYPOINT gunicorn --bind 0.0.0.0:${WEBAPP_INTERNAL_PORT} --timeout 600 --chdir /home/app/web/my-site my_site.wsgi:application
+ENTRYPOINT ["gunicorn"]
+CMD ["--bind 0.0.0.0:${WEBAPP_INTERNAL_PORT}", "--timeout", "600", "--chdir", "/home/app/web/my-site", "my_site.wsgi:application"]

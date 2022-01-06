@@ -6,23 +6,13 @@ https://docs.docker.com/compose/production/
 * restart:always
 * Add a log aggregator for the service
 
-When I made changes to code, remember to rebuild the image and recreate containers...
-To rebuild: 
-```bash
-docker compose build web
-docker compose up --no-deps -d web
-```
-
 ## Common command line instructions:
-#### Build docker files from compose for local test containers
-docker compose -f ./docker-deploy/docker-compose.test.yml build
-#### Create containers
-docker compose -f ./docker-deploy/docker-compose.test.yml create
-#### Start containers for local testing
-docker compose -f ./docker-deploy/docker-compose.test.yml start
-#### Stop containers
-docker compose -f ./docker-deploy/docker-compose.test.yml stop
-
+Build docker files from compose for local test containers `docker compose -f ./docker-deploy/docker-compose.test.yml build`
+Create containers and start the container `docker compose -f ./docker-deploy/docker-compose.test.yml up`
+Start containers for local testing (if the container has already been created) `docker compose -f ./docker-deploy/docker-compose.test.yml start`
+Stop containers `docker compose -f ./docker-deploy/docker-compose.test.yml stop`
+To rebuild after code changes `docker compose build web` & `docker compose up --no-deps -d web`
+Note - `docker compose up` will build, recreate, and start containers
 
 ## Debugging
 #### Get a bash shell in running container

@@ -2,10 +2,10 @@
 set -e
 
 # Create the default Nginx configuration file with a self-signed certificate
-envsubst '${WEBAPP_HOSTNAME},${WEBAPP_INTERNAL_PORT},${REVERSE_PROXY_HOSTNAME},${HOME}' < /etc/nginx/conf.d/nginx.test.template > /etc/nginx/conf.d/localhost.conf
+envsubst '${WEBAPP_HOSTNAME},${WEBAPP_INTERNAL_PORT},${REVERSE_PROXY_HOSTNAME},${HOME},${MIL_HOSTNAME},${MIL_PORT}' < /etc/nginx/conf.d/nginx.test.template > /etc/nginx/conf.d/localhost.conf
 
 # Debugging
-if $DEBUG; then
+if [ $DEBUG ]; then
     cat /etc/nginx/conf.d/localhost.conf
 fi
 

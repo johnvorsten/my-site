@@ -5,7 +5,7 @@ set -e
 envsubst '${WEBAPP_HOSTNAME},${WEBAPP_INTERNAL_PORT},${REVERSE_PROXY_HOSTNAME},${HOME}' < /etc/nginx/conf.d/nginx.prod.template > /etc/nginx/conf.d/johnvorstne.me.conf
 
 # Debugging
-if $DEBUG; then
+if [ $DEBUG ]; then
     cat /etc/nginx/conf.d/johnvorsten.me.conf
 fi
 
