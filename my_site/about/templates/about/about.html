@@ -34,15 +34,15 @@
 
 <div class="col-6 text text-center pt-3 profile">
     <div class="profile-picture">
-        <img class="img-fluid" src="{{profile.profile_picture}}" alt="">
+        <img class="img-fluid" src="{{MEDIA_URL}}about/images/○ Headshot 2 unfilter sq.jpg" alt="">
     </div>
 
     <div class="description p-4">
         <h2 class="greeting">Hello I'm</h2>
-        <h1 class="mb-4">{{profile.first_name}} {{profile.last_name}}</h1>
+        <h1 class="mb-4">John Vorsten</h1>
         <ul>
-            <li><span class="field-id">Email :</span> {{profile.email}}</li>
-            <li><span class="field-id">Phone :</span> {{profile.format_phone}}</li>
+            <li><span class="field-id">Email :</span> johnvorsten@yahoo.com</li>
+            <li><span class="field-id">Phone :</span> 832-878-3212</li>
         </ul>
         <p class="mb-1">{{profile.biography}}</p>
         <p><a href="{% url 'projects:index' %}" style="text-decoration:none; color:inherit;">Read about my projects<img class="" src="{{MEDIA_URL}}about/images/arrow_right_alt-24px.svg"></i></a></p>

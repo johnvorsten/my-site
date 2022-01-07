@@ -80,6 +80,7 @@
                         </select></td>
                     <td>
                         <select class="DEVUNITS" NAME="DEVUNITS">
+                            <option value="Null"></option>
                             <option value="A">A</option>
                             <option value="BTU">BTU</option>
                             <option value="BTUh">BTUh<option value="">count</option>
@@ -116,7 +117,7 @@
                         </select>
                     </td>
                     <td>
-                        <input class="form-control form-control-sm CS" type="text" placeholder="TTE" aria-label="CS" required minlenght="1" maxlength="4" pattern="[A-Z]*|[a-z]*">
+                        <input class="form-control form-control-sm CS" type="text" placeholder="TTE" aria-label="CS" minlenght="1" maxlength="4" pattern="[A-Z]*|[a-z]*">
                     </td>
                     <td  >
                         <select class="SENSORTYPE" NAME="SENSORTYPE">
@@ -151,22 +152,22 @@
                         <input class="form-control form-control-sm SYSTEM" type="text" placeholder="AHU" aria-label="SYSTEM" required minlenght="3" maxlength="30">
                     </td>
                     <td>
-                        <input class="form-control form-control-sm DEVICEHI" type="number" placeholder=0 aria-label="DEVICEHI" required min="-10000" max="10000">
+                        <input class="form-control form-control-sm DEVICEHI" type="number" placeholder=0 aria-label="DEVICEHI" required min="-10000" max="10000" step="any">
                     </td>
                     <td>
-                        <input class="form-control form-control-sm DEVICELO" type="number" placeholder=10 aria-label="DEVICELO" required min="-10000" max="10000">
+                        <input class="form-control form-control-sm DEVICELO" type="number" placeholder=10 aria-label="DEVICELO" required min="-10000" max="10000" step="any">
                     </td>
                     <td>
-                        <input class="form-control form-control-sm SIGNALHI" type="number" placeholder=1 aria-label="SIGNALHI" required min="-10000" max="10000">
+                        <input class="form-control form-control-sm SIGNALHI" type="number" placeholder=1 aria-label="SIGNALHI" required min="-10000" max="10000" step="any">
                     </td>
                     <td>
-                        <input class="form-control form-control-sm SIGNALLO" type="number" placeholder=0 aria-label="SIGNALLO" required min="-10000" max="10000">
+                        <input class="form-control form-control-sm SIGNALLO" type="number" placeholder=0 aria-label="SIGNALLO" required min="-10000" max="10000" step="any">
                     </td>
                     <td>
-                        <input class="form-control form-control-sm SLOPE" type="number" placeholder=0.012 aria-label="SLOPE" required min="-10" max="10">
+                        <input class="form-control form-control-sm SLOPE" type="number" placeholder=0.012 aria-label="SLOPE" required min="-10.0" max="10.0" step="any">
                     </td>
                     <td>
-                        <input class="form-control form-control-sm INTERCEPT" type="number" placeholder=0.0 aria-label="INTERCEPT" required min="-100" max="100">
+                        <input class="form-control form-control-sm INTERCEPT" type="number" placeholder=0.0 aria-label="INTERCEPT" required min="-100" max="100" step="any">
                     </td>
                     <td>
                         <div class="form-check form-switch">

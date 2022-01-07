@@ -8,7 +8,7 @@ https://docs.docker.com/compose/production/
 
 ## Common command line instructions:
 Build docker files from compose for local test containers `docker compose -f ./docker-deploy/docker-compose.test.yml build`
-Create containers and start the container `docker compose -f ./docker-deploy/docker-compose.test.yml up`
+Create containers and start the container `docker compose -f ./docker-deploy/docker-compose.test.yml up`. -d for detached mode
 Start containers for local testing (if the container has already been created) `docker compose -f ./docker-deploy/docker-compose.test.yml start`
 Stop containers `docker compose -f ./docker-deploy/docker-compose.test.yml stop`
 To rebuild after code changes `docker compose build web` & `docker compose up --no-deps -d web`

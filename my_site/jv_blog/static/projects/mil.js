@@ -4,7 +4,8 @@
 const add_instance_elements = document.getElementsByClassName("add_instance");
 let remove_instance_elements = document.getElementsByClassName("remove_instance");
 const run_prediction_element = document.getElementById("run_prediction");
-const PREDICTOR_ORIGIN = 'http://localhost:8000/mil-prediction';
+const PREDICTOR_ORIGIN = 'http://localhost:8003/mil-prediction'; // TODO Change for prod
+const STATIC_SERVE_ORIGIN = 'http://localhost:8000/static-serve'; // TODO Change for prod
 const URL_MAP = new Map([
     ['CompNB',`${PREDICTOR_ORIGIN}/CompNBPredictor/`],
     ['MultiNB',`${PREDICTOR_ORIGIN}/MultiNBPredictor/`],
@@ -12,8 +13,9 @@ const URL_MAP = new Map([
     ['SVMCRBFSI',`${PREDICTOR_ORIGIN}/SVMCRBFSIPredictor/`],
     ['SVMCL1MILES',`${PREDICTOR_ORIGIN}/SVMCL1MILESPredictor/`],
     ['SVMCRBFMILES',`${PREDICTOR_ORIGIN}/SVMCRBFMILESPredictor/`],
+    ['TemplateJSON', `${STATIC_SERVE_ORIGIN}/projects/TemplateJSON.json`],
 ]);
-const fill_template_instances = document.getElementById("fill_template_instances")
+const fill_template_instances = document.getElementById("fill_template_instances");
 
 // Events
 for (const ele of add_instance_elements) {
@@ -23,15 +25,39 @@ for (const ele of remove_instance_elements) {
     ele.addEventListener('click', remove_instance);
 }
 run_prediction_element.addEventListener('click', run_prediction);
-fill_template_instances.addEventListener('click', fill_template);
+fill_template_instances.addEventListener('click', fill_table);
 window.onload = function() {
     // Add two instances from the template
-    add_instance();
-    add_instance();
+    add_instance(null);
+    add_instance(null);
+
+    // Load static JSON template data
+    // Asyncronously request static JSON file from server
+    // Load file into JSON object and assign to global variable
+    // When this function is called, the global data will be added to the table
+    fetch(URL_MAP.get('TemplateJSON'), {
+        method:'GET', 
+        mode: 'cors', 
+        cache:'default',
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        redirect: 'follow',
+    })
+    .then(response => {
+        return response.json()
+        .then(data => {
+            window.TEMPLATE_INSTANCES = data;
+        });
+    })
+    .catch(response => {
+        console.log("Template instances not available");
+    });
 }
 
 // functions
-function add_instance() {
+function add_instance(event, instance_data = null) {
     // Append an instance onto the instance_table element
     // Find table element
     const table = document.querySelector("tbody")
@@ -39,8 +65,32 @@ function add_instance() {
     // Retrieve templated table row / instance
     const row_template = document.getElementById("instance_template")
     var clone = row_template.content.cloneNode(true);
-    remove_instance_element = clone.querySelector(".remove_instance")
-    remove_instance_element.addEventListener('click', remove_instance)
+    // Event listners
+    remove_instance_element = clone.querySelector(".remove_instance");
+    remove_instance_element.addEventListener('click', remove_instance);
+    TYPE_instance_element = clone.querySelector(".TYPE");
+    TYPE_instance_element.addEventListener('input', disable_on_TYPE);
+
+    // Append data if passed
+    if (instance_data) {
+        clone.querySelector(".NAME").value = instance_data.NAME
+        clone.querySelector(".DESCRIPTOR").value = instance_data.DESCRIPTOR
+        clone.querySelector(".TYPE").value = instance_data.TYPE
+        clone.querySelector(".DEVUNITS").value = instance_data.DEVUNITS
+        clone.querySelector(".FUNCTION").value = instance_data.FUNCTION
+        clone.querySelector(".CS").value = instance_data.CS
+        clone.querySelector(".SENSORTYPE").value = instance_data.SENSORTYPE
+        clone.querySelector(".NETDEVID").value = instance_data.NETDEVID
+        clone.querySelector(".SYSTEM").value = instance_data.SYSTEM
+        clone.querySelector(".DEVICEHI").value = instance_data.DEVICEHI
+        clone.querySelector(".DEVICELO").value = instance_data.DEVICELO
+        clone.querySelector(".SIGNALHI").value = instance_data.SIGNALHI
+        clone.querySelector(".SIGNALLO").value = instance_data.SIGNALLO
+        clone.querySelector(".SLOPE").value = instance_data.SLOPE
+        clone.querySelector(".INTERCEPT").value = instance_data.INTERCEPT
+        clone.querySelector(".VIRTUAL").value = instance_data.VIRTUAL
+        clone.querySelector(".TYPE").dispatchEvent(new Event('input'));
+    }
 
     // Append cloned row
     table.append(clone)
@@ -50,6 +100,19 @@ function remove_instance(event) {
     let row = event.currentTarget.closest("tr");
     // Remove element
     row.remove();
+}
+function disable_on_TYPE(event) {
+    let row = event.currentTarget.closest("tr");
+    let type = event.currentTarget.closest(".TYPE").value;
+    if (type == "LDI" || type == "LDO" || type == "L2SL") {
+        row.querySelector(".SENSORTYPE").disabled = true;
+        row.querySelector(".DEVICEHI").disabled = true;
+        row.querySelector(".DEVICELO").disabled = true;
+        row.querySelector(".SIGNALHI").disabled = true;
+        row.querySelector(".SIGNALLO").disabled = true;
+        row.querySelector(".SLOPE").disabled = true;
+        row.querySelector(".INTERCEPT").disabled = true;
+    }
 }
 function run_prediction() {
     // Run prediction API call
@@ -62,7 +125,7 @@ function run_prediction() {
     fetch(URL_MAP.get(predictor_type), {
         method:'POST', 
         mode: 'cors', 
-        cache:'no-cache',
+        cache:'no-store',
         credentials: 'same-origin',
         headers: {
             'Content-Type': 'application/json',
@@ -70,16 +133,19 @@ function run_prediction() {
         redirect: 'follow',
         body: instances_json,
     })
-    .then(response => update_prediction_text(response.prediction))
-    .catch(response => update_prediction_text("Error: " + response.status));
+    .then(response => update_prediction_text(response))
+    .catch(response => update_prediction_text(response));
 
 }
-function update_prediction_text(prediction) {
+function update_prediction_text(response) {
     // Change text in prediction_result
     const run_prediction_element = document.getElementById("prediction_result");
-    run_prediction_element.textContent = prediction;
-    // TODO remove
-    console.log("Updated prediction");
+    if (response.status == 200) {
+        run_prediction_element.textContent = response.prediction;
+    }
+    else {
+        run_prediction_element.textContent = "Error: " + response.status;
+    }
 }
 function gather_instances() {
     // aggregate all instances with class 'tr' (table row) into a JSON string for use in API header
@@ -136,9 +202,15 @@ function parse_instance(element) {
 
     return template;
 }
-function fill_template(event) {
-    // Template data to add
+function fill_table(event) {
     // Remove all existing rows from table
+    let rows = document.querySelectorAll("tbody > tr");
+    for (let i=0; i<rows.length; i++) {
+        rows[i].remove();
+    }
+
     // For each instances in the instances list, create a clone and append it to the table
-    // Possibly modify existing 'add_instance' function
+    for (let i=0; i<window.TEMPLATE_INSTANCES.length; i++) {
+        add_instance(null, window.TEMPLATE_INSTANCES[i]);
+    }
 }

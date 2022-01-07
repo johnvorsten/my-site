@@ -55,5 +55,4 @@ RUN chown -R app:app_group $WEB_HOME
 USER app
 
 # Setup an entrypoint
-ENTRYPOINT ["gunicorn"]
-CMD ["--bind 0.0.0.0:${WEBAPP_INTERNAL_PORT}", "--timeout", "600", "--chdir", "/home/app/web/my-site", "my_site.wsgi:application"]
+ENTRYPOINT gunicorn --bind 0.0.0.0:${WEBAPP_INTERNAL_PORT} --timeout 600 --chdir /home/app/web/my-site my_site.wsgi:application
