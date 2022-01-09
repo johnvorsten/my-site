@@ -34,7 +34,7 @@
 
 <div class="col-6 text text-center pt-3 profile">
     <div class="profile-picture">
-        <img class="img-fluid" src="{{MEDIA_URL}}about/images/○ Headshot 2 unfilter sq.jpg" alt="">
+        <img class="img-fluid" src="{{MEDIA_URL}}about/images/headshot2-sq.jpg" alt="">
     </div>
 
     <div class="description p-4">
@@ -42,10 +42,9 @@
         <h1 class="mb-4">John Vorsten</h1>
         <ul>
             <li><span class="field-id">Email :</span> johnvorsten@yahoo.com</li>
-            <li><span class="field-id">Phone :</span> 832-878-3212</li>
         </ul>
-        <p class="mb-1">{{profile.biography}}</p>
-        <p><a href="{% url 'projects:index' %}" style="text-decoration:none; color:inherit;">Read about my projects<img class="" src="{{MEDIA_URL}}about/images/arrow_right_alt-24px.svg"></i></a></p>
+        <p class="mb-1">This is John Vorsten's repository of projects and notes. Everything he works on is stored here to show off and help others who are solving a similar problem. John works as a systems engineer that focuses on making distributed systems work together. He is passionate about how technology touches people, and how to make tools that work for us. John likes working in groups, charting, breaking down problems, and then finding creative ways to solve those problems.</p>
+        <p><a href="{% url 'jv_blog:index' %}" style="text-decoration:none; color:inherit;">Read about my projects<img class="" src="{{MEDIA_URL}}about/images/arrow_right_alt-24px.svg"></i></a></p>
     </div>
 </div>
 
@@ -79,27 +78,37 @@
     <div class="mb-5 col-lg-6 col-md-8">
         <h3>Skills & Technolgoies</h3>
         <div class="row">
-            {% for skill in skill_set %}
-            <h4 class="col-md-4">{{skill.skill_name}}
-            <p>{{skill.skill_description}}</p></h4>
-            {% endfor %}
+            <div class="col-sm">
+                <h4>Languages</h4>
+                <p>Python</p>
+            </div>
+            <div class="col-sm">
+                <h4>Web tools</h4>
+                <p>Django, HTML, CSS</p>
+            </div>
+            <div class="col-sm">
+                <h4>Operations</h4>
+                <p>Docker, Nginx, Azure, Linux / bash</p>
+            </div>
+            <div class="col-sm">
+                <h4>Databases</h4>
+                <p>SQL (generic / SQL Server),  Mongo</p>
+            </div>
         </div>
     </div>
     <div class="mb-5 col-lg-6 col-md-8">
-        <h3>Projects!</h3>
+        <h3>Projects</h3>
         <div class="row">
-        {% for project in project_set %}
-            <h4 class="col-md-4">{{project.project_name}}
-            <p>{{project.project_description}}</p></h4>
-        {% endfor %}
+            <div class="col-sm">
+                <h4>Points Categorizer</h4>
+                <p>Categorization, grouping, machine learning</p>
+            </div>
+            <div class="col-sm">
+                <h4>Web application</h4>
+                <p>Django, Python</p>
+            </div>
         </div>
     </div>
-</div>
-</div>
-
-<div class="container">
-<div class="mb-5">
-    <h3>Social Media</h3>
 </div>
 </div>
 
