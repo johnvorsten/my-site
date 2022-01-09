@@ -1,14 +1,10 @@
-"""
-Django settings for my_site project.
+# Django imports
 
-For more information on this file, see
-https://docs.djangoproject.com/en/2.2/topics/settings/
-
-For the full list of settings and their values, see
-https://docs.djangoproject.com/en/2.2/ref/settings/
-"""
-
+# Python imports
 import os
+
+# Local imports
+from .loggers import LOGGING_TESTING, LOGGING_DOCKER
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -162,54 +158,7 @@ else:
 
 
 # Logging
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'formatters': {
-        'verbose': {
-            'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
-            'style': '{',
-        },
-        'simple': {
-            'format': '{levelname} {module} {message}',
-            'style': '{',
-        },
-    },
-
-    'handlers': {
-        # Write problems to a file
-        'file': {
-            'level': 'WARNING',
-            'class': 'logging.FileHandler',
-            'filename': os.path.join(BASE_DIR,'my_site','my_site.log'),
-            'formatter': 'verbose',
-        },
-        # Write messages to the console
-        'console': {
-            'level': 'DEBUG', # Change this to be less verbose, or don't use it
-            'filters':['require_debug_true'],
-            'class': 'logging.StreamHandler',
-            'formatter': 'simple',
-        },
-    },
-
-    'loggers': {
-        'django': {
-            'handlers': ['file'],
-            # 'handlers': ['file', 'console'], # For testing/debug
-            'level': 'DEBUG',
-            'propagate': True,
-        },
-        # 'django.db.backends': { # Use this for testing database access
-        #     'handlers':['console'],
-        #     'level':'DEBUG',
-        #     'propagate':True,
-        # },
-    },
-
-    'filters': {
-        'require_debug_true': {
-            '()':'django.utils.log.RequireDebugTrue',
-        }
-    },
-}
+if os.environ.get('DEBUG') == 'TRUE':
+    LOGGING = LOGGING_TESTING
+else:
+    LOGGING = LOGGING_DOCKER
