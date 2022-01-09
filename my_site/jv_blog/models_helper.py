@@ -154,7 +154,7 @@ def parse_raw_content(raw_entry):
         # parse .docx to html
         html_content = _parse_docx(raw_entry)
 
-    elif extension is ".tex": # TODO 
+    elif (extension == ".tex"): # TODO 
         # Parse latex to html
         html_content = _parse_latex(raw_entry)
 
@@ -212,7 +212,7 @@ def _parse_latex(raw_entry):
     markdown->html package"""
 
     # Call CLI executable on raw_entry.name location
-    generated_html += '<p> TODO </p>' # TODO parse latex to html
+    generated_html = '<p> TODO </p>' # TODO parse latex to html
     raise(NotImplementedError("Latex parseing to HTML is not implemented yet"))
 
     # make BeautifulSoup

@@ -165,7 +165,7 @@ class Entry(models.Model):
             # parse .docx to html
             html_content = self._parse_docx(raw_entry)
 
-        elif extension is ".tex": # TODO 
+        elif (extension == ".tex"): # TODO 
             # Parse latex to html
             html_content = self._parse_latex(raw_entry)
 

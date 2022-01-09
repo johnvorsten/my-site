@@ -54,7 +54,7 @@ class Keywords(models.Model):
     entry_model = models.ForeignKey('Entry', on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.keyword_text
+        return str(self.keyword_text)
 
 class Blog(models.Model):
     """There can be multiple blogs, and each Entry is associated with a 
@@ -63,7 +63,7 @@ class Blog(models.Model):
     description = models.CharField(max_length=50)
 
     def __str__(self):
-        return self.description
+        return str(self.description)
 
 class Entry(models.Model):
     entry_title = models.CharField(max_length=100)
@@ -81,7 +81,7 @@ class Entry(models.Model):
     blog = models.ForeignKey('Blog', blank=True, null=True, on_delete=models.SET_DEFAULT, default=1)
 
     def __str__(self):
-        return self.entry_title
+        return str(self.entry_title)
 
     def article_summary(self, n_characters=200):
         """Parse html to deliver plain text of the beginning of the blog

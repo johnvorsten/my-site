@@ -8,4 +8,7 @@
     // create a terminal profile in `#terminal.integrated.profiles.windows#` and set its profile name in 
     // `#terminal.integrated.defaultProfile.windows#`
     "terminal.integrated.defaultProfile.windows":"CMD Conda django",
+
+    // Force line endings
+    "files.eol": "\n",
 }
