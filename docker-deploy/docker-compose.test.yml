@@ -7,6 +7,7 @@ services:
         build: 
             context: ../
             dockerfile: ./docker-deploy/Dockerfile.test.web
+        image: web:test
         volumes:
             # Static files served here during development
             - ../my_site/static-serve/:/home/app/web/static-serve
@@ -22,6 +23,7 @@ services:
         build: 
             context: ../
             dockerfile: ./docker-deploy/Dockerfile.test.nginx
+        image: nginx:test
         ports:
             # Requests for HTML content through application server port defined in .env
             # Proxy pass from external 

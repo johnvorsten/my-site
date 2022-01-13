@@ -21,12 +21,13 @@ ENV NGINX_HOME=/home/nginx/web
 COPY ./docker-deploy/letsencrypt_archive.tar.gz $NGINX_HOME/
 RUN tar -xvf $NGINX_HOME/letsencrypt_archive.tar.gz --directory /
 RUN apt update && apt upgrade -y
-RUN apt install python3.7-minimal libaugeas0 -y python3-pip
+RUN apt install python3 python3-pip python3-venv libaugeas0 -y
 RUN pip3 install --upgrade pip
 RUN pip3 install certbot certbot-nginx
 RUN ln -s certbot /usr/bin/certbot
 RUN echo "0 0,12 * * * python3 -c 'import random; import time; time.sleep(random.random() * 3600)' && certbot renew -q" | tee -a /etc/crontab > /dev/null
-RUN certbot renew --dry-run && ls -la /etc/
+# RUN certbot renew --dry-run # This will fail unless ports 80 and 443 are available and exposed...
+RUN ls -la /etc/
 
 # Remove default nginx configuration (Not the main configuration file)
 RUN rm /etc/nginx/conf.d/default.conf
