@@ -13,18 +13,17 @@ upstream mil_serving {
 
 server {
     listen 80;
-    listen [::]:80;
     server_name ${REVERSE_PROXY_HOSTNAME} www.${REVERSE_PROXY_HOSTNAME};
 
     access_log /var/log/nginx/http.access.log;
     error_log /var/log/nginx/http.error.log;
 
     if ($host = www.${REVERSE_PROXY_HOSTNAME}) {
-        return 301 https://${REVERSE_PROXY_HOSTNAME}$request_uri;
+        return 301 https://${REVERSE_PROXY_HOSTNAME}:${PROXY_EXTERNAL_PORT_HTTPS}$request_uri;
     } 
 
     if ($host = ${REVERSE_PROXY_HOSTNAME}) {
-        return 301 https://${REVERSE_PROXY_HOSTNAME}$request_uri;
+        return 301 https://${REVERSE_PROXY_HOSTNAME}:${PROXY_EXTERNAL_PORT_HTTPS}$request_uri;
     } 
 }
 

@@ -1,7 +1,7 @@
 # nginx Configuration File
 # https://wiki.nginx.org/Configuration
 
-upstream upstream_server {
+upstream web_upstream {
     # Do not include http in hostname. The protocol used to join
     # These servers is specified in proxy_pass directive
     server ${WEBAPP_HOSTNAME}:${WEBAPP_INTERNAL_PORT};

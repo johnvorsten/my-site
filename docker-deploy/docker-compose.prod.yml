@@ -29,4 +29,4 @@ services:
         env_file:
             - ../my_site/production.secret
         volumes:
-            - ./docker-deploy/letsencrypt
+            - ./docker-deploy/letsencrypt:/etc/letsencrypt

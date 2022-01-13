@@ -1,6 +1,6 @@
 ## Docker-compose for production
 https://docs.docker.com/compose/production/
-* Remove volumes before production
+* Remove unnecessary volumes before production
 * Bind to the correct ports on the host
 * Set environment variables correct for the environment (database, secret keys, authentication tokens)
 * restart:always
@@ -13,6 +13,12 @@ Start containers for local testing (if the container has already been created) `
 Stop containers `docker compose -f ./docker-deploy/docker-compose.test.yml stop`
 To rebuild after code changes `docker compose build web` & `docker compose up --no-deps -d web`
 Note - `docker compose up` will build, recreate, and start containers
+Use `d` to run in detached mode
+
+## Manual files
+/docker-deploy/docker-compose.test.env
+/docker-deploy/letsencrypt_archive.tar.gz
+/my_site/production.secret
 
 ## Debugging
 #### Get a bash shell in running container

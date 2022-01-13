@@ -4,8 +4,8 @@
 const add_instance_elements = document.getElementsByClassName("add_instance");
 let remove_instance_elements = document.getElementsByClassName("remove_instance");
 const run_prediction_element = document.getElementById("run_prediction");
-const PREDICTOR_ORIGIN = 'http://localhost:8003/mil-prediction'; // TODO Change for prod
-const STATIC_SERVE_ORIGIN = 'http://localhost:8000/static-serve'; // TODO Change for prod
+const PREDICTOR_ORIGIN = 'http://localhost:8003/mil-prediction'; // TODO Change for prod, should be http://johnvorsten.me/mil-prediction
+const STATIC_SERVE_ORIGIN = 'http://localhost:8000/static-serve'; // TODO Change for prod, should be http://johnvorste.me/static-serve
 const URL_MAP = new Map([
     ['CompNB',`${PREDICTOR_ORIGIN}/CompNBPredictor/`],
     ['MultiNB',`${PREDICTOR_ORIGIN}/MultiNBPredictor/`],
