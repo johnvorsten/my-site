@@ -62,7 +62,7 @@ server {
     # SSL keys & certificates for letsencrypt
     # Leave this commented out, because it will be added/managed by certbot
     ssl_certificate /etc/letsencrypt/live/johnvorsten.me/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/johnvorsten.me/privkey.key;
+    ssl_certificate_key /etc/letsencrypt/live/johnvorsten.me/privkey.pem;
 
     access_log /var/log/nginx/access.log;
     error_log /var/log/nginx/error.log;

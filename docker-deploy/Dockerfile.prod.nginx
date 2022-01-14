@@ -18,8 +18,8 @@ ENV NGINX_HOME=/home/nginx/web
 # USER nginx
 
 # SSL Certificates, Unzip letsencrypt backup into folder
-COPY ./docker-deploy/letsencrypt_archive.tar.gz $NGINX_HOME/
-RUN tar -xvf $NGINX_HOME/letsencrypt_archive.tar.gz --directory /
+# COPY ./docker-deploy/letsencrypt_archive.tar.gz $NGINX_HOME/
+# RUN tar -xvf $NGINX_HOME/letsencrypt_archive.tar.gz --directory /
 RUN apt update && apt upgrade -y
 RUN apt install python3 python3-pip python3-venv libaugeas0 -y
 RUN pip3 install --upgrade pip
