@@ -27,7 +27,7 @@ services:
         ports:
             # Route requests on ports 80 and 443 from my network router to this host machine
             - "80:80" # Host:container, for HTTP
-            - "443:443" # Host:container, for HTTPS
+            - "444:443" # Host:container, for HTTPS
         env_file:
             - ../my_site/production.secret
         volumes:
