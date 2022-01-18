@@ -5,7 +5,7 @@ set -e
 envsubst '${WEBAPP_HOSTNAME},${WEBAPP_INTERNAL_PORT},${REVERSE_PROXY_HOSTNAME},${HOME},${MIL_HOSTNAME},${MIL_PORT}' < /etc/nginx/conf.d/nginx.test.template > /etc/nginx/conf.d/localhost.conf
 
 # Debugging
-if [ $DEBUG ]; then
+if [ $DEBUG = "TRUE" ]; then
     cat /etc/nginx/conf.d/localhost.conf
 fi
 

@@ -9,7 +9,7 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
-DEBUG = os.environ.get('DEBUG', True) == 'TRUE'
+DEBUG = os.environ.get('DEBUG') == 'TRUE'
 
 if not DEBUG:
     SECRET_KEY = os.environ.get('SECRET_KEY')
