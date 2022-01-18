@@ -33,3 +33,6 @@ docker logs <container name or ID> | docker logs docker-deploy-nginx-1
 ## Change during production
 proxy hostname environment variable
 
+## Symbolic links
+Create relative symbolic links for letsencrypt volumnes (this works with windows10 and docker 4.2.0). Absolute symbolic links do not work
+

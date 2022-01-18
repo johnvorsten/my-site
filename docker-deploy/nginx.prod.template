@@ -14,7 +14,6 @@ upstream mil_serving {
 server {
     listen 80;
     server_name ${REVERSE_PROXY_HOSTNAME} www.${REVERSE_PROXY_HOSTNAME};
-    return 404; 
 
     if ($host = www.${REVERSE_PROXY_HOSTNAME}) {
         return 301 https://${REVERSE_PROXY_HOSTNAME}$request_uri;
