@@ -16,7 +16,7 @@ const URL_MAP = new Map([
     ['TemplateJSON', `${STATIC_SERVE_ORIGIN}/projects/TemplateJSON.json`],
 ]);
 const fill_template_instances = document.getElementById("fill_template_instances");
-button_map = new Map([['on',true],['off',false]]);
+input_map = new Map([['on',true],['off',false],["",0],[]]);
 
 // Events
 for (const ele of add_instance_elements) {
@@ -165,40 +165,58 @@ function parse_instance(element) {
     let template = {
         // Strings
         "NAME":null,
-        "DESCRIPTOR":null,
-        "TYPE":null,
-        "DEVUNITS":null,
-        "FUNCTION":null,
-        "CS":null,
-        "SENSORTYPE":null,
-        "NETDEVID":null,
-        "SYSTEM":null,
+        "DESCRIPTOR":"",
+        "TYPE":"LDI",
+        "DEVUNITS":"",
+        "FUNCTION":"Value",
+        "CS":"",
+        "SENSORTYPE":"VOLTAGE",
+        "ALARMTYPE":"Standard",
+        "NETDEVID":"",
+        "SYSTEM":"",
         // Float / number
-        "DEVICEHI":null,
-        "DEVICELO":null,
-        "SIGNALHI":null,
-        "SIGNALLO":null,
-        "SLOPE":null,
-        "INTERCEPT":null,
+        "DEVICEHI":0,
+        "DEVICELO":0,
+        "SIGNALHI":0,
+        "SIGNALLO":0,
+        "SLOPE":0,
+        "INTERCEPT":0,
         // Boolean
         "VIRTUAL":false,
     }
     
+    template.ALARMTYPE = element.querySelector(".ALARMTYPE").value;
     template.NAME = element.querySelector(".NAME").value;
     template.DESCRIPTOR = element.querySelector(".DESCRIPTOR").value;
     template.TYPE = element.querySelector(".TYPE").value;
     template.DEVUNITS = element.querySelector(".DEVUNITS").value;
-    template.FUNCTION = element.querySelector(".FUNCTION").value;
+    if (element.querySelector(".FUNCTION").value != "") {
+        template.FUNCTION = element.querySelector(".FUNCTION").value;
+    }
     template.CS = element.querySelector(".CS").value;
-    template.SENSORTYPE = element.querySelector(".SENSORTYPE").value;
+    if (element.querySelector(".SENSORTYPE").value != "") {
+        template.SENSORTYPE = element.querySelector(".SENSORTYPE").value;
+    }
     template.NETDEVID = element.querySelector(".NETDEVID").value;
     template.SYSTEM = element.querySelector(".SYSTEM").value;
-    template.DEVICEHI = element.querySelector(".DEVICEHI").value;
-    template.DEVICELO = element.querySelector(".DEVICELO").value;
-    template.SIGNALHI = element.querySelector(".SIGNALHI").value;
-    template.SIGNALLO = element.querySelector(".SIGNALLO").value;
-    template.SLOPE = element.querySelector(".SLOPE").value;
-    template.INTERCEPT = element.querySelector(".INTERCEPT").value;
+    if (element.querySelector(".DEVICEHI").value != "") {
+        template.DEVICEHI = element.querySelector(".DEVICEHI").value;
+    }
+    if (element.querySelector(".DEVICELO").value != "") {
+        template.DEVICELO = element.querySelector(".DEVICELO").value;
+    }
+    if (element.querySelector(".SIGNALHI").value != "") {
+        template.SIGNALHI = element.querySelector(".SIGNALHI").value;
+    }
+    if (element.querySelector(".SIGNALLO").value != "") {
+        template.SIGNALLO = element.querySelector(".SIGNALLO").value;
+    }
+    if (element.querySelector(".SLOPE").value != "") {
+        template.SLOPE = element.querySelector(".SLOPE").value;
+    }
+    if (element.querySelector(".INTERCEPT").value != "") {
+        template.INTERCEPT = element.querySelector(".INTERCEPT").value;
+    }
     template.VIRTUAL = element.querySelector(".VIRTUAL").checked;
 
     return template;
