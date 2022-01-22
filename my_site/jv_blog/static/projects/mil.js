@@ -124,8 +124,8 @@ function run_prediction() {
     // Call API
     const predictor_type = document.querySelector(".predictor_type").value;
     fetch(URL_MAP.get(predictor_type), {
-        method:'POST', 
-        mode: 'cors', 
+        method:'POST',
+        mode: 'cors',
         cache:'no-store',
         credentials: 'same-origin',
         headers: {
@@ -134,19 +134,23 @@ function run_prediction() {
         redirect: 'follow',
         body: instances_json,
     })
-    .then(response => update_prediction_text(response))
-    .catch(response => update_prediction_text(response));
-
+    // .then(response => update_prediction_text(response))
+    .then(response => {
+        if (response.status !== 200) {
+            throw new Error("Error:");
+        }
+        return response.json();
+    })
+    .then(json_body => update_prediction_text(json_body))
+    .catch(error => {
+        console.error("There has been an error", error);
+        update_prediction_text({"prediction":"Error: " + error});
+    });
 }
-function update_prediction_text(response) {
+function update_prediction_text(json_body) {
     // Change text in prediction_result
     const run_prediction_element = document.getElementById("prediction_result");
-    if (response.status == 200) {
-        run_prediction_element.textContent = response.prediction;
-    }
-    else {
-        run_prediction_element.textContent = "Error: " + response.status;
-    }
+    run_prediction_element.textContent = json_body.prediction;
 }
 function gather_instances() {
     // aggregate all instances with class 'tr' (table row) into a JSON string for use in API header
