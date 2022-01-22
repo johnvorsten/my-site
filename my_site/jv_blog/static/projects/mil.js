@@ -16,6 +16,7 @@ const URL_MAP = new Map([
     ['TemplateJSON', `${STATIC_SERVE_ORIGIN}/projects/TemplateJSON.json`],
 ]);
 const fill_template_instances = document.getElementById("fill_template_instances");
+button_map = new Map([['on',true],['off',false]]);
 
 // Events
 for (const ele of add_instance_elements) {
@@ -182,7 +183,7 @@ function parse_instance(element) {
         // Boolean
         "VIRTUAL":false,
     }
-    button_map = new Map([['on',true],['off',false]]);
+    
     template.NAME = element.querySelector(".NAME").value;
     template.DESCRIPTOR = element.querySelector(".DESCRIPTOR").value;
     template.TYPE = element.querySelector(".TYPE").value;
@@ -198,7 +199,7 @@ function parse_instance(element) {
     template.SIGNALLO = element.querySelector(".SIGNALLO").value;
     template.SLOPE = element.querySelector(".SLOPE").value;
     template.INTERCEPT = element.querySelector(".INTERCEPT").value;
-    template.VIRTUAL = button_map.get(element.querySelector(".VIRTUAL").checked);
+    template.VIRTUAL = element.querySelector(".VIRTUAL").checked;
 
     return template;
 }
