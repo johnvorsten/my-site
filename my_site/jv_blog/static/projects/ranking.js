@@ -92,7 +92,13 @@ function run_prediction() {
 function update_prediction_text(json_body) {
     // Change text in prediction_result
     const run_prediction_element = document.getElementById("prediction_result");
-    run_prediction_element.textContent = JSON.stringify(json_body);
+    // #TODO how to format strings in javascript?
+    let result_string = (`<h4>Best clustering hyperparameters:</h4>
+        <p>${JSON.stringify(json_body.top_n)}</p>
+        <h4>Worst clustering hyperparameters:</h4>
+        <p>${JSON.stringify(json_body.worst_n)}</p>`);
+    // Assign DOM text
+    run_prediction_element.innerHTML = result_string;
 }
 function gather_instances() {
     // aggregate all instances with class 'tr' (table row) into a JSON string for use in API POST
