@@ -11,6 +11,10 @@ upstream mil_serving {
     server ${MIL_HOSTNAME}:${MIL_PORT};
 }
 
+upstream ranking_serving {
+    server ${RANKING_HOSTNAME}:${RANKING_PORT};
+}
+
 server {
     listen 80;
     server_name ${REVERSE_PROXY_HOSTNAME} www.${REVERSE_PROXY_HOSTNAME};
@@ -114,6 +118,26 @@ server {
         proxy_redirect off;
 
         error_log  /var/log/nginx/mil_serving_pass.log;
+    }
+
+    location /clustering-ranking/ {
+        proxy_pass http://ranking_serving;
+        proxy_set_header Connection "";
+
+        # Detail connection between client and proxy
+        proxy_set_header X-Forwarded-Proto $scheme;
+
+        # See ip address of client (not proxy)
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+        # Change the host request header to the original request
+        proxy_set_header Host $host;
+
+        # Identify original host requested by the client in the Host HTTP request header
+        proxy_set_header X-Forwarded-Host $server_name;
+        proxy_redirect off;
+
+        error_log  /var/log/nginx/ranking_serving_pass.log;
     }
     
 } # End server

@@ -2,14 +2,14 @@
 
 // Variable declaration
 const run_prediction_element = document.getElementById("run_prediction");
-const PREDICTOR_ORIGIN = 'https://johnvorsten.me/ranking_serving/'; // TODO Change for prod, should be https://johnvorsten.me/mil-prediction
+const PREDICTOR_ORIGIN = 'https://johnvorsten.me/clustering-ranking/model4predict/';
 const fill_template_instances = document.getElementById("fill_template_instances");
 
 // Events
 run_prediction_element.addEventListener('click', run_prediction);
 fill_template_instances.addEventListener('click', fill_table);
 window.onload = function() {
-    // Add two instances from the template
+    // Add single instances to table
     add_instance(null);
 }
 

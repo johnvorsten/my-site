@@ -15,10 +15,11 @@ To rebuild after code changes `docker compose build web` & `docker compose up --
 Note - `docker compose up` will build, recreate, and start containers
 Use `d` to run in detached mode
 
-## Manual files
+## Manual files (Remplace these before rebuilding for production)
 /docker-deploy/docker-compose.test.env
 /docker-deploy/letsencrypt_archive.tar.gz
 /my_site/production.secret
+/my_site/static-serve/
 
 ## Debugging
 #### Get a bash shell in running container
