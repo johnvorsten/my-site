@@ -16,6 +16,10 @@ from .models import Entry
 def mil(request):
     return render(request, 'projects/mil.html')
 
+@require_GET
+def ranking(request):
+    return render(request, 'projects/ranking.html')
+
 # Class based views
 class BlogIndexView(ListView):
     model = Entry

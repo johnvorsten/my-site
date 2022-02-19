@@ -1,0 +1,124 @@
+{% extends 'projects/app_layout.html' %}
+{% load static %}
+
+{% block title-name %} <title> Clustering ranking </title> {% endblock title-name %}
+
+{% block app-css %}
+<link rel="stylesheet" type="text/css" href="{% static 'projects/ranking.css' %}">
+{% endblock app-css %}
+
+{% block app-js %}
+<script src="{% static 'projects/ranking.js' %}" defer></script>
+{% endblock app-js %}
+
+{% block content %}
+<!-- Description of page -->
+<div class="row" id="page_description">
+    <div class="col-md">
+        <h3>Optimal clustering using Learning to Rank (LTR)</h3>
+        <p>Clustering</p>
+        <p>Clustering - #TODO description</p>
+        <p>Learning to Rank - #TODO description</p>
+        <p>Motivation</p>
+    </div>
+</div>
+
+<!-- Data input fields for instance entry -->
+<div class="row" id="ranking_features">
+
+    <!-- Instance entry -->
+    <div class="col-xl">
+        <h3>Fill in your data</h3>
+        <table class="table-striped table-hover table-bordered table-sm" id="features_table">
+            <thead>
+                <tr>
+                    <!-- Float features -->
+                    <th scope="col" id="NAME">Number of instances</th>
+                    <th scope="col">Number of features</th>
+                    <th scope="col">Categorical feature length variance</th>
+                    <th scope="col">Ratio (instances : features)</th> <!--Auto calculate-->
+                    <th scope="col">Number of 1-length text tokens</th>
+                    <th scope="col">Number of 2-length text tokens</th>
+                    <th scope="col">Number of 3-length text tokens</th>
+                    <th scope="col">Number of 4-length text tokens</th>
+                    <th scope="col">Number of 5-length text tokens</th>
+                    <th scope="col">Number of 6-length text tokens</th>
+                    <th scope="col">Number of 7-length text tokens</th>
+                </tr>
+            </thead>
+            <tbody id="instance_table_body">
+                <template id="instance_template">
+                    <tr>
+                    <td>
+                        <input class="form-control form-control-sm n_instance" type="number" placeholder=15 aria-label="n_instance" required min="-10000" max="10000" step="any">
+                    </td>
+                    <td>
+                        <input class="form-control form-control-sm n_features" type="number" placeholder=200 aria-label="n_features" required min="0" max="100000" step="any">
+                    </td>
+                    <td>
+                        <input class="form-control form-control-sm len_var" type="number" placeholder=1.25 aria-label="len_var" required min="0" max="10000" step="any">
+                    </td>
+                    <td>
+                        <input class="form-control form-control-sm uniq_ratio" type="number" placeholder=0.12 aria-label="uniq_ratio" required min="0" max="1000" step="any">
+                    </td>
+                    <td>
+                        <input class="form-control form-control-sm n_len1" type="number" placeholder=0.05 aria-label="n_len1" required min="0" max="10000" step="any">
+                    </td>
+                    <td>
+                        <input class="form-control form-control-sm n_len2" type="number" placeholder=0.1 aria-label="n_len2" required min="0" max="10000" step="any">
+                    </td>
+                    <td>
+                        <input class="form-control form-control-sm n_len3" type="number" placeholder=0.65 aria-label="n_len3" required min="0" max="10000" step="any">
+                    </td>
+                    <td>
+                        <input class="form-control form-control-sm n_len4" type="number" placeholder=0.15 aria-label="n_len4" required min="0" max="10000" step="any">
+                    </td>
+                    <td>
+                        <input class="form-control form-control-sm n_len5" type="number" placeholder=0.05 aria-label="n_len5" required min="0" max="10000" step="any">
+                    </td>
+                    <td>
+                        <input class="form-control form-control-sm n_len6" type="number" placeholder=0.0 aria-label="n_len6" required min="0" max="10000" step="any">
+                    </td>
+                    <td>
+                        <input class="form-control form-control-sm n_len7" type="number" placeholder=0.0 aria-label="n_len7" required min="0" max="10000" step="any">
+                    </td>
+                    </tr>
+                </template>
+            </tbody>
+        </table>
+        
+        <div class="row">
+            <div class="col-sm">
+                <button type="button" class="btn btn-secondary" id="fill_template_instances">Example features</button>
+                <label for="fill_template_instances">Fill table with example data</label>
+                <p>If you want to see what typical data looks like, use the 'Example features' button to see some templated data</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Run prediction -->
+<div class="row" id="predict">
+    <div class="col-sm">
+        <h4>Results</h4>
+        <p>Prediction: <output id="prediction_result">&nbsp</output></p>
+        <button type="button" class="btn btn-primary btn-large" id="run_prediction">Run prediction</button>
+    </div>
+</div>
+
+<div class="row" id="InputsDescription">
+    <div class="col-sm">
+        <h4>Descirption of input types and validation requirements</h4>
+        <!-- String features -->
+        <p>Number of instances: (float) Number of instances which are to be clustered</p>
+        <p>Number of features: (float) Number of non-zero features for each instance representing a cluster. This feature is intended to represent spread of categorically encoded text features. </p>
+        <p>Categorical feature length variance: (float) Variance of tokenized text feature length. This metric is intended to be a proxy for within-cluster similarity</p>
+        <p>Ratio: (float) Ratio of number of instances : number of features</p>
+        <p>Number of 1-length categorical features: (int) [0-1] The data used in this project included a single tokenized text feature, and the text feature was between (1) to (7) tokens in length. This feature represents the number of instances with a tokenized length of (1) normalized by the number of instances</p>
+        <p>Number of 2-length categorical features: (int) See above...</p>
+
+    </div>
+</div>
+
+{% endblock content %}

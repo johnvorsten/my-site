@@ -1,0 +1,43 @@
+body {
+    padding-top: 60px;
+    padding-left: 15px;
+    padding-right: 10px;
+}
+
+input:invalid {
+    border: 2px dashed red;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+table {
+    margin-bottom:1rem;
+}
+
+#page_description {
+    margin-bottom:1rem;
+}
+
+#instance_input {
+    margin-bottom:2rem;
+}
+
+#predict {
+    margin-bottom:2rem;
+}
+
+.form-check-input {
+    margin-left:0;
+    margin-bottom:0.3rem;
+    position:relative;
+}
