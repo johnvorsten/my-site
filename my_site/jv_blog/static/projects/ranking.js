@@ -92,7 +92,7 @@ function run_prediction() {
 function update_prediction_text(json_body) {
     // Change text in prediction_result
     const run_prediction_element = document.getElementById("prediction_result");
-    run_prediction_element.textContent = json_body.prediction;
+    run_prediction_element.textContent = JSON.stringify(json_body);
 }
 function gather_instances() {
     // aggregate all instances with class 'tr' (table row) into a JSON string for use in API POST
