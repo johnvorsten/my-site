@@ -15,13 +15,17 @@
 <!-- Description of page -->
 <div class="row" id="page_description">
     <div class="col-md">
-    <h3>Building automation objects bag prediction</h3>
-    <p>
-        Multiple instance learning
-    </p>
-    <p>
-        Multiple instance learning - [...] give a short introduction on what MIL is. Talk about the project, and what each instance represents.
-    </p>
+        <h3>Building automation objects bag prediction</h3>
+        <p><b>Multiple instance learning</b></p>
+        <p>Multiple instance learning is a form of learning where groups of training
+            instances are arranged in sets called bags, and a label is assigned to each bag. 
+            Given a set (or bag) of instances, this MIL tool should assign a bag-level label that defines 
+            the category that bag belongs to. Data instances are database points from a building automation system, 
+            and the bags are collections of database points that logically form ”systems”
+        </p>
+    </div>
+    <div class="col-md">
+        <img id="mil_example_image" src="{{MEDIA_URL}}/jv_blog/images/mil-example.png">
     </div>
 </div>
 
@@ -208,8 +212,14 @@
     </div>
 </div>
 
+
+
 <div class="row" id="InputsDescription">
     <div class="col-sm">
+        <h4>Possible outputs:</h4>
+        <p>['Air Handler','Alarm','Boiler or Hot Water System','Chiller, CHW pump, or Condenser System',
+        'Exhaust System','Unknown System','Rooftop Unit']</p>
+
         <h4>Description of predictor types</h4>
         <p>CompNB: Complement Naive Bayes classifier; suited for text classification (or categorical data), and designed to perform better than standard Naive Bayes with imbalanced datasets</p>
         <p>MultiNB: Multinomial Naive Bayes classifier; suited for text classification (or categorical data)</p>

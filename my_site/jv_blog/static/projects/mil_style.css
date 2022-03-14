@@ -58,6 +58,11 @@ table {
     min-width:40px;
 }
 
+#mil_example_image {
+    height:300px;
+    
+}
+
 .form-check-input {
     margin-left:0;
     margin-bottom:0.3rem;

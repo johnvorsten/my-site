@@ -11,4 +11,5 @@
 
     // Force line endings
     "files.eol": "\n",
+    "cSpell.enabled": true,
 }

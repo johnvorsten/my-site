@@ -16,10 +16,26 @@
 <div class="row" id="page_description">
     <div class="col-md">
         <h3>Optimal clustering using Learning to Rank (LTR)</h3>
-        <p>Clustering</p>
-        <p>Clustering - #TODO description</p>
-        <p>Learning to Rank - #TODO description</p>
-        <p>Motivation</p>
+        <p><b>Clustering</b></p>
+        <p>Clustering is breaking sets of objects into groups (or clusters) so that objects
+        within groups are similar to each other. A clusterer is a algorithm or function
+        that is responsible or grouping objects. It requires a distance measurement
+        between objects and and aggregation function to decide which group an object
+        belongs in. The aggregation function requires an assumption to be made about
+        the data it operates on, usually the optimal number of clusters (an integer), or 
+        some type of distance threshold.</p>
+        <p><b>Learning to Rank</b></p>
+        <p>In ranking, the goal is to order a list of examples based on the relevance of each 
+        example to a question. In this project, examples are clustering schemes, and
+        the question is a dataset. A quality ranking model will optimally sort a list of
+        clustering schemes, such that the clustering scheme that is most likely to predict
+        the desired number of clusters is recommended. Ranking has applications in
+        document retrieval and question answering, but the format has been adapted to this goal.</p>
+        <img src="{{MEDIA_URL}}/jv_blog/images/feature_visualization.png">
+        <p><b>Motivation</b></p>
+        <p>This project’s goal is to optimally choose the best number of clusters that fit a
+        dataset. Removing human input and automating the ‘number of clusters‘ decision is complex,
+        and this project attepts to see how well a LTR model can help find automate this decision.</p>
     </div>
 </div>
 
@@ -111,13 +127,28 @@
     <div class="col-sm">
         <h4>Descirption of input types and validation requirements</h4>
         <!-- String features -->
-        <p>Number of instances: (float) Number of instances which are to be clustered</p>
-        <p>Number of features: (float) Number of non-zero features for each instance representing a cluster. This feature is intended to represent spread of categorically encoded text features. </p>
-        <p>Categorical feature length variance: (float) Variance of tokenized text feature length. This metric is intended to be a proxy for within-cluster similarity</p>
-        <p>Ratio: (float) Ratio of number of instances : number of features</p>
-        <p>Number of 1-length categorical features: (int) [0-1] The data used in this project included a single tokenized text feature, and the text feature was between (1) to (7) tokens in length. This feature represents the number of instances with a tokenized length of (1) normalized by the number of instances</p>
-        <p>Number of 2-length categorical features: (int) See above...</p>
+        <p><b>Number of instances:</b> (float) Number of instances which are to be clustered</p>
+        <p><b>Number of features:</b> (float) Number of non-zero features for each instance representing a cluster. This feature is intended to represent spread of categorically encoded text features. </p>
+        <p><b>Categorical feature length variance:</b> (float) Variance of tokenized text feature length. This metric is intended to be a proxy for within-cluster similarity</p>
+        <p><b>Ratio: (float) Ratio of number of instances:</b> number of features</p>
+        <p><b>Number of 1-length categorical features:</b> (int) [0-1] The data used in this project included a single tokenized text feature, and the text feature was between (1) to (7) tokens in length. This feature represents the number of instances with a tokenized length of (1) normalized by the number of instances</p>
+        <p><b>Number of 2-length categorical features:</b> (int) See above...</p>
 
+    </div>
+</div>
+
+<div class="row" id="InputsDescription">
+    <div class="col-sm">
+        <h4>Description of output types</h4>
+        <!-- String features -->
+        <p><b>Possible clustering algorithms:</b> [average,kmeans,ward.D,Ward.D2] Clustering algorithms are responsible
+        for making decisions on which cluster instances belong to. Kmeans is a general-purpose (but computationally expensive) clustering algorithm
+        based on monte-carlo simulations. Average, ward.D and ward.D2 are agglomerative methods.
+        Hierarchial or agglomerative clustering is the process of successively splitting
+        or merging clusters based on a linkage criteria between clusters.</p>
+        <p><b>Distance metrics:</b> [CCC, Ball, Dindex, gap, Cindex, [...]] There are 30 possible clustering metrics, and all 
+        metrics attempt to find a balance between intra-cluster and inter-cluster distance.</p>
+        <p>The ranking model outputs other clustering hyperparameters, for example whether data is dimensionally reduced, but they are not described here for brevity.
     </div>
 </div>
 
