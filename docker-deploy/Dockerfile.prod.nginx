@@ -32,11 +32,11 @@ RUN ls -la /etc/
 # Remove default nginx configuration (Not the main configuration file)
 RUN rm /etc/nginx/conf.d/default.conf
 
-# Static content to serve
-COPY ./my_site/static-serve $HOME/web/my-site/my_site/static-serve/
+# Static content to serve (removed and added to volume)
+# COPY ./my_site/static-serve $HOME/web/my-site/my_site/static-serve/
 
-# Media content to serve
-COPY ./my_site/media $HOME/web/my-site/my_site/media/
+# Media content to serve (removed and added to volume)
+# COPY ./my_site/media $HOME/web/my-site/my_site/media/
 
 # NGINX Configuration file
 COPY ./docker-deploy/nginx.prod.template /etc/nginx/conf.d

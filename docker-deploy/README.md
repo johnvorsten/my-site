@@ -1,10 +1,10 @@
 ## Docker-compose for production
 https://docs.docker.com/compose/production/
-* Remove unnecessary volumes before production
-* Bind to the correct ports on the host
-* Set environment variables correct for the environment (database, secret keys, authentication tokens)
-* restart:always
-* Add a log aggregator for the service
+* (done) Remove unnecessary volumes before production
+* (done) Bind to the correct ports on the host
+* (done) Set environment variables correct for the environment (database, secret keys, authentication tokens)
+* (done) restart:always
+* (done) Add a log aggregator for the service
 
 ## Common command line instructions:
 Build docker files from compose for local test containers `docker compose -f ./docker-deploy/docker-compose.test.yml build`
@@ -20,6 +20,15 @@ Use `d` to run in detached mode
 /docker-deploy/letsencrypt_archive.tar.gz
 /my_site/production.secret
 /my_site/static-serve/
+
+## Deployment instructions
+Log onto production computer
+pull latest changes from git
+Update any credentials if necessary
+collect static files `python manage.py collectstatic`
+Copy media files if excluded from git repository
+Rebuild docker files `docker compose -f ./docker-deploy/docker-compose.prod.yml build`
+Create and start images `docker compose -f ./docker-deploy/docker-compose.prod.yml up`
 
 ## Debugging
 #### Get a bash shell in running container

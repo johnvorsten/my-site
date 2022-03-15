@@ -32,3 +32,5 @@ services:
             - ../my_site/production.secret
         volumes:
             - ./letsencrypt:/etc/letsencrypt # relative to compose file, not context
+            - ../my_site/media:/home/nginx/web/my-site/my_site/media
+            - ../my_site/static-serve:/home/nginx/web/my-site/my_site/static-serve/
