@@ -1,5 +1,6 @@
 # Ignore files
 */static-serve/*
+*/media/*
 
 # Key files ssl
 *.key
@@ -29,3 +30,9 @@ temp_migration.sql
 # Other directories
 /try1
 /backup/
+
+# Negations
+!*/media/about/downloads/*
+*/media/about/images/*
+!*/media/jv_blog/downloads/*
+!*/media/jv_blog/images/*
