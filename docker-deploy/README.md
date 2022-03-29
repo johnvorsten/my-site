@@ -28,7 +28,8 @@ Update any credentials if necessary
 collect static files `python manage.py collectstatic`
 Copy media files if excluded from git repository
 Rebuild docker files `docker compose -f ./docker-deploy/docker-compose.prod.yml build`
-Create and start images `docker compose -f ./docker-deploy/docker-compose.prod.yml up`
+Create and start images `docker compose -f ./docker-deploy/docker-compose.prod.yml up -d`
+Renew letsencrypt/certbot certificates `certbot renew`
 
 ## Debugging
 #### Get a bash shell in running container
