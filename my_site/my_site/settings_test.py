@@ -33,7 +33,7 @@ INSTALLED_APPS = [
     # 'accounts.apps.AccountsConfig', # Not used
     # 'jv_github.apps.JvGithubConfig', # Not used
     'jv_blog.apps.JvBlogConfig',
-    'projects.apps.ProjectsConfig',
+    # 'projects.apps.ProjectsConfig', # Removed
     'about.apps.AboutConfig',
 ]
 
