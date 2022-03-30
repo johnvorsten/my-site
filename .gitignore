@@ -33,6 +33,8 @@ temp_migration.sql
 
 # Negations
 !*/media/about/downloads/*
-*/media/about/images/*
+!*/media/about/images/*
+!*media/jv_blog/downloads/
 !*/media/jv_blog/downloads/*
 !*/media/jv_blog/images/*
+!*/media/testing/word-doc-sample.docx

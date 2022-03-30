@@ -62,7 +62,7 @@ class EntryModelTest(TestCase):
         # A SimpleUploadFile is a proxy for an uploaded file attached through
         # a POST request
         raw_html = r"<h2>This is a test heading</h2><p>This is a test paragraph</p>"
-        self.html_upload_file = SimpleUploadedFile('test_html_file.html', 
+        self.html_upload_file = SimpleUploadedFile('test_html_file.html',
                                     raw_html.encode('utf-8'), 
                                     content_type="text/plain")
         raw_markdown = r'# This is a heading\n\nThis is some text\n\n*listitem'
