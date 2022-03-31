@@ -20,6 +20,7 @@ Use `d` to run in detached mode
 /docker-deploy/letsencrypt_archive.tar.gz
 /my_site/production.secret
 /my_site/static-serve/
+/my_site/media/
 
 ## Deployment instructions
 Log onto production computer
