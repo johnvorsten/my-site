@@ -1,33 +1,30 @@
+"""Models related to blogs and blog entries"""
+# Python imports
+
 # Django Imports
 from django.db import models
-from django.utils import timezone
-from django.dispatch import receiver
 from django.template.defaultfilters import slugify
-from django.core.files import File
 from django.core.files.base import ContentFile
-from django.core.files.storage import FileSystemStorage
 from django.core.exceptions import ObjectDoesNotExist
-from django.conf import settings
-from django.contrib.auth.models import User
-
-# Python imports
-import os
-import datetime
+# from django.core.files import File
+# from django.utils import timezone
+# from django.dispatch import receiver
+# from django.core.files.storage import FileSystemStorage
+# from django.conf import settings
+# from django.contrib.auth.models import User
 
 # Third party imports
-import mistune # .md to html
-import mammoth # .docx to html
 from bs4 import BeautifulSoup
 
 # Local imports
-from .models_helper import (raw_directory_path, 
-                            html_directory_path, 
-                            default_author, 
-                            UploadError,
+from .models_helper import (raw_directory_path, html_directory_path,
+                            default_author, UploadError,
                             parse_raw_content)
 
 # Create your models here.
 class Author(models.Model):
+    """Author is a foreign key associated with an entry. It includes a reference to
+    the blog entry's author if desired"""
     first_name = models.CharField(max_length=100)
     middle_name = models.CharField(max_length=100, blank=True)
     last_name = models.CharField(max_length=100)
@@ -48,7 +45,7 @@ class Author(models.Model):
             return False
 
 class Keywords(models.Model):
-    """Fun tags to associate with each repository. These must be 
+    """Fun tags to associate with each repository. These must be
     custom entered through the admin interface"""
     keyword_text = models.CharField(max_length=50)
     entry_model = models.ForeignKey('Entry', on_delete=models.CASCADE)
@@ -57,7 +54,7 @@ class Keywords(models.Model):
         return str(self.keyword_text)
 
 class Blog(models.Model):
-    """There can be multiple blogs, and each Entry is associated with a 
+    """There can be multiple blogs, and each Entry is associated with a
     Blog. The Blog model is used to render different templates or layouts
     for Entries that belong to a Blog"""
     description = models.CharField(max_length=50)
@@ -66,6 +63,14 @@ class Blog(models.Model):
         return str(self.description)
 
 class Entry(models.Model):
+    """Specific blog entry into a blog. This incldues metadata associated with a specific entry
+    (such as title, date, abstract, and thumbnails) along with the bulk of content.
+    This entry has the option to accept markdown, HTML, or microsoft word files. These files will be
+    parsed into HTML (see save method).
+    Parsed HTML is saved to the configured file storage system (see settings.py)
+    The file path reference is saved to the database
+    When a blog entry is requested, the file is fetched from file storage and served."""
+
     entry_title = models.CharField(max_length=100)
     entry_date = models.DateTimeField('date published')
     entry_abstract = models.TextField(max_length=500)
@@ -99,25 +104,35 @@ class Entry(models.Model):
 
     def save(self, *args, **kwargs):
         """Save an raw_entry uploaded by the user
-        Workflow - 
-        1. Something
-        2. Something
+        1. Convert a raw uploaded file into a ContentFile object, and save the ContentFile
+        object into a model field FieldField object
+        2. Check if this instance of an entry already exists. If this entry exists and we
+        are re-saving it, then it means the uplaoded content was modified. Delete the existing
+        raw_entry file before saving the new raw_entry file.
+        3. Parse raw content from .md, .html, or .docx into HTML
+        4. Convert parsed HTML into a ContentFile object, and save the ContentFile
+        object into the html_content model field FieldField object
+        5. Check if this instance of an entry already exists. If this entry exists and we
+        are re-saving it, then it means the uplaoded content was modified. Delete the existing
+        parsed html_content before saving the new html_content file.
+        6. Create a slug if none exists
+        7. Associate the default author to this article if none exists or is not defined
 
         inputs
         -------
-        *args : ()
-        **kwargs : (dict) {uploaded_raw_entry:SimpleUploadFile}"""
+        *args: () not used
+        **kwargs: (dict) {uploaded_raw_entry:SimpleUploadFile}"""
         try:
             uploaded_raw_entry = kwargs.pop('uploaded_raw_entry')
-        except KeyError:
+        except KeyError as exception:
             raise UploadError(('No uploaded_raw_entry file was passed from the admin interface. ' + 
-                'Make sure a file was passeed when calling this models save method'))
+                'Make sure a file was passeed when calling this models save method')) from exception
 
-        with uploaded_raw_entry.open(mode='rb') as f:
-            raw_entry_content = f.read()
+        with uploaded_raw_entry.open(mode='rb') as file:
+            raw_entry_content = file.read()
         raw_entry_file = ContentFile(content=raw_entry_content,
                                      name=raw_directory_path(self, uploaded_raw_entry.name))
-        
+
         # Save the content file into a model field
         raw_entry_file.open(mode='rb')
         self.raw_entry.save(raw_entry_file.name, raw_entry_file, save=False)
@@ -129,11 +144,11 @@ class Entry(models.Model):
             existing = Entry.objects.get(id=self.id)
             if not existing.raw_entry == self.raw_entry:
                 existing.raw_entry.delete(False)
-        except ObjectDoesNotExist as e:
+        except ObjectDoesNotExist:
             # This is the first time the entry object is created
             pass
 
-        # Create a html file from .md or .tex
+        # Create a html file from .md, .html, or .docx
         html_content = parse_raw_content(self.raw_entry)
 
         # Save html content to a django ContentFile
@@ -150,7 +165,7 @@ class Entry(models.Model):
             existing = Entry.objects.get(id=self.id)
             if not existing.html_content == self.html_content:
                 existing.html_content.delete(False)
-        except ObjectDoesNotExist as e:
+        except ObjectDoesNotExist:
             pass
 
         # Create a slug if none exists

@@ -1,4 +1,9 @@
+# Django imports
 from django.urls import path
+
+# Third party imports
+
+# Local imports
 from . import views
 
 app_name = 'projects'
