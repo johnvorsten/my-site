@@ -2,12 +2,10 @@
     "python.defaultInterpreterPath": "C:\\ProgramData\\Miniconda3\\python.exe",
     "python.linting.pylintEnabled": true,
     "python.linting.enabled": true,
-    "terminal.integrated.shellArgs.windows": ["/K", "C:\\ProgramData\\Miniconda3\\Scripts\\activate.bat C:\\programdata\\miniconda3\\envs\\django"],
-    "terminal.integrated.shell.windows": "C:\\windows\\system32\\cmd.exe",
     
     // create a terminal profile in `#terminal.integrated.profiles.windows#` and set its profile name in 
     // `#terminal.integrated.defaultProfile.windows#`
-    "terminal.integrated.defaultProfile.windows":"CMD Conda django",
+    "terminal.integrated.defaultProfile.windows":"Command Prompt (Conda Django)",
 
     // Force line endings
     "files.eol": "\n",
