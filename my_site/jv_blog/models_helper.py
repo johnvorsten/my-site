@@ -1,27 +1,14 @@
 """
 This file complements models.py
 It is separated to give easy readability to models.py
-
-Helper methods defined here : 
-raw_directory_path : output a directory path to save FileField inputs
-    This is used for directly saving raw markdown or .docx files before being parsed to html
-    See models.Model.FildField.upload_to for more information
-html_directory_path : output a directory path to save FileField inputs
-    This function is specifically used for saving .html files after they have been parsed
-    See models.Model.FildField.upload_to for more information
-convert_image: Not used; Optionally in the future. See python-mammoth package for 
-    Converting .docx files to html. Instead of parsing images to ASCII image embedded
-    in HTML I can choose how to handle images. Something for another day
-default_author : a function to return the default author. If the default author
-    (Anonymous) is not defined, then an instance is created"""
+"""
+# Python imports
+from hashlib import blake2s
+import os
 
 # Django imports
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
-
-# Python imports
-from hashlib import blake2s
-import os
 
 # Third party imports
 import mistune # .md to html
@@ -30,19 +17,21 @@ from bs4 import BeautifulSoup
 
 # Define upload error
 class UploadError(Exception):
-    pass
+    """Upload occured during parsing or uploading to file system"""
 
-def raw_directory_path(instance, filename): 
-    """Output a file name for raw input content. The raw input content
+def raw_directory_path(instance, filename):
+    """Output a filename to save FileField inputs. The raw input content
     is one of (HTML, Markdown, Latex). Once the raw content is saved,
     it is converted to HTML to be served.
+    This is used for directly saving raw markdown or .docx files before being parsed to html
+    See models.Model.FildField.upload_to for more information
     inputs
     -------
-    instance : (models.Model) instance of the model
-    filename : (str) original filename given by the user
+    instance: (models.Model) instance of the model
+    filename: (str) original filename given by the user
     Output
     -------
-    filename_new : (str) filename with date appended to prevent overwrites"""
+    filename_new: (str) filename with date appended to prevent overwrites"""
     # File uploaded to MEDIA_ROOT/jv_blog/entries/<filename_new>
 
     if hasattr(filename, 'name'):
@@ -61,16 +50,18 @@ def raw_directory_path(instance, filename):
     return filepath_new
 
 def html_directory_path(instance, filename):
-    """Output a file name for raw input content. The raw input content
+    """Output a directory path to save FileField inputs. The raw input content
     is one of (HTML, Markdown, .docx). Once the raw content is saved,
     it is converted to HTML to be served.
+    This function is specifically used for saving .html files after they have been parsed
+    See models.Model.FildField.upload_to for more information
     inputs
     -------
-    instance : (models.Model) instance of the model
-    filename : (str) original filename given by the user
+    instance: (models.Model) instance of the model
+    filename: (str) original filename given by the user
     Output
     -------
-    filename_new : (str) filename with date appended to prevent overwrites"""
+    filename_new: (str) filename with date appended to prevent overwrites"""
     # File uploaded to MEDIA_ROOT/jv_blog/entries/<filename_new>
 
     if hasattr(filename, 'name'):
@@ -91,8 +82,11 @@ def html_directory_path(instance, filename):
 def convert_image(image):
     """Image converter (do NOT embed image data in html file)
     See https://github.com/mwilliamson/python-mammoth#image-converters
-    for more details"""
-    # If I want to serve images separately, I need to save the 
+    for more details
+    Not used; Optionally in the future. See python-mammoth package for
+    Converting .docx files to html. Instead of parsing images to ASCII image embedded
+    in HTML I can choose how to handle images. Something for another day"""
+    # If I want to serve images separately, I need to save the
     # File then change the returned source
     # TODO Not implemented right now
 
@@ -105,23 +99,23 @@ def convert_image(image):
         # Save a new image file
         hash_digest = blake_hash_alg.update(image_bytes).hexdigest()
         # TODO this path is not supported w/ a wmf/emf buffer object
-        image_path = r'{}/jv_blog/entries/images/doc_title_image_{}.png'.format(media_root, hash_digest)
+        image_path = f'{media_root}/jv_blog/entries/images/doc_title_image_{hash_digest}.png'
 
         with open(image_path, 'wb') as new_image_file:
             new_image_file.write(image_bytes)
-    
+
     source_dict = { 'src': new_image_file.name }
 
     return source_dict
 
 def default_author():
-    """get or create the pk of the deafult author. This should
-    be an author with name Anonymous"""
+    """Return the default author. If the default author
+    (Anonymous) is not defined, then an instance is created"""
     try:
         # Import models, a circular dependency is caused if this is
         # In the head of the file
         from .models import Author
-        author = Author.objects.get(first_name__exact='Anonymous', 
+        author = Author.objects.get(first_name__exact='Anonymous',
                                     last_name__exact='Author')
     except ObjectDoesNotExist:
         author = Author(first_name='Anonymous',
@@ -132,12 +126,12 @@ def default_author():
 
 def parse_raw_content(raw_entry):
     """inputs
-    raw_entry : (django.db.models.FileField) or similar 
-    (django.core.files.base.ContentFile)object. This is a field 
+    raw_entry: (django.db.models.FileField) or similar
+    (django.core.files.base.ContentFile)object. This is a field
     of this model Entry. It is a file-like object
     output
     -------
-    html_file : (django.db.models.File)"""
+    html_file: (django.db.models.File)"""
 
     raw_entry_path = raw_entry.name
     (root, extension) = os.path.splitext(raw_entry_path)
@@ -154,28 +148,28 @@ def parse_raw_content(raw_entry):
         # parse .docx to html
         html_content = _parse_docx(raw_entry)
 
-    elif (extension == ".tex"): # TODO 
+    elif extension == ".tex": # TODO
         # Parse latex to html
         html_content = _parse_latex(raw_entry)
 
     else:
-        html_content = (r"<p> No raw content was available to parse." +
-                "Make sure the uploaded raw content was of type " +
-                ".html, .md, or .tex </p>")
+        html_content = (
+            r"<p> No raw content was available to parse." +
+            "Make sure the uploaded raw content was of type " +
+            ".html, .md, or .tex </p>")
 
     return html_content # Return string
 
 def _parse_markdown(raw_entry):
     """Input
     -------
-    raw_entry : (models.FileField) a FieldFile or FileField django model field
-    output 
+    raw_entry: (models.FileField) a FieldFile or FileField django model field
+    output
     -------
-    generated_html : (str) a parsed html file using mistune 
-    markdown->html package"""
+    generated_html: (str) a parsed html file using mistune markdown->html package"""
 
-    with raw_entry.open(mode='rb') as f:
-        content = f.read() # Content is bytes
+    with raw_entry.open(mode='rb') as file:
+        content = file.read() # Content is bytes
         generated_html = mistune.markdown(content.decode('utf-8'), escape=False)
 
     # make BeautifulSoup
@@ -187,13 +181,13 @@ def _parse_markdown(raw_entry):
 def _parse_html(raw_entry):
     """Input
     -------
-    raw_entry : (models.FileField) a FieldFile or FileField django model field
+    raw_entry: (models.FileField) a FieldFile or FileField django model field
     output 
     -------
-    generated_html : (str) a parsed html file"""
+    generated_html: (str) a parsed html file"""
 
-    with raw_entry.open(mode='rb') as f:
-        content = f.read()
+    with raw_entry.open(mode='rb') as file:
+        content = file.read()
 
     # Make BeautifulSoup
     html_content_parsed = BeautifulSoup(content.decode('utf-8'), "html.parser")
@@ -205,10 +199,10 @@ def _parse_html(raw_entry):
 def _parse_latex(raw_entry):
     """Input
     -------
-    raw_entry : (models.FileField) a FieldFile or FileField django model field 
-    output 
+    raw_entry: (models.FileField) a FieldFile or FileField django model field
+    output
     -------
-    generated_html : (str) a parsed html file using mistune 
+    generated_html: (str) a parsed html file using mistune
     markdown->html package"""
 
     # Call CLI executable on raw_entry.name location
@@ -223,38 +217,38 @@ def _parse_latex(raw_entry):
     return html_content # Return string representation
 
 def _parse_docx(raw_entry):
-        """Input
-        -------
-        raw_entry : (models.FileField) a FieldFile or FileField django model field
-        output 
-        -------
-        generated_html : (str) a parsed html file using mammoth
-        docx->html package"""
+    """Input
+    -------
+    raw_entry: (models.FileField) a FieldFile or FileField django model field
+    output
+    -------
+    generated_html: (str) a parsed html file using mammoth
+    docx->html package"""
 
-        # Define a style map for custom .css classes possible
-        # Not implemented, use later if needed
-        style_map = """
-        p[style-name='Section Title'] => h1:fresh
-        p[style-name='Subsection Title'] => h2:fresh"""
+    # Define a style map for custom .css classes possible
+    # Not implemented, use later if needed
+    style_map = """
+    p[style-name='Section Title'] => h1:fresh
+    p[style-name='Subsection Title'] => h2:fresh"""
 
-        # See https://github.com/mwilliamson/python-mammoth#image-converters
-        # If I'm creating an image conversion function
-        convert_image_and_save = False
+    # See https://github.com/mwilliamson/python-mammoth#image-converters
+    # If I'm creating an image conversion function
+    convert_image_and_save = False
 
-        with raw_entry.open(mode='rb') as docx_file:
+    with raw_entry.open(mode='rb') as docx_file:
 
-            if convert_image_and_save: # Not ready..
-                result = mammoth.convert_to_html(docx_file, convert_image=convert_image)
+        if convert_image_and_save: # Not ready..
+            result = mammoth.convert_to_html(docx_file, convert_image=convert_image)
 
-            else: # Standard image included inline with html
-                result = mammoth.convert_to_html(docx_file)
+        else: # Standard image included inline with html
+            result = mammoth.convert_to_html(docx_file)
 
-            generated_html = result.value # Generated html
-            messages = result.messages # Errors or warnings
+        generated_html = result.value # Generated html
+        messages = result.messages # Errors or warnings
 
-        # make BeautifulSoup
-        soup = BeautifulSoup(generated_html, "html.parser")
-        # prettify the html
-        html_content = soup.prettify()
+    # make BeautifulSoup
+    soup = BeautifulSoup(generated_html, "html.parser")
+    # prettify the html
+    html_content = soup.prettify()
 
-        return html_content # Return string representation
+    return html_content # Return string representation

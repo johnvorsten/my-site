@@ -1,4 +1,5 @@
 # For use on a local (development) testing machine
+# By john vorsten 2020-3-15
 
 version: '3.7'
 
@@ -31,6 +32,6 @@ services:
             - "8001:443" # Host:container, for HTTPS
         env_file:
             - ./docker-compose.test.env
-        # volumes:
-            # - ./docker-deploy/ssl.key:/etc/nginx/ssl.key
-            # - ./docker-deploy/ssl.crt:/etc/nginx/ssl.crt
+        volumes:
+            - ../my_site/media:/home/nginx/web/my-site/my_site/media
+            - ../my_site/static-serve:/home/nginx/web/my-site/my_site/static-serve/

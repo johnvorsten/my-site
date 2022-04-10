@@ -60,7 +60,7 @@ class Tag(models.Model):
     tag_repo = models.ForeignKey(RepositoryShort, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.tag_text
+        return str(self.tag_text)
 
 class UpdateModels:
     """Update GithubRepo models based on the Github API responses

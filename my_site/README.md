@@ -15,13 +15,13 @@ use --settings=my_site.settings_test for local testing. This module uses sqlite3
 #### Run all the tests in the <app_name>.tests module
 `python manage.py test <app_name>.tests --settings=my_site.settings_test`
 #### Run all the tests found within the <app_name> package
-`manage.py test <app_name>`
+`python manage.py test <app_name>`
 #### Run just one test case
 `python manage.py test <app_name>.tests.<test_case_class>`
 #### Run just one test method
 `python manage.py test <app_name>.tests.<test_case_class>.<test_method>`
 #### Currnet commands
-`python manage.py test about.tests jv_blog.tests projects.tests --settings=my_site.settings_test`
+`python manage.py test about.tests jv_blog.tests --settings=my_site.settings_test`
 
 
 ## Adding an 'app' in django
@@ -105,7 +105,7 @@ response.context # Dictionary, items passed to template
 1. Remove imports and usage of app in the project
     1. Including urls.py, and others???
 2. Remove the model data definition in models.py inside the app folder. Make migrations directions using `python manage.py makemigrations <app_name>`. Then, apply migrations using `python manage.py migrate <app_name>`
-2. Remove the reference in settings.py INSTALLED_APPS
+2. Remove the reference in settings.py and settings_test.py INSTALLED_APPS
 2. Delete the application folder directory
 
 

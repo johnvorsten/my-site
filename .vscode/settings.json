@@ -10,4 +10,10 @@
     // Force line endings
     "files.eol": "\n",
     "cSpell.enabled": true,
+
+    // Pylint whitelist certain Django objects to prevent unnecessary errors
+    "python.linting.pylintArgs": [
+        "--extension-pkg-whitelist=django",
+        "--disable=E011"
+    ]
 }

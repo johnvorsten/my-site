@@ -1,5 +1,2 @@
 ## Common django command line management functions
-
-
-## Tests
-Current active tests on development (sqlite) `python manage.py test --settings my_site.settings_test jv_blog.tests about.tests`
+All commands are within `manage.py`: collectstatic, findstatic, runserver, test, testserver, startapp, sqlflush, shell, makemigrations, migrate, check, dbshell, createsuperuser, changepassword
