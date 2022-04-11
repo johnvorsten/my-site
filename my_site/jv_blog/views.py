@@ -14,14 +14,18 @@ from .models import Entry
 # Function based views
 @require_GET
 def mil(request):
+    """Multiple instance learning online demonstration"""
     return render(request, 'projects/mil.html')
 
 @require_GET
 def ranking(request):
+    """Optimal clustering using learning to rank demonstration"""
     return render(request, 'projects/ranking.html')
 
 # Class based views
 class BlogIndexView(ListView):
+    """View for index of all blog entries under the 'blog' type
+    There are (2) blog types ['projects', 'blog']"""
     model = Entry
     template_name = 'jv_blog/index.html' # Explicit template
     context_object_name = 'object_list'
@@ -30,10 +34,10 @@ class BlogIndexView(ListView):
         """Return a list of published articles"""
         time_now = timezone.now()
         objects_filter = Entry.objects\
-                               .filter(entry_date__lte=time_now, 
-                                        entry_show=True, 
-                                        blog__description='blog')\
-                               .order_by('-entry_date')
+                            .filter(entry_date__lte=time_now,
+                                entry_show=True,
+                                blog__description='blog')\
+                            .order_by('-entry_date')
         
         # Prefetch related authors (reduce database queries)
         objects_related = objects_filter.prefetch_related('entry_authors')
@@ -66,6 +70,8 @@ class BlogIndexView(ListView):
 
 
 class BlogDetail(DetailView):
+    """View for details of all blog entries under the 'blog' type
+    There are (2) blog types ['projects', 'blog']"""
     template_name = 'jv_blog/entry_detail.html'
     # model = Entry
     # queryset = Entry.objects.all() # Redundant
@@ -91,6 +97,8 @@ class BlogDetail(DetailView):
 
 # Class based views for projects (similar to blogs, but fits in this module)
 class ProjectIndexView(ListView):
+    """View for index of all blog entries under the 'blog' type
+    There are (2) blog types ['projects', 'blog']"""
     model = Entry
     template_name = 'projects/index.html' # Explicit template
     context_object_name = 'object_list'
@@ -113,6 +121,8 @@ class ProjectIndexView(ListView):
 
 
 class ProjectDetail(DetailView):
+    """View for details of all blog entries under the 'projects' type
+    There are (2) blog types ['projects', 'blog']"""
     template_name = 'projects/entry_detail.html'
     context_object_name = 'entry' # This should be (1) entry object
 
