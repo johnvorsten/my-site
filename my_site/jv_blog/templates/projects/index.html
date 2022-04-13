@@ -21,8 +21,6 @@
             <!-- Fill in Projects -->
             <div class="row">
                 <div class="col">
-
-                
                     {% comment %} <a class="" data-toggle="collapse" href="#projectAbstract{{entry.id}}">
                         <p class="px-1 py-2 border title">
                         {{ entry.entry_title }}
@@ -39,20 +37,21 @@
                         <a class="btn btn-primary btn-sm ml-1 mb-1 active" href="{{ entry.entry_slug }}" type="Link">Continue</a>
                     </div> {% endcomment %}
 
+                    <header>
+                        <div class="title" id="#projectAbstract{{entry.id}}">
+                            <h2><a href="{{ entry.entry_slug }}">{{ entry.entry_title }}</a></h2>
+                            <p>{{ entry.entry_abstract }}</p>
+                        </div>
+                        <div class="meta">
+                            <time class="published" datetime="2015-11-01">{{ entry.entry_date }}</time>
+                            <a href="#" class="author"><span class="name">{{ entry.entry_author }}</span><img src="" alt=""></a>
+                        </div>
+                    </header>
 
                 </div>
             </div>
 
-            <header>
-                <div class="title">
-                    <h2><a href="single.html">Magna sed adipiscing</a></h2>
-                    <p>Lorem ipsum dolor amet nullam consequat etiam feugiat</p>
-                </div>
-                <div class="meta">
-                    <time class="published" datetime="2015-11-01">November 1, 2015</time>
-                    <a href="#" class="author"><span class="name">Jane Doe</span><img src="images/avatar.jpg" alt=""></a>
-                </div>
-            </header>
+
 
             {% endfor %}
             

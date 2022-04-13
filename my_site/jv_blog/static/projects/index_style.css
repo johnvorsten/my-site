@@ -9,6 +9,9 @@ p.border:hover {
     font-weight:bold;
     font-family:Palatino, serif;
     font-size:1.25em;
+
+    flex-grow: 1;
+    padding: 1.75em 1em 1.3em 1em;
 }
   
 #title-expand {
