@@ -12,7 +12,8 @@
     <div class="row">
 
         <!-- Project Entries Column -->
-        <div class="col-md-9">
+        <div class="col">
+            
             <div class="row">
                 <h2>Projects</h2>
             </div>
@@ -21,25 +22,9 @@
             <!-- Fill in Projects -->
             <div class="row">
                 <div class="col">
-                    {% comment %} <a class="" data-toggle="collapse" href="#projectAbstract{{entry.id}}">
-                        <p class="px-1 py-2 border title">
-                        {{ entry.entry_title }}
-                        <img src="{{MEDIA_URL}}/projects/images/menu-24px.svg" alt="Link" id="title-expand"> 
-                        </p>
-                    </a>
-                    <div class="collapse shadow-sm mb-3" id="projectAbstract{{entry.id}}">
-                        <div class="px-1 py-1 mb-2">
-                            <p class="project-abstract">
-                            <bdi class="abstract-title">Abstract.</bdi> 
-                            {{ entry.entry_abstract }}
-                            </p>
-                        </div>
-                        <a class="btn btn-primary btn-sm ml-1 mb-1 active" href="{{ entry.entry_slug }}" type="Link">Continue</a>
-                    </div> {% endcomment %}
-
                     <header>
                         <div class="title" id="#projectAbstract{{entry.id}}">
-                            <h2><a href="{{ entry.entry_slug }}">{{ entry.entry_title }}</a></h2>
+                            <h2 class=""><a href="{{ entry.entry_slug }}">{{ entry.entry_title }}</a></h2>
                             <p>{{ entry.entry_abstract }}</p>
                         </div>
                         <div class="meta">
@@ -47,14 +32,10 @@
                             <a href="#" class="author"><span class="name">{{ entry.entry_author }}</span><img src="" alt=""></a>
                         </div>
                     </header>
-
                 </div>
             </div>
-
-
-
             {% endfor %}
-            
+
         </div>
 
         <!-- Sidebar Widgets Column -->
