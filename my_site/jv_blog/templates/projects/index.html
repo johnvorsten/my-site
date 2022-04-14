@@ -18,7 +18,7 @@
                 <h2>Projects</h2>
             </div>
 
-            {% for entry in object_list %}
+            {% for entry, author in object_list %}
             <!-- Fill in Projects -->
             <div class="row">
                 <div class="col">
@@ -27,9 +27,12 @@
                             <h2 class=""><a href="{{ entry.entry_slug }}">{{ entry.entry_title }}</a></h2>
                             <p>{{ entry.entry_abstract }}</p>
                         </div>
+                        <div class="footer">
+                            <a class="btn-large" href="{{ entry.entry_slug }}" role="button">Continue Reading</a>
+                        </div>
                         <div class="meta">
                             <time class="published" datetime="2015-11-01">{{ entry.entry_date }}</time>
-                            <a href="#" class="author"><span class="name">{{ entry.entry_author }}</span><img src="" alt=""></a>
+                            <span class="name">{{ author }}</span><img src="" alt="">
                         </div>
                     </header>
                 </div>

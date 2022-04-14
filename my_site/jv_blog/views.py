@@ -22,6 +22,16 @@ def ranking(request):
     """Optimal clustering using learning to rank demonstration"""
     return render(request, 'projects/ranking.html')
 
+def get_first_author(entry):
+    """Return the first author in the relation field between the Entry object
+    and Author object"""
+    authors = entry.entry_authors.all()
+    if len(authors) > 1:
+        first_author_string = authors[0].__str__() + ' et. al.'
+    else:
+        first_author_string = authors[0].__str__()
+    return first_author_string
+
 # Class based views
 class BlogIndexView(ListView):
     """View for index of all blog entries under the 'blog' type
@@ -51,22 +61,12 @@ class BlogIndexView(ListView):
         new_object_list = []
 
         for entry in entry_objects:
-            author = self.get_first_author(entry)
+            author = get_first_author(entry)
             entry_author_tuple = (entry, author)
             new_object_list.append(entry_author_tuple)
 
         context['object_list'] = new_object_list
         return context
-
-    def get_first_author(self, entry):
-        """Return the first author in the relation field between the Entry object
-        and Author object"""
-        authors = entry.entry_authors.all()
-        if len(authors) > 1:
-            first_author_string = authors[0].__str__() + ' et. al.'
-        else:
-            first_author_string = authors[0].__str__()
-        return first_author_string
 
 
 class BlogDetail(DetailView):
@@ -107,8 +107,8 @@ class ProjectIndexView(ListView):
         """Return a list of published articles"""
         time_now = timezone.now()
         objects_filter = Entry.objects\
-                               .filter(entry_date__lte=time_now, 
-                                        blog__description='projects')\
+                               .filter(entry_date__lte=time_now,
+                                       blog__description='projects')\
                                .order_by('-entry_date')
 
         return objects_filter
@@ -117,6 +117,16 @@ class ProjectIndexView(ListView):
         """Only the entry objects should be returned to the template
         for parsing"""
         context = super().get_context_data(**kwargs)
+        # New list of tuples for iterating
+        entry_objects = context.pop('object_list', '')
+        new_object_list = []
+        # Create tuple of (entry, author)
+        for entry in entry_objects:
+            author = get_first_author(entry)
+            entry_author_tuple = (entry, author)
+            new_object_list.append(entry_author_tuple)
+        # The 'object_list' is returned in the context dictionary
+        context['object_list'] = new_object_list
         return context
 
 
@@ -141,6 +151,8 @@ class ProjectDetail(DetailView):
         return context
 
     def get_object(self):
-        entry = get_object_or_404(Entry, entry_slug__exact=self.kwargs['slug'], 
-                                blog__description='projects')
+        entry = get_object_or_404(
+            Entry,
+            entry_slug__exact=self.kwargs['slug'], 
+            blog__description='projects')
         return entry
