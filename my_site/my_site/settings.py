@@ -157,7 +157,7 @@ else:
 
 
 # Logging
-if os.environ.get('DEBUG') == 'TRUE':
+if os.environ.get('DEBUG') == 'TRUE': # For debugging production environment
     LOGGING = {
         'version': 1,
         'disable_existing_loggers': False,
@@ -208,7 +208,7 @@ if os.environ.get('DEBUG') == 'TRUE':
             }
         },
     }
-else:
+else: # Logging for production environment
     LOGGING = {
             'version': 1,
             'disable_existing_loggers': False,
@@ -220,7 +220,7 @@ else:
             },
 
             'handlers': {
-                # Write messages to the console
+                # Write messages to stdout / stderr
                 'console': {
                     'class': 'logging.StreamHandler',
                     'formatter': 'docker-custom',
@@ -230,7 +230,7 @@ else:
             'loggers': {
                 'django': {
                     'handlers': ['console'],
-                    'level': 'INFO',
+                    'level': 'WARNING',
                     'propagate': True,
                 },
             },
