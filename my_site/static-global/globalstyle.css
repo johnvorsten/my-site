@@ -1,0 +1,20 @@
+body {
+    padding-top: 65px;
+}
+
+li a.nav-link {
+    font-size:18px;
+    color: rgb(255, 255, 255)!important;
+    cursor: pointer!important;
+    border: 0px solid rgb(255,255,255,0.7);
+    border-style: hidden;
+    position: relative;
+    transition: color 0.2s ease;
+}
+
+a.nav-link:hover {
+    /* border: 1px solid!important; */
+    border-color: rgb(255, 255, 255, 0.8);
+    color: rgb(255, 255, 255);
+    box-shadow: inset 0 0 0 2px;
+}
